@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{A06C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{446ACF7F-3549-4369-B869-388AFD8A424D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Shared", "Shared\Cinema.Shared\Cinema.Shared.csproj", "{222CA4C0-2790-43C1-80B4-B0943E04A121}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Shared", "src\Shared\Cinema.Shared\Cinema.Shared.csproj", "{222CA4C0-2790-43C1-80B4-B0943E04A121}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
