@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{446ACF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Shared", "src\Shared\Cinema.Shared\Cinema.Shared.csproj", "{222CA4C0-2790-43C1-80B4-B0943E04A121}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{2C76FA73-9992-4A0A-ADDA-0C59202ABB15}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,5 +53,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{222CA4C0-2790-43C1-80B4-B0943E04A121} = {446ACF7F-3549-4369-B869-388AFD8A424D}
+		{F915A047-08C9-4F1A-AE75-C4D721EA678C} = {2C76FA73-9992-4A0A-ADDA-0C59202ABB15}
 	EndGlobalSection
 EndGlobal
