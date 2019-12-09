@@ -1,2 +1,2 @@
-# modular-monolith
+# Modular Monolith
 Modular monolith in .NET Core
