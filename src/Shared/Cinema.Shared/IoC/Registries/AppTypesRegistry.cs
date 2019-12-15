@@ -15,6 +15,9 @@ namespace Cinema.Shared.IoC.Registries
         public bool TryAdd(Type type)
             => _registry.TryAdd(type, type.Name);
 
+        public bool Contains(Type type)
+            => _registry.ContainsKey(type);
+
         public IEnumerable<Type> GetLocalTypes(Type type)
             => _registry
                 .Where(r => r.Value.Equals(type.Name, StringComparison.InvariantCultureIgnoreCase))

@@ -28,6 +28,10 @@ namespace Cinema.Shared.IoC.Registries
         private IAppTypesRegistrySubscriber RegisterType<T>()
         {
             var type = typeof(T);
+
+            if (_registry.Contains(type))
+                return this;
+
             var isSucceed = _registry.TryAdd(type);
 
             if (!isSucceed)
