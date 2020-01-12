@@ -17,7 +17,6 @@ namespace Cinema.Shared.BuildingBlocks
 
 
         private readonly List<IDomainEvent> _domainEvents = new List<IDomainEvent>();
-
         public virtual IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents;
 
         protected virtual void AddDomainEvent(IDomainEvent newEvent)
