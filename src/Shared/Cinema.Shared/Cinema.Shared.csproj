@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Convey.CQRS.Commands" Version="0.3.136" />
-      <PackageReference Include="Convey.CQRS.Events" Version="0.3.136" />
-      <PackageReference Include="Convey.CQRS.Queries" Version="0.3.136" />
+      <PackageReference Include="Convey.CQRS.Commands" Version="0.4.*" />
+      <PackageReference Include="Convey.CQRS.Events" Version="0.4.*" />
+      <PackageReference Include="Convey.CQRS.Queries" Version="0.4.*" />
     </ItemGroup>
 
 </Project>
