@@ -1,3 +1,4 @@
+using Cine.Modules.Movies.Api.Services;
 using Cine.Modules.Movies.Api.Validators;
 using Convey;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,8 @@ namespace Cine.Modules.Movies.Api
         public static IConveyBuilder AddMoviesModule(this IConveyBuilder builder)
         {
             builder.Services.AddSingleton<IMovieDtoValidator, MovieDtoValidator>();
+            builder.Services.AddSingleton<IMoviesService, MoviesService>();
+
             return builder;
         }
 
