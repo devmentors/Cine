@@ -1,6 +1,6 @@
 using System;
 
-namespace Cinema.Shared.BuildingBlocks
+namespace Cine.Shared.BuildingBlocks
 {
     public abstract class TypedId : IEquatable<TypedId>
     {

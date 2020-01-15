@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using Cinema.Shared.IoC.Registries;
+using Cine.Shared.IoC.Registries;
 using Convey.CQRS.Events;
 using Newtonsoft.Json;
 
-namespace Cinema.Shared.IoC.Dispatchers
+namespace Cine.Shared.IoC.Dispatchers
 {
     internal sealed class EventDispatcherAppRegistryDecorator : IEventDispatcher
     {

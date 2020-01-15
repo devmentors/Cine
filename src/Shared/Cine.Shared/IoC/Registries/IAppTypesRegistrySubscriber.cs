@@ -2,7 +2,7 @@ using Convey.CQRS.Commands;
 using Convey.CQRS.Events;
 using Convey.CQRS.Queries;
 
-namespace Cinema.Shared.IoC.Registries
+namespace Cine.Shared.IoC.Registries
 {
     public interface IAppTypesRegistrySubscriber
     {

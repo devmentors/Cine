@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Cinema.Shared.IoC.Registries
+namespace Cine.Shared.IoC.Registries
 {
     internal sealed class AppTypesRegistry : IAppTypesRegistry
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Cinema.Shared.BuildingBlocks
+namespace Cine.Shared.BuildingBlocks
 {
     public class EntityId : TypedId
     {

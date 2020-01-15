@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Cinema.Shared.Exceptions;
+using Cine.Shared.Exceptions;
 
-namespace Cinema.Shared.BuildingBlocks
+namespace Cine.Shared.BuildingBlocks
 {
     public abstract class AggregateRoot : IEntity
     {

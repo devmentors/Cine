@@ -1,4 +1,4 @@
-namespace Cinema.Shared.Exceptions
+namespace Cine.Shared.Exceptions
 {
     public class EmptyAggregateIdException : DomainException
     {

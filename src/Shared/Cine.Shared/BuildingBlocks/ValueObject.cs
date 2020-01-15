@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Cinema.Shared.BuildingBlocks
+namespace Cine.Shared.BuildingBlocks
 {
     public abstract class ValueObject : IEquatable<ValueObject>
     {

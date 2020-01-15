@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Cinema.Shared.IoC.Registries;
+using Cine.Shared.IoC.Registries;
 using Convey.CQRS.Queries;
 using Newtonsoft.Json;
 
-namespace Cinema.Shared.IoC.Dispatchers
+namespace Cine.Shared.IoC.Dispatchers
 {
     internal sealed  class QueryDispatcherAppRegistryDecorator : IQueryDispatcher
     {

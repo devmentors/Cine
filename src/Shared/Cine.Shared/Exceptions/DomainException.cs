@@ -1,6 +1,6 @@
 using System;
 
-namespace Cinema.Shared.Exceptions
+namespace Cine.Shared.Exceptions
 {
     public abstract class DomainException : Exception
     {

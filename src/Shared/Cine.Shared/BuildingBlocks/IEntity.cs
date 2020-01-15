@@ -1,4 +1,4 @@
-namespace Cinema.Shared.BuildingBlocks
+namespace Cine.Shared.BuildingBlocks
 {
     public interface IEntity
     {
