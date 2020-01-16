@@ -31,7 +31,7 @@ namespace Cine.Modules.Movies.Api.Services
             var isEnum = Enum.TryParse<Genre>(searchPhrase, out var @enum);
 
             query = isEnum
-                ? query.Where(m => m.Title.Contains(searchPhrase) || m.Genres.HasFlag(@enum))
+                ? query.Where(m => m.Title.Contains(searchPhrase) || m.Genre.HasFlag(@enum))
                 : query.Where(m => m.Title.Contains(searchPhrase));
 
             var documents = await query.ToListAsync();

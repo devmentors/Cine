@@ -15,6 +15,8 @@ namespace Cine.Modules.Movies.Api.Validators
                     .Required())
                 .Ensure(m => m.Length, _ => _
                     .IsPositive())
+                .Ensure(m => m.Genre, _ => _
+                    .Required())
                 .For(dto)
                 .Validate();
 

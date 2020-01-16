@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cine.Modules.Movies.Api.DTO;
 using Cine.Modules.Movies.Api.Services;
@@ -21,8 +22,12 @@ namespace Cine.Modules.Movies.Api.Controllers
         }
 
         [HttpGet]
-        public string Test()
-            => "WORKS";
+        public async Task<ActionResult<IEnumerable<MovieDto>>> Get([FromQuery] string searchPhrase)
+            => Ok(await _service.SearchAsync(searchPhrase));
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<MovieDto>> Get([FromRoute] Guid id)
+            => Ok(await _service.GetAsync(id));
 
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] MovieDto dto)

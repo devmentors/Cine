@@ -15,13 +15,13 @@ namespace Cine.Modules.Movies.Api.Mongo
                 Description = document.Description,
                 Length = document.Length,
                 PremiereDate = document.PremiereDate,
-                Genres = document.Genres.ToString().Split(','),
+                Genre = document.Genre.ToString(),
                 Director = new PersonDto
                 {
                     FirstName = document.Director?.FirstName,
                     LastName = document.Director?.LastName
                 },
-                Stars = document.Stars.Select(s => new PersonDto
+                Stars = document.Stars?.Select(s => new PersonDto
                 {
                     FirstName = s.FirstName,
                     LastName = s.LastName
@@ -36,13 +36,13 @@ namespace Cine.Modules.Movies.Api.Mongo
                 Description = dto.Description,
                 Length = dto.Length,
                 PremiereDate = dto.PremiereDate,
-                Genres = Enum.TryParse<Genre>(string.Join(",", dto.Genres), ignoreCase:true, out var genre) ? genre : Genre.None,
+                Genre = Enum.TryParse<Genre>(dto.Genre, ignoreCase: true, out var genre) ? genre : Genre.None,
                 Director = new PersonDocument
                 {
                     FirstName = dto.Director?.FirstName,
                     LastName = dto.Director?.LastName
                 },
-                Stars = dto.Stars.Select(s => new PersonDocument
+                Stars = dto.Stars?.Select(s => new PersonDocument
                 {
                     FirstName = s.FirstName,
                     LastName = s.LastName

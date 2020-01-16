@@ -9,7 +9,7 @@ namespace Cine.Modules.Movies.Api.Mongo.Documents
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public Genre Genres { get; set; }
+        public Genre Genre { get; set; }
         public int Length { get; set; }
         public DateTime PremiereDate { get; set; }
         public PersonDocument Director { get; set; }
