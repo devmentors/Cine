@@ -1,7 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Convey" Version="0.4.*" />
+    <PackageReference Include="Convey.Logging" Version="0.4.*" />
+    <PackageReference Include="Convey.WebApi" Version="0.4.*" />
+    <PackageReference Include="Convey.WebApi.CQRS" Version="0.4.*" />
+  </ItemGroup>
+  
+    <ItemGroup>
+      <ProjectReference Include="..\Modules\Movies\Cine.Modules.Movies.Api\Cine.Modules.Movies.Api.csproj" />
+    </ItemGroup>
 
 </Project>

@@ -20,6 +20,10 @@ namespace Cine.Modules.Movies.Api.Controllers
             _service = service;
         }
 
+        [HttpGet]
+        public string Test()
+            => "WORKS";
+
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] MovieDto dto)
         {
