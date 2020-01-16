@@ -27,7 +27,6 @@ namespace Cine.Modules.Movies.Api.Services
         public async Task<IEnumerable<MovieDto>> SearchAsync(string searchPhrase)
         {
             var query = _repository.Collection.AsQueryable();
-
             var isEnum = Enum.TryParse<Genre>(searchPhrase, out var @enum);
 
             query = isEnum
