@@ -42,7 +42,7 @@ namespace Cine.Modules.Movies.Api.Services
             => _repository.AddAsync(dto.AsDocument());
 
         public Task UpdateAsync(MovieDto dto)
-            => _repository.AddAsync(dto.AsDocument());
+            => _repository.UpdateAsync(dto.AsDocument());
 
         public Task DeleteAsync(Guid id)
             => _repository.DeleteAsync(id);

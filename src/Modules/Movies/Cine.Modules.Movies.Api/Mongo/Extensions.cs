@@ -36,7 +36,7 @@ namespace Cine.Modules.Movies.Api.Mongo
                 Description = dto.Description,
                 Length = dto.Length,
                 PremiereDate = dto.PremiereDate,
-                Genres = Enum.TryParse<Genre>(string.Concat(dto.Genres), out var genre) ? genre : Genre.None,
+                Genres = Enum.TryParse<Genre>(string.Join(",", dto.Genres), ignoreCase:true, out var genre) ? genre : Genre.None,
                 Director = new PersonDocument
                 {
                     FirstName = dto.Director?.FirstName,
