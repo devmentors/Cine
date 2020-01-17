@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Cien.Modules.Halls.Api.DTO
+namespace Cine.Modules.Cinemas.Api.DTO
 {
     public class HallDto
     {

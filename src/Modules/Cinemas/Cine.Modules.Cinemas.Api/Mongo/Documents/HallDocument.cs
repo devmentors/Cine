@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Convey.Types;
 
-namespace Cien.Modules.Halls.Api.Mongo.Documents
+namespace Cine.Modules.Cinemas.Api.Mongo.Documents
 {
     public class HallDocument : IIdentifiable<Guid>
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cien.Modules.Halls.Api.DTO
+namespace Cine.Modules.Cinemas.Api.DTO
 {
     public class SeatDto
     {

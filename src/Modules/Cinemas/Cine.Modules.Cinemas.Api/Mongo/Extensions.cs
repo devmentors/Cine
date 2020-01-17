@@ -1,4 +1,4 @@
-﻿namespace Cien.Modules.Halls.Api.Mongo
+﻿namespace Cine.Modules.Cinemas.Api.Mongo
 {
     public class Extensions
     {

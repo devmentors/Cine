@@ -1,7 +1,7 @@
 ﻿using System;
 using Convey.Types;
 
-namespace Cien.Modules.Halls.Api.Mongo.Documents
+namespace Cine.Modules.Cinemas.Api.Mongo.Documents
 {
     public class SeatDocument : IIdentifiable<Guid>
     {

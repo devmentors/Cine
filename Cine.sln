@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Movies", "Movies", "{E3861B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cine.Modules.Movies.Api", "src\Modules\Movies\Cine.Modules.Movies.Api\Cine.Modules.Movies.Api.csproj", "{7FB2C6C3-EEBF-4FD0-AE45-9B9F95DF719B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Halls", "Halls", "{E8582D4E-704B-4788-B6FC-78E7EDAFBA91}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cinemas", "Cinemas", "{E8582D4E-704B-4788-B6FC-78E7EDAFBA91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cien.Modules.Halls.Api", "src\Modules\Halls\Cien.Modules.Halls.Api\Cien.Modules.Halls.Api.csproj", "{902F8D93-D31B-4898-BEEE-CAD02732B409}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cien.Modules.Cinemas.Api", "src\Modules\Cinemas\Cine.Modules.Cinemas.Api\Cine.Modules.Cinemas.Api.csproj", "{902F8D93-D31B-4898-BEEE-CAD02732B409}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
