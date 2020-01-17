@@ -23,11 +23,29 @@ namespace Cine.Modules.Movies.Api.Controllers
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieDto>>> Get([FromQuery] string searchPhrase)
-            => Ok(await _service.SearchAsync(searchPhrase));
+        {
+            var movies = await _service.SearchAsync(searchPhrase);
+
+            if (movies is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(movies);
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<MovieDto>> Get([FromRoute] Guid id)
-            => Ok(await _service.GetAsync(id));
+        {
+            var movie = await _service.GetAsync(id);
+
+            if (movie is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(movie);
+        }
 
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] MovieDto dto)
@@ -40,7 +58,6 @@ namespace Cine.Modules.Movies.Api.Controllers
             }
 
             await _service.CreateAsync(dto);
-
             return Created($"movies/{dto.Id}", null);
         }
 
@@ -57,7 +74,6 @@ namespace Cine.Modules.Movies.Api.Controllers
             }
 
             await _service.UpdateAsync(dto);
-
             return Ok();
         }
 
