@@ -9,6 +9,7 @@ namespace Cine.Modules.Cinemas.Api.Mongo.Documents
         public string Row { get; set; }
         public int Number { get; set; }
         public bool IsVip { get; set; }
-        public (int x, int y) RenderPosition { get; set; }
+        public int RenderPositionX { get; set; }
+        public int RenderPositionY { get; set; }
     }
 }

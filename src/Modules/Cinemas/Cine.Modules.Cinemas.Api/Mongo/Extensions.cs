@@ -25,7 +25,8 @@ namespace Cine.Modules.Cinemas.Api.Mongo
                         Row = s.Row,
                         Number = s.Number,
                         IsVip = s.IsVip,
-                        RenderPosition = s.RenderPosition
+                        RenderPositionX = s.RenderPosition.x,
+                        RenderPositionY = s.RenderPosition.y,
                     })
                 })
             };
@@ -51,7 +52,7 @@ namespace Cine.Modules.Cinemas.Api.Mongo
                         Row = s.Row,
                         Number = s.Number,
                         IsVip = s.IsVip,
-                        RenderPosition = s.RenderPosition
+                        RenderPosition = (s.RenderPositionX, s.RenderPositionY)
                     })
                 })
             };
@@ -67,7 +68,7 @@ namespace Cine.Modules.Cinemas.Api.Mongo
                     Row = s.Row,
                     Number = s.Number,
                     IsVip = s.IsVip,
-                    RenderPosition = s.RenderPosition
+                    RenderPosition = (s.RenderPositionX, s.RenderPositionY)
                 })
             };
     }

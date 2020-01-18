@@ -12,7 +12,7 @@ namespace Cine.Modules.Cinemas.Api.Validators
                 .Ensure(h => h.Name, _ => _
                     .Required())
                 .Ensure(s => s.Seats, _ => _
-                    .Required())
+                    .MinItems(1))
                 .EnsureFor(s => s.Seats, new SeatDtoValidator())
                 .For(dto)
                 .Validate();

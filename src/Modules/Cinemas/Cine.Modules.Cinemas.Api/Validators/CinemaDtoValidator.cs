@@ -17,7 +17,7 @@ namespace Cine.Modules.Cinemas.Api.Validators
                     .Required())
                 .Ensure(c => c.Address, new AddressDtoValidator())
                 .Ensure(c => c.Halls, _ => _
-                    .Required())
+                    .MinItems(1))
                 .EnsureFor(c => c.Halls, new HallDtoValidator())
                 .For(dto)
                 .Validate();
