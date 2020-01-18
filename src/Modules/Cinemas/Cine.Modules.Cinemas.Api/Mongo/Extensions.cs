@@ -13,9 +13,7 @@ namespace Cine.Modules.Cinemas.Api.Mongo
                 Name = dto.Name,
                 Address = new AddressDocument
                 {
-                    Street = dto.Address.Street,
-                    City = dto.Address.City,
-                    ZipCode = dto.Address.ZipCode,
+                    Street = dto.Address.Street, City = dto.Address.City, ZipCode = dto.Address.ZipCode,
                 },
                 Halls = dto.Halls.Select(h => new HallDocument
                 {
@@ -55,6 +53,21 @@ namespace Cine.Modules.Cinemas.Api.Mongo
                         IsVip = s.IsVip,
                         RenderPosition = s.RenderPosition
                     })
+                })
+            };
+
+        public static HallDto AsDto(this HallDocument document)
+            => new HallDto
+            {
+                Id = document.Id,
+                Name = document.Name,
+                Seats = document.Seats.Select(s => new SeatDto
+                {
+                    Id = s.Id,
+                    Row = s.Row,
+                    Number = s.Number,
+                    IsVip = s.IsVip,
+                    RenderPosition = s.RenderPosition
                 })
             };
     }
