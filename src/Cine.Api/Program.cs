@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Cine.Modules.Cinemas.Api;
 using Cine.Modules.Movies.Api;
 using Convey;
 using Convey.Logging;
@@ -22,9 +23,11 @@ namespace Cine.Api
                     .AddConvey()
                     .AddWebApi()
                     .AddMoviesModule()
+                    .AddCinemasModule()
                     .Build())
                 .Configure(app => app
                     .UseMoviesModule()
+                    .UseCinemasModule()
                     .UseRouting()
                     .UseEndpoints(endpoints => endpoints.MapControllers()))
                 .UseLogging();

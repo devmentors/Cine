@@ -12,6 +12,7 @@
   </ItemGroup>
   
     <ItemGroup>
+      <ProjectReference Include="..\Modules\Cinemas\Cine.Modules.Cinemas.Api\Cine.Modules.Cinemas.Api.csproj" />
       <ProjectReference Include="..\Modules\Movies\Cine.Modules.Movies.Api\Cine.Modules.Movies.Api.csproj" />
     </ItemGroup>
 
