@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="Convey" Version="0.4.*" />
-    <PackageReference Include="Convey.CQRS.Queries" Version="0.4.*" />
     <PackageReference Include="Convey.Logging" Version="0.4.*" />
     <PackageReference Include="Convey.Persistence.MongoDB" Version="0.4.*" />
     <PackageReference Include="Valit" Version="2.0.0" />
