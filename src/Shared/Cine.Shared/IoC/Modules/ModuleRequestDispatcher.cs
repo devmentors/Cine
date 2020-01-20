@@ -48,7 +48,12 @@ namespace Cine.Shared.IoC.Modules
             var task = (Task) handler
                 .GetType()
                 .GetMethod(HandlerMethodName)
-                .Invoke(handler, new[] {message});
+                ?.Invoke(handler, new[] {message});
+
+            if (task is null)
+            {
+                throw new InvalidOperationException($"{HandlerMethodName} not present in {handler.GetType().Name}");
+            }
 
             await task;
             var result = (object) ((dynamic) task).Result;
