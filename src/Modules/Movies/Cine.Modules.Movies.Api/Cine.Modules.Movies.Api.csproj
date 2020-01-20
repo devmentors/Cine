@@ -10,4 +10,8 @@
     <PackageReference Include="Convey.Persistence.MongoDB" Version="0.4.*" />     
     <PackageReference Include="Valit" Version="2.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Cine.Shared\Cine.Shared.csproj" />
+  </ItemGroup>
 </Project>

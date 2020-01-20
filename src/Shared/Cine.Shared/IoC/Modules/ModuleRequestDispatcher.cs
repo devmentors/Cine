@@ -17,7 +17,7 @@ namespace Cine.Shared.IoC.Modules
             _serviceProvider = serviceProvider;
         }
 
-        public async Task<TResult> RequestAsync<TRequest, TResult>(TRequest request) where TRequest : class, IModuleRequest where TResult : class
+        public async Task<TResult> RequestAsync<TRequest, TResult>(TRequest request) where TRequest : class, IModuleRequest<TResult> where TResult : class
         {
             var moduleRequestTypes = _registry.GetLocalTypes(typeof(TRequest)).ToList();
 
