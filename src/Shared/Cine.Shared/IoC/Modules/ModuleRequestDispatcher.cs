@@ -11,6 +11,8 @@ namespace Cine.Shared.IoC.Modules
         private readonly IAppTypesRegistry _registry;
         private readonly IServiceProvider _serviceProvider;
 
+        private const string HandlerMethodName = nameof(IModuleRequestHandler<IModuleRequest<object>, object>.HandleAsync);
+
         public ModuleRequestDispatcher(IAppTypesRegistry registry, IServiceProvider serviceProvider)
         {
             _registry = registry;
@@ -19,7 +21,9 @@ namespace Cine.Shared.IoC.Modules
 
         public async Task<TResult> RequestAsync<TRequest, TResult>(TRequest request) where TRequest : class, IModuleRequest<TResult> where TResult : class
         {
-            var moduleRequestTypes = _registry.GetLocalTypes(typeof(TRequest)).ToList();
+            var moduleRequestTypes = _registry.GetLocalTypes(typeof(TRequest))
+                .Where(t => t.Assembly != typeof(TRequest).Assembly)
+                .ToList();
 
             if (!moduleRequestTypes.Any())
             {
@@ -39,11 +43,17 @@ namespace Cine.Shared.IoC.Modules
             var handlerTypeTemplate = typeof(IModuleRequestHandler<,>);
             var handlerType = handlerTypeTemplate.MakeGenericType(message.GetType(), resultType);
 
-            dynamic handler = _serviceProvider.GetService(handlerType);
+            var handler = _serviceProvider.GetService(handlerType);
 
-            var result = await ((Task<object>)handler.HandleAsync(message));
+            var task = (Task) handler
+                .GetType()
+                .GetMethod(HandlerMethodName)
+                .Invoke(handler, new[] {message});
+
+            await task;
+            var result = (object) ((dynamic) task).Result;
+
             var resultJson = JsonConvert.SerializeObject(result);
-
             return JsonConvert.DeserializeObject<TResult>(resultJson);
         }
     }

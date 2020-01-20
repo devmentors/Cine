@@ -4,17 +4,10 @@ using System.Threading.Tasks;
 using Cine.Modules.Movies.Api.DTO;
 using Cine.Modules.Movies.Api.Services;
 using Cine.Modules.Movies.Api.Validators;
-using Cine.Shared.IoC.Modules;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cine.Modules.Movies.Api.Controllers
 {
-
-    public class CinemaModuleRequest : IModuleRequest<CinemaDto>
-    {
-        public Guid CinemaId { get; set; }
-    }
-
     [Route("[controller]")]
     [ApiController]
     public class MoviesController : ControllerBase
@@ -22,14 +15,10 @@ namespace Cine.Modules.Movies.Api.Controllers
         private readonly IMovieDtoValidator _validator;
         private readonly IMoviesService _service;
 
-        public MoviesController(IMovieDtoValidator validator, IMoviesService service, IModuleRequestDispatcher dispatcher)
+        public MoviesController(IMovieDtoValidator validator, IMoviesService service)
         {
             _validator = validator;
             _service = service;
-            var a = dispatcher.RequestAsync<CinemaModuleRequest, CinemaDto>(new CinemaModuleRequest
-            {
-                CinemaId = Guid.NewGuid()
-            }).GetAwaiter().GetResult();
         }
 
         [HttpGet]

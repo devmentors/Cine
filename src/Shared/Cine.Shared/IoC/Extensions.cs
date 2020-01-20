@@ -25,20 +25,33 @@ namespace Cine.Shared.IoC
         private static void RegisterModuleRequestsTypes(this IConveyBuilder builder)
         {
             var requests = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(a => a.FullName.Contains("Cine"))
                 .SelectMany(a => a.GetTypes())
-                .Where(t => t.IsClass && typeof(IModuleRequest<>).IsAssignableFrom(t))
+                .Where(t => t.IsClass && t.IsAssignableToOpenGeneric(typeof(IModuleRequest<>)))
                 .ToList();
 
             var registry = new AppTypesRegistry();
 
             foreach (var request in requests)
             {
-                var resultType = request.GetGenericArguments().First();
+                var resultType = request
+                    .GetInterfaces()
+                    .FirstOrDefault()
+                    ?.GetGenericArguments()
+                    .First();
+
                 registry.TryAdd(request);
                 registry.TryAdd(resultType);
             }
 
             builder.Services.AddSingleton<IAppTypesRegistry>(registry);
+        }
+
+        private static bool IsAssignableToOpenGeneric(this Type givenType, Type genericType) {
+            return givenType
+                .GetInterfaces()
+                .Where(it => it.IsGenericType)
+                .Any(it => it.GetGenericTypeDefinition() == genericType);
         }
     }
 }
