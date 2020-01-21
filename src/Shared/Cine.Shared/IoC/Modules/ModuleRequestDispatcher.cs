@@ -29,6 +29,7 @@ namespace Cine.Shared.IoC.Modules
             {
                 throw new InvalidOperationException("No module request type found in any module");
             }
+
             if (moduleRequestTypes.Count() > 1)
             {
                 throw new InvalidOperationException("Module request cannot be processed by more than one module");
