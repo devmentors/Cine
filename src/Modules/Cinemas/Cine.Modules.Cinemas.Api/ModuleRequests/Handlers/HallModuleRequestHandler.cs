@@ -5,7 +5,7 @@ using Cine.Shared.IoC.Modules;
 
 namespace Cine.Modules.Cinemas.Api.ModuleRequests.Handlers
 {
-    public sealed class HallModuleRequestHandler : IModuleRequestHandler<HallModuleRequest, HallDto>
+    internal sealed class HallModuleRequestHandler : IModuleRequestHandler<HallModuleRequest, HallDto>
     {
         private readonly ICinemasService _cinemasService;
 
