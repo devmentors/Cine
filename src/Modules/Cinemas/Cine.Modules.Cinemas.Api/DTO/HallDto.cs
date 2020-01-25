@@ -8,6 +8,7 @@ namespace Cine.Modules.Cinemas.Api.DTO
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public string Size { get; set; }
         public IEnumerable<SeatDto> Seats { get; set; } = Enumerable.Empty<SeatDto>();
     }
 }

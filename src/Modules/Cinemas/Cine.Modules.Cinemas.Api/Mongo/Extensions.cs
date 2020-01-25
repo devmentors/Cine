@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Cine.Modules.Cinemas.Api.DTO;
 using Cine.Modules.Cinemas.Api.Mongo.Documents;
 
@@ -19,6 +20,7 @@ namespace Cine.Modules.Cinemas.Api.Mongo
                 {
                     Id = h.Id,
                     Name = h.Name,
+                    Size = Enum.TryParse<HallSize>(h.Size, out var size) ? size : HallSize.Unknown,
                     Seats = h.Seats.Select(s => new SeatDocument
                     {
                         Id = s.Id,
@@ -46,6 +48,7 @@ namespace Cine.Modules.Cinemas.Api.Mongo
                 {
                     Id = h.Id,
                     Name = h.Name,
+                    Size = h.Size.ToString(),
                     Seats = h.Seats.Select(s => new SeatDto
                     {
                         Id = s.Id,
