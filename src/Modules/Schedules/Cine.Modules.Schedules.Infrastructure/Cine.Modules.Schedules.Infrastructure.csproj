@@ -4,4 +4,8 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Cine.Modules.Schedules.Application\Cine.Modules.Schedules.Application.csproj" />
+    </ItemGroup>
+
 </Project>
