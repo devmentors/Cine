@@ -13,6 +13,8 @@ namespace Cine.Modules.Movies.Api.Validators
                     .IsNotEmpty())
                 .Ensure(m => m.Title, _ => _
                     .Required())
+                .Ensure(m => m.AgeRestriction, _ => _
+                    .IsGreaterThanOrEqualTo(3))
                 .Ensure(m => m.Length, _ => _
                     .IsPositive())
                 .Ensure(m => m.Genre, _ => _
