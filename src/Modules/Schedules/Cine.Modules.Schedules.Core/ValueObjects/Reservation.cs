@@ -6,16 +6,14 @@ namespace Cine.Modules.Schedules.Core.ValueObjects
     public sealed class Reservation : ValueObject
     {
         public HallId HallId { get; }
+        public DateTime Date { get; }
         public ScheduleTime Time { get; }
-        public DateTime From { get; }
-        public DateTime To { get; }
 
-        public Reservation(HallId hallId, ScheduleTime time, DateTime @from, DateTime to)
+        public Reservation(HallId hallId, DateTime date, ScheduleTime time)
         {
             HallId = hallId;
+            Date = date;
             Time = time;
-            From = @from;
-            To = to;
         }
     }
 }
