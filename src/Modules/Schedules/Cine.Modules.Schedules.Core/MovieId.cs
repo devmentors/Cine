@@ -11,7 +11,7 @@ namespace Cine.Modules.Schedules.Core
         {
         }
 
-        public static implicit operator MovieId(Guid agreementId)
-            => new MovieId(agreementId);
+        public static implicit operator MovieId(Guid movieId)
+            => new MovieId(movieId);
     }
 }
