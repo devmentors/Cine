@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cine.Modules.Schedules.Core.Exceptions;
 using Cine.Modules.Schedules.Core.ValueObjects;
 using Cine.Shared.BuildingBlocks;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Cine.Modules.Schedules.Core.Aggregates
 {
