@@ -4,33 +4,33 @@ using Cine.Shared.BuildingBlocks;
 
 namespace Cine.Modules.Schedules.Core.Entities
 {
-    public class ScheduleTemplate : IEntity
+    public class ScheduleSchema : IEntity
     {
         public EntityId Id { get; private set; }
         public CinemaId CinemaId { get; private set; }
-        public ScheduleTemplateTimes Times { get; private set; }
+        public ScheduleSchemaHours Hours { get; private set; }
 
-        public ScheduleTemplate(EntityId id, CinemaId cinemaId, ScheduleTemplateTimes times)
+        public ScheduleSchema(EntityId id, CinemaId cinemaId, ScheduleSchemaHours hours)
         {
             Id = id;
             CinemaId = cinemaId;
-            Times = times;
+            Hours = hours;
         }
 
-        public void ChangeTimes(ScheduleTemplateTimes times)
+        public void ChangeHours(ScheduleSchemaHours hours)
         {
-            var duplicatedAges = times
-                .GroupBy(t => t.ageRestriction)
+            var duplicatedAges = hours
+                .GroupBy(h => h.ageRestriction)
                 .Where(g => g.Count() > 1)
                 .Select(g => g.Key)
                 .ToList();
 
             if (duplicatedAges.Any())
             {
-                throw new DuplicatedScheduleTimeException(duplicatedAges);
+                throw new DuplicatedScheduleHourException(duplicatedAges);
             }
 
-            Times = times;
+            Hours = hours;
         }
     }
 }

@@ -10,7 +10,6 @@ namespace Cine.Modules.Schedules.Core.Aggregates
     {
         public CinemaId CinemaId { get; private set; }
         public MovieId MovieId { get; private set; }
-
         public ISet<Reservation> Reservations => _reservations;
 
         private readonly HashSet<Reservation> _reservations;
