@@ -27,7 +27,7 @@ namespace Cine.Modules.Schedules.Core.Entities
 
             if (duplicatedAges.Any())
             {
-                throw new DuplicatedScheduleHourException(duplicatedAges);
+                throw new DuplicatedScheduleTimeException(duplicatedAges);
             }
 
             Hours = hours;

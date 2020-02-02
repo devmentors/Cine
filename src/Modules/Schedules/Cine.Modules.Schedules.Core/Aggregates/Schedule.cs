@@ -35,7 +35,8 @@ namespace Cine.Modules.Schedules.Core.Aggregates
                 throw new EmptyReservationException(Id);
             }
 
-            var hasCollidingReservation = _reservations.Any(r => r.Date.Date == reservation.Date && r.Time == reservation.Time);
+            var hasCollidingReservation = _reservations
+                .Any(r => r.Date.Date == reservation.Date && r.Time == reservation.Time);
 
             if (hasCollidingReservation)
             {
@@ -43,6 +44,14 @@ namespace Cine.Modules.Schedules.Core.Aggregates
             }
 
             _reservations.Add(reservation);
+        }
+
+        public void AddReservations(IEnumerable<Reservation> reservations)
+        {
+            foreach (var reservation in reservations)
+            {
+                AddReservation(reservation);
+            }
         }
     }
 }

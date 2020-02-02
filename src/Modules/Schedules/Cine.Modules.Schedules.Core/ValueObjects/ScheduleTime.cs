@@ -1,3 +1,4 @@
+using Cine.Modules.Schedules.Core.Aggregates;
 using Cine.Shared.BuildingBlocks;
 
 namespace Cine.Modules.Schedules.Core.ValueObjects
@@ -12,6 +13,9 @@ namespace Cine.Modules.Schedules.Core.ValueObjects
             Hour = hour;
             Minute = minute;
         }
+
+        public bool CollidesOnPeriod(ScheduleTime time, int hoursPeriod)
+            => time.Hour - hoursPeriod < Hour || time.Hour + hoursPeriod > Hour;
 
         public override string ToString()
             => $"{Hour}:{Minute}";
