@@ -1,3 +1,4 @@
+using System;
 using Cine.Modules.Schedules.Core.Aggregates;
 using Cine.Shared.BuildingBlocks;
 
@@ -7,6 +8,7 @@ namespace Cine.Modules.Schedules.Core.ValueObjects
     {
         public int Hour { get; }
         public int Minute { get; }
+        public int TotalMinutes => 60 * Hour + Minute;
 
         public ScheduleTime(int hour, int minute)
         {
@@ -14,8 +16,8 @@ namespace Cine.Modules.Schedules.Core.ValueObjects
             Minute = minute;
         }
 
-        public bool CollidesOnPeriod(ScheduleTime time, int hoursPeriod)
-            => time.Hour - hoursPeriod < Hour || time.Hour + hoursPeriod > Hour;
+        public bool CollidesOnPeriod(ScheduleTime time, int period)
+            => Math.Abs(TotalMinutes - time.TotalMinutes) <= period;
 
         public override string ToString()
             => $"{Hour}:{Minute}";

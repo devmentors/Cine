@@ -73,13 +73,10 @@ namespace Cine.Modules.Schedules.Core.Policies
             {
                 foreach (var hall in halls)
                 {
-                    var hasAlreadyReserved = reservations
-                        .Any(r => r.Date.Date == date.Date && r.HallId == hall.Id);
+                    var hasCollidingReservations = reservations.Any(r =>
+                        r.Date.Date == date.Date && r.HallId == hall.Id && r.Time.CollidesOnPeriod(time, ReservationLength));
 
-                    var hasCollidingReservations = reservations
-                        .Any(r => r.Time.CollidesOnPeriod(time, ReservationLength));
-
-                    if (hasAlreadyReserved || hasCollidingReservations)
+                    if (hasCollidingReservations)
                     {
                         continue;
                     }
