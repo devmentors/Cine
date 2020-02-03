@@ -2,6 +2,8 @@ using System.Threading.Tasks;
 using Cine.Modules.Cinemas.Api;
 using Cine.Modules.Movies.Api;
 using Cine.Shared.IoC;
+using Cine.Shared.IoC.Dispatchers;
+using Cine.Shared.IoC.Modules;
 using Convey;
 using Convey.Logging;
 using Convey.WebApi;
@@ -23,6 +25,7 @@ namespace Cine.Api
                 .ConfigureServices(services => services
                     .AddConvey()
                     .AddWebApi()
+                    .AddAppTypesEventDispatcher()
                     .AddModuleRequests()
                     .AddMoviesModule()
                     .AddCinemasModule()

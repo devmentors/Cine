@@ -5,12 +5,12 @@ using Newtonsoft.Json;
 
 namespace Cine.Shared.IoC.Dispatchers
 {
-    internal sealed class EventDispatcherAppRegistryDecorator : IEventDispatcher
+    internal sealed class AppTypesEventDispatcherDecorator : IEventDispatcher
     {
         private readonly IEventDispatcher _dispatcher;
         private readonly IAppTypesRegistry _registry;
 
-        public EventDispatcherAppRegistryDecorator(IEventDispatcher dispatcher, IAppTypesRegistry registry)
+        public AppTypesEventDispatcherDecorator(IEventDispatcher dispatcher, IAppTypesRegistry registry)
         {
             _dispatcher = dispatcher;
             _registry = registry;

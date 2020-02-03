@@ -1,11 +1,10 @@
 using System;
 using System.Linq;
-using Cine.Shared.IoC.Modules;
 using Cine.Shared.IoC.Registries;
 using Convey;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cine.Shared.IoC
+namespace Cine.Shared.IoC.Modules
 {
     public static class Extensions
     {
