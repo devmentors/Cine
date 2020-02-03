@@ -15,6 +15,7 @@ namespace Cine.Modules.Cinemas.Api
         {
             builder.Services.AddSingleton<ICinemaDtoValidator, CinemaDtoValidator>();
             builder.Services.AddSingleton<ICinemasService, CinemasService>();
+            builder.Services.AddTransient<IMessageBroker, MessageBroker>();
 
             return builder
                 .AddMongo()
