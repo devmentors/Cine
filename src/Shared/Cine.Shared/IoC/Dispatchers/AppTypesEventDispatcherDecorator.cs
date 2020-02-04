@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Cine.Shared.IoC.Registries;
 using Convey.CQRS.Events;
@@ -18,7 +19,8 @@ namespace Cine.Shared.IoC.Dispatchers
 
         public async Task PublishAsync<T>(T @event) where T : class, IEvent
         {
-            var eventTypes = _registry.GetLocalTypes(@event.GetType());
+            var eventTypes = _registry.GetLocalTypes(@event.GetType())
+                .Where(t => t.FullName !=  @event.GetType().FullName);
 
             foreach (var type in eventTypes)
             {
