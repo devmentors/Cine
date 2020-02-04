@@ -8,4 +8,8 @@
       <ProjectReference Include="..\Cine.Modules.Schedules.Application\Cine.Modules.Schedules.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Mongo" />
+    </ItemGroup>
+
 </Project>
