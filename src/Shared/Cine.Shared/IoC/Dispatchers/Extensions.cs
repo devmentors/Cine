@@ -11,6 +11,7 @@ namespace Cine.Shared.IoC.Dispatchers
     {
         public static IConveyBuilder AddAppTypesEventDispatcher(this IConveyBuilder builder)
         {
+            builder.AddInMemoryEventDispatcher();
             builder.Services.Decorate<IEventDispatcher, AppTypesEventDispatcherDecorator>();
 
             var events = AppDomain.CurrentDomain.GetAssemblies()

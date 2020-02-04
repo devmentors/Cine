@@ -24,11 +24,11 @@ namespace Cine.Api
             => WebHost.CreateDefaultBuilder(args)
                 .ConfigureServices(services => services
                     .AddConvey()
-                    .AddWebApi()
-                    .AddModuleRequests()
                     .AddMoviesModule()
                     .AddCinemasModule()
                     .AddSchedulesModule()
+                    .AddModuleRequests()
+                    .AddWebApi()
                     .AddAppTypesEventDispatcher()
                     .Build())
                 .Configure(app => app
