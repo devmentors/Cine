@@ -25,11 +25,11 @@ namespace Cine.Api
                 .ConfigureServices(services => services
                     .AddConvey()
                     .AddWebApi()
-                    .AddAppTypesEventDispatcher()
                     .AddModuleRequests()
                     .AddMoviesModule()
                     .AddCinemasModule()
                     .AddSchedulesModule()
+                    .AddAppTypesEventDispatcher()
                     .Build())
                 .Configure(app => app
                     .UseMoviesModule()
