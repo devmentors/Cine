@@ -20,7 +20,7 @@ namespace Cine.Shared.IoC.Dispatchers
         public async Task PublishAsync<T>(T @event) where T : class, IEvent
         {
             var eventTypes = _registry.GetLocalTypes(@event.GetType())
-                .Where(t => t.FullName !=  @event.GetType().FullName);
+                ?.Where(t => t.FullName !=  @event.GetType().FullName);
 
             foreach (var type in eventTypes)
             {
