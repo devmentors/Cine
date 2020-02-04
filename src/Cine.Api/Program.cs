@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Cine.Modules.Cinemas.Api;
 using Cine.Modules.Movies.Api;
-using Cine.Shared.IoC;
+using Cine.Modules.Schedules.Infrastructure;
 using Cine.Shared.IoC.Dispatchers;
 using Cine.Shared.IoC.Modules;
 using Convey;
@@ -29,10 +29,12 @@ namespace Cine.Api
                     .AddModuleRequests()
                     .AddMoviesModule()
                     .AddCinemasModule()
+                    .AddSchedulesModule()
                     .Build())
                 .Configure(app => app
                     .UseMoviesModule()
                     .UseCinemasModule()
+                    .UseSchedulesModule()
                     .UseRouting()
                     .UseEndpoints(endpoints => endpoints.MapControllers()))
                 .UseLogging();
