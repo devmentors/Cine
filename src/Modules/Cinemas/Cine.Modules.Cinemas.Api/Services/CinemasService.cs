@@ -43,7 +43,7 @@ namespace Cine.Modules.Cinemas.Api.Services
         {
             await _repository.AddAsync(dto.AsDocument());
 
-            var events = dto.Halls.Select(h => new HallAdded(h.Id));
+            var events = dto.Halls.Select(h => new HallAdded(dto.Id, h.Id));
             await _broker.PublishAsync(events);
         }
 

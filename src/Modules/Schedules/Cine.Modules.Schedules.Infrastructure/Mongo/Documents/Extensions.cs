@@ -10,11 +10,12 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
         public static HallDocument AsDocument(this Hall hall)
             => new HallDocument
             {
-                Id = hall.Id
+                Id = hall.Id,
+                CinemaId = hall.CinemaId
             };
 
         public static Hall AsEntity(this HallDocument document)
-            => new Hall(document.Id);
+            => new Hall(document.Id, document.CinemaId);
 
         public static ScheduleSchemaDocument AsDocument(this ScheduleSchema schema)
             => new ScheduleSchemaDocument

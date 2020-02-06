@@ -55,7 +55,7 @@ namespace Cine.Modules.Schedules.Core.Policies
                 .Select(offset => from.AddDays(offset))
                 .ToList();
 
-            var halls = await _hallsRepository.GetAsync();
+            var halls = await _hallsRepository.GetAsync(cinemaId);
 
             var generatedReservations = dates.SelectMany(d =>
                 GenerateReservationsForDay(d, movieId, reservations.ToList(), times.ToList(), halls.ToList()));

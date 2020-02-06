@@ -5,10 +5,12 @@ namespace Cine.Modules.Schedules.Application.Events.External
 {
     public sealed class HallAdded : IEvent
     {
+        public Guid CinemaId { get; }
         public Guid HallId { get;  }
 
-        public HallAdded(Guid hallId)
+        public HallAdded(Guid cinemaId, Guid hallId)
         {
+            CinemaId = cinemaId;
             HallId = hallId;
         }
     }
