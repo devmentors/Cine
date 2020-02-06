@@ -14,7 +14,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Modules\Cinemas\Cine.Modules.Cinemas.Api\Cine.Modules.Cinemas.Api.csproj" />
       <ProjectReference Include="..\Modules\Movies\Cine.Modules.Movies.Api\Cine.Modules.Movies.Api.csproj" />
-      <ProjectReference Include="..\Modules\Schedules\Cine.Modules.Schedules.Infrastructure\Cine.Modules.Schedules.Infrastructure.csproj" />
+      <ProjectReference Include="..\Modules\Schedules\Cine.Modules.Schedules.Api\Cine.Modules.Schedules.Api.csproj" />
       <ProjectReference Include="..\Shared\Cine.Shared\Cine.Shared.csproj" />
     </ItemGroup>
 

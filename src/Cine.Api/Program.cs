@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Cine.Modules.Cinemas.Api;
 using Cine.Modules.Movies.Api;
-using Cine.Modules.Schedules.Infrastructure;
+using Cine.Modules.Schedules.Api;
 using Cine.Shared.IoC.Dispatchers;
 using Cine.Shared.IoC.Modules;
 using Convey;
