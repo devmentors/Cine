@@ -1,7 +1,5 @@
 using System;
-using Cine.Modules.Schedules.Application;
 using Cine.Modules.Schedules.Application.Services.Clients;
-using Cine.Modules.Schedules.Core.Entities;
 using Cine.Modules.Schedules.Core.Repositories;
 using Cine.Modules.Schedules.Infrastructure.Mongo.Documents;
 using Cine.Modules.Schedules.Infrastructure.Mongo.Repositories;
