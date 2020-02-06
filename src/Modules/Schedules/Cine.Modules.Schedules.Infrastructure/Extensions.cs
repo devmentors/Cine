@@ -21,6 +21,7 @@ namespace Cine.Modules.Schedules.Infrastructure
         private static IConveyBuilder AddInfrastructure(this IConveyBuilder builder)
         {
             builder.Services.AddTransient<IHallsRepository, HallsRepository>();
+            builder.Services.AddTransient<IScheduleSchemasRepository, ScheduleSchemasRepository>();
 
             return builder
                 .AddMongo()
