@@ -22,6 +22,7 @@ namespace Cine.Modules.Schedules.Infrastructure
         {
             builder.Services.AddTransient<IHallsRepository, HallsRepository>();
             builder.Services.AddTransient<IScheduleSchemasRepository, ScheduleSchemasRepository>();
+            builder.Services.AddTransient<ISchedulesRepository, SchedulesRepository>();
 
             return builder
                 .AddMongo()

@@ -11,7 +11,7 @@ using Cine.Shared.BuildingBlocks;
 
 namespace Cine.Modules.Schedules.Core.Policies
 {
-    internal sealed class SchedulePolicy : ISchedulePolicy
+    public sealed class SchedulePolicy : ISchedulePolicy
     {
         private readonly IScheduleSchemasRepository _scheduleSchemasRepository;
         private readonly ISchedulesRepository _schedulesRepository;

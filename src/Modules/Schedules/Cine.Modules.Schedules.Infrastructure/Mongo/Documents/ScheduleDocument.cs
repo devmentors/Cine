@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Convey.Types;
 
 namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
 {
-    public class ScheduleDocument
+    public class ScheduleDocument : IIdentifiable<Guid>
     {
         public Guid Id { get; set; }
         public Guid CinemaId { get; set; }
