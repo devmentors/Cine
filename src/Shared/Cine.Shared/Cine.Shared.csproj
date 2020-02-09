@@ -8,6 +8,7 @@
       <PackageReference Include="Convey.CQRS.Commands" Version="0.4.*" />
       <PackageReference Include="Convey.CQRS.Events" Version="0.4.*" />
       <PackageReference Include="Convey.CQRS.Queries" Version="0.4.*" />
+      <PackageReference Include="Valit" Version="2.0.0" />
     </ItemGroup>
 
 </Project>

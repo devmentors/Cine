@@ -3,6 +3,7 @@ using Cine.Shared.Exceptions.Middlewares;
 using Convey;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Valit;
 
 namespace Cine.Shared.Exceptions
 {
@@ -27,6 +28,16 @@ namespace Cine.Shared.Exceptions
         {
             app.UseMiddleware<ExceptionMiddleware>();
             return app;
+        }
+
+        public static void ThrowIfInvalid(this IValitResult result)
+        {
+            if (result.Succeeded)
+            {
+                return;
+            }
+
+            throw new ValidationException(result.ErrorMessages);
         }
     }
 }

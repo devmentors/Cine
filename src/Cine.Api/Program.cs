@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Cine.Modules.Cinemas.Api;
 using Cine.Modules.Movies.Api;
 using Cine.Modules.Schedules.Api;
+using Cine.Shared.Exceptions;
 using Cine.Shared.IoC.Dispatchers;
 using Cine.Shared.IoC.Modules;
 using Convey;
@@ -30,13 +31,15 @@ namespace Cine.Api
                     .AddModuleRequests()
                     .AddWebApi()
                     .AddAppTypesEventDispatcher()
+                    .AddErrorHandling()
                     .Build())
                 .Configure(app => app
+                    .UseErrorHandling()
+                    .UseRouting()
+                    .UseEndpoints(endpoints => endpoints.MapControllers())
                     .UseMoviesModule()
                     .UseCinemasModule()
-                    .UseSchedulesModule()
-                    .UseRouting()
-                    .UseEndpoints(endpoints => endpoints.MapControllers()))
+                    .UseSchedulesModule())
                 .UseLogging();
     }
 }
