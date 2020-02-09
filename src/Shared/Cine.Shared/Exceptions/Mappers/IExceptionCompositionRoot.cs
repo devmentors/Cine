@@ -4,6 +4,6 @@ namespace Cine.Shared.Exceptions.Mappers
 {
     public interface IExceptionCompositionRoot
     {
-        (int httpStatusCode, string errorCode)? Map(Exception exception);
+        (int httpStatusCode, string[] errorCodes)? Map(Exception exception);
     }
 }

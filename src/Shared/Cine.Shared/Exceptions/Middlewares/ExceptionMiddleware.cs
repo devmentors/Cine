@@ -27,9 +27,9 @@ namespace Cine.Shared.Exceptions.Middlewares
             {
                 var response = _exceptionCompositionRoot.Map(ex);
 
-                if (response is {httpStatusCode: var httpStatusCode, errorCode: var errorCode })
+                if (response is {httpStatusCode: var httpStatusCode, errorCodes: var errorCodes })
                 {
-                    var json = JsonConvert.SerializeObject(new { error =errorCode });
+                    var json = JsonConvert.SerializeObject(new { errors = errorCodes });
                     await context.Response.WriteAsync(json);
                     context.Response.StatusCode = httpStatusCode;
                     context.Response.Headers.Add("content-type", "application/json");

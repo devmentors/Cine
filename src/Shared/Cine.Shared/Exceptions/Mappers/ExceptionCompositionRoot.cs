@@ -10,7 +10,7 @@ namespace Cine.Shared.Exceptions.Mappers
         public ExceptionCompositionRoot(IServiceProvider serviceProvider)
             => _serviceProvider = serviceProvider;
 
-        public (int httpStatusCode, string errorCode)? Map(Exception exception)
+        public (int httpStatusCode, string[] errorCodes)? Map(Exception exception)
         {
             var mappers = _serviceProvider.GetServices<IExceptionToResponseMapper>();
 
