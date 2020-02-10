@@ -56,11 +56,12 @@ POST {{url}}/movies
 Content-Type: application/json
 
 {
-	"id" : "61a25313-da8c-4298-9cbd-49c99f1644ad",
+	"id" : "22a25313-da8c-4298-9cbd-49c99f1644ad",
 	"title": "AwesomeMovie",
 	"ageRestriction" : 10,
 	"length": 123,
-	"genre": "action"
+	"genre": "action",
+    "premiereDate" : "2009-10-29"
 }
 
 @movieId = {{create_movie.response.headers.Location}}
@@ -75,6 +76,8 @@ Content-Type: application/json
 
 {
     "id" : "902876d1-8b38-4dbd-87ff-832746ab6656",  
-    "cinemaId" : "{{cinemaId}}",
-    "movieId" : "{{movieId}}"
+    "cinemaId" :  "{{cinemaId}}",
+    "movieId" : "{{movieId}}",
+    "from" : "2020-01-10",
+    "to" : "2020-01-20"
 }
