@@ -35,11 +35,11 @@ namespace Cine.Api
                     .Build())
                 .Configure(app => app
                     .UseErrorHandling()
-                    .UseRouting()
-                    .UseEndpoints(endpoints => endpoints.MapControllers())
                     .UseMoviesModule()
                     .UseCinemasModule()
-                    .UseSchedulesModule())
+                    .UseSchedulesModule()
+                    .UseRouting()
+                    .UseEndpoints(endpoints => endpoints.MapControllers()))
                 .UseLogging();
     }
 }

@@ -1,0 +1,80 @@
+@url = http://localhost:5000
+
+###
+# @name create_cinema
+POST {{url}}/cinemas 
+Content-Type: application/json
+
+{
+	"id" : "1c6b9a50-751d-4aa2-ae40-41778bcaf007",
+	"name" : "Cinema",
+	"address": {
+		"city": "Warsaw",
+		"street": "Test street 21",
+		"zipCode": "05-000"
+	},
+	"halls" : [{
+        "name": "A",
+        "seats": [{
+            "row" : "F",
+            "number" : 12
+        }]
+	},
+	{
+        "name": "B",
+        "seats": [{
+            "row" : "F",
+            "number" : 12
+        }]
+	},
+	{
+        "name": "C",
+        "seats": [{
+            "row" : "F",
+            "number" : 12
+        }]
+	},
+	{
+        "name": "D",
+        "seats": [{
+            "row" : "F",
+            "number" : 12
+        }]
+	}]	
+}
+
+@cinemaId = {{create_cinema.response.headers.Location}}
+
+###
+GET {{url}}/cinemas/{{cinemaId}}
+
+
+
+###
+# @name create_movie
+POST {{url}}/movies 
+Content-Type: application/json
+
+{
+	"id" : "61a25313-da8c-4298-9cbd-49c99f1644ad",
+	"title": "AwesomeMovie",
+	"ageRestriction" : 10,
+	"length": 123,
+	"genre": "action"
+}
+
+@movieId = {{create_movie.response.headers.Location}}
+
+###
+GET {{url}}/movies/{{movieId}}
+
+
+###
+POST {{url}}/schedules/generate
+Content-Type: application/json
+
+{
+    "id" : "902876d1-8b38-4dbd-87ff-832746ab6656",  
+    "cinemaId" : "{{cinemaId}}",
+    "movieId" : "{{movieId}}"
+}

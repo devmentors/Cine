@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Cine.Shared.Exceptions.Middlewares
 {
-    internal sealed class ExceptionMiddleware : IMiddleware
+    internal sealed class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly IExceptionCompositionRoot _exceptionCompositionRoot;
@@ -17,22 +17,22 @@ namespace Cine.Shared.Exceptions.Middlewares
             _exceptionCompositionRoot = exceptionCompositionRoot;
         }
 
-        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+        public async Task Invoke(HttpContext httpContext)
         {
             try
             {
-                await _next(context);
+                await _next(httpContext);
             }
             catch (Exception ex)
             {
-                var response = _exceptionCompositionRoot.Map(ex);
+                var responseData = _exceptionCompositionRoot.Map(ex);
 
-                if (response is {httpStatusCode: var httpStatusCode, errorCodes: var errorCodes })
+                if (responseData is { httpStatusCode: var httpStatusCode, errorCodes: var errorCodes})
                 {
-                    var json = JsonConvert.SerializeObject(new { errors = errorCodes });
-                    await context.Response.WriteAsync(json);
-                    context.Response.StatusCode = httpStatusCode;
-                    context.Response.Headers.Add("content-type", "application/json");
+                    var json = JsonConvert.SerializeObject(new { Errors = errorCodes });
+                    httpContext.Response.StatusCode = httpStatusCode;
+                    httpContext.Response.Headers.Add("content-type", "application/json");
+                    await httpContext.Response.WriteAsync(json);
                 }
                 else
                 {

@@ -9,7 +9,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Convey.WebApi.CQRS" Version="0.4.244" />
+      <PackageReference Include="Convey.WebApi.CQRS" Version="0.4.*" />
     </ItemGroup>
 
 </Project>

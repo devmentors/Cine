@@ -44,7 +44,7 @@ namespace Cine.Modules.Cinemas.Api.Controllers
             }
 
             await _service.CreateAsync(dto);
-            return Created($"cinemas/{dto.Id}", null);
+            return Created(dto.Id.ToString(), null);
         }
 
         [HttpPut("{id}")]
