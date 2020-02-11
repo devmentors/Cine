@@ -29,14 +29,14 @@ namespace Cine.Modules.Schedules.Core.Policies
         public async Task<Schedule> GenerateScheduleAsync(EntityId id, CinemaId cinemaId, MovieId movieId,
             DateTime from, DateTime to, int ageRestriction)
         {
-            var scheme = await _scheduleSchemasRepository.GetAsync(cinemaId);
+            var schema = await _scheduleSchemasRepository.GetAsync(cinemaId);
 
-            if (scheme is null)
+            if (schema is null)
             {
                 throw new ScheduleSchemaNotFoundException(cinemaId);
             }
 
-            var times = scheme.Times
+            var times = schema.Times
                 .Where(h => h.ageRestriction <= ageRestriction)
                 .Select(h => h.times)
                 .FirstOrDefault();
