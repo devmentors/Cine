@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cine.Shared.Exceptions.Mappers
@@ -15,15 +16,9 @@ namespace Cine.Shared.Exceptions.Mappers
             using var scope = _serviceScopeFactory.CreateScope();
             var mappers = scope.ServiceProvider.GetServices<IExceptionToResponseMapper>();
 
-            foreach (var mapper in mappers)
-            {
-                var response = mapper.Map(exception);
-                if (response is {})
-                {
-                    return response;
-                }
-            }
-            return null;
+            return mappers
+                .Select(m => m.Map(exception))
+                .SingleOrDefault(r => r is {});
         }
     }
 }

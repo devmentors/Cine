@@ -19,8 +19,8 @@ namespace Cine.Shared.Events
             var mappers = scope.ServiceProvider.GetService<IEnumerable<IEventMapper>>();
 
             return mappers
-                .Select(mapper => mapper.Map(domainEvent))
-                .SingleOrDefault(@event => @event is {});
+                ?.Select(mapper => mapper.Map(domainEvent))
+                 .SingleOrDefault(@event => @event is {});
         }
 
         public IEnumerable<IEvent> MapAll(IEnumerable<IDomainEvent> domainEvents)
