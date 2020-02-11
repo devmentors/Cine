@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Convey.CQRS.Events;
 
-namespace Cine.Modules.Cinemas.Api.Services
+namespace Cine.Shared.Services
 {
     public interface IMessageBroker
     {

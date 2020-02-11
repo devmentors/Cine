@@ -5,6 +5,7 @@ using Cine.Modules.Cinemas.Api.DTO;
 using Cine.Modules.Cinemas.Api.Events;
 using Cine.Modules.Cinemas.Api.Mongo;
 using Cine.Modules.Cinemas.Api.Mongo.Documents;
+using Cine.Shared.Services;
 using Convey.Persistence.MongoDB;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;

@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Cine.Modules.Cinemas.Api;
 using Cine.Modules.Movies.Api;
 using Cine.Modules.Schedules.Api;
+using Cine.Shared;
 using Cine.Shared.Exceptions;
 using Cine.Shared.IoC.Dispatchers;
 using Cine.Shared.IoC.Modules;
@@ -11,9 +12,8 @@ using Convey.WebApi;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace Cine.Api
+namespace Cine.Bootstrapper
 {
     public class Program
     {
@@ -29,16 +29,18 @@ namespace Cine.Api
                     .AddMoviesModule()
                     .AddCinemasModule()
                     .AddSchedulesModule()
+                    .AddSchedulesModule()
                     .AddModuleRequests()
                     .AddWebApi()
                     .AddAppTypesEventDispatcher()
                     .AddErrorHandling()
                     .Build())
                 .Configure(app => app
-                    .UseErrorHandling()
                     .UseMoviesModule()
                     .UseCinemasModule()
                     .UseSchedulesModule()
+                    .UseSharedModule()
+                    .UseErrorHandling()
                     .UseRouting()
                     .UseEndpoints(endpoints => endpoints.MapControllers()))
                 .UseLogging();

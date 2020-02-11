@@ -2,6 +2,7 @@ using System;
 using Cine.Modules.Cinemas.Api.Mongo.Documents;
 using Cine.Modules.Cinemas.Api.Services;
 using Cine.Modules.Cinemas.Api.Validators;
+using Cine.Shared.Services;
 using Convey;
 using Convey.Persistence.MongoDB;
 using Microsoft.AspNetCore.Builder;
@@ -15,7 +16,6 @@ namespace Cine.Modules.Cinemas.Api
         {
             builder.Services.AddSingleton<ICinemaDtoValidator, CinemaDtoValidator>();
             builder.Services.AddSingleton<ICinemasService, CinemasService>();
-            builder.Services.AddTransient<IMessageBroker, MessageBroker>();
 
             return builder
                 .AddMongo()
