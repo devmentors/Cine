@@ -5,14 +5,15 @@ namespace Cine.Shared.Exceptions.Mappers
 {
     internal sealed class ExceptionCompositionRoot : IExceptionCompositionRoot
     {
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public ExceptionCompositionRoot(IServiceProvider serviceProvider)
-            => _serviceProvider = serviceProvider;
+        public ExceptionCompositionRoot(IServiceScopeFactory serviceScopeFactory)
+            => _serviceScopeFactory = serviceScopeFactory;
 
         public (int httpStatusCode, string[] errorCodes)? Map(Exception exception)
         {
-            var mappers = _serviceProvider.GetServices<IExceptionToResponseMapper>();
+            using var scope = _serviceScopeFactory.CreateScope();
+            var mappers = scope.ServiceProvider.GetServices<IExceptionToResponseMapper>();
 
             foreach (var mapper in mappers)
             {
