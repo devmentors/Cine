@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using Cine.Modules.Schedules.Application.Commands.WriteModels;
 using Cine.Modules.Schedules.Core.Entities;
+using Cine.Modules.Schedules.Core.Types;
 using Cine.Modules.Schedules.Core.ValueObjects;
 
-namespace Cine.Modules.Schedules.Application.Commands
+namespace Cine.Modules.Schedules.Application.Commands.WriteModels
 {
     public static class Extensions
     {

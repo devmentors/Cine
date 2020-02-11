@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Cine.Modules.Schedules.Core.ValueObjects;
 
-namespace Cine.Modules.Schedules.Core.Entities
+namespace Cine.Modules.Schedules.Core.Types
 {
-    public sealed class ScheduleSchemaTimes : IEnumerable<(int ageRestriction, IEnumerable<Time> times)>
+    public class ScheduleSchemaTimes : IEnumerable<(int ageRestriction, IEnumerable<Time> times)>
     {
         private readonly IEnumerable<(int ageRestriction, IEnumerable<Time> scheduleTimes)> _times;
 

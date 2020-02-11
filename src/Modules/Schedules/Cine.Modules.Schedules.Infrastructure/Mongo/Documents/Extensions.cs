@@ -1,6 +1,7 @@
 using System.Linq;
 using Cine.Modules.Schedules.Core.Aggregates;
 using Cine.Modules.Schedules.Core.Entities;
+using Cine.Modules.Schedules.Core.Types;
 using Cine.Modules.Schedules.Core.ValueObjects;
 
 namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents

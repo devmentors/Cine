@@ -1,16 +1,16 @@
 using System.Linq;
 using Cine.Modules.Schedules.Core.Exceptions;
+using Cine.Modules.Schedules.Core.Types;
 using Cine.Shared.BuildingBlocks;
 
-namespace Cine.Modules.Schedules.Core.Entities
+namespace Cine.Modules.Schedules.Core.Aggregates
 {
-    public class ScheduleSchema : IEntity
+    public class ScheduleSchema : AggregateRoot
     {
-        public EntityId Id { get; private set; }
         public CinemaId CinemaId { get; private set; }
         public ScheduleSchemaTimes Times { get; private set; }
 
-        public ScheduleSchema(EntityId id, CinemaId cinemaId, ScheduleSchemaTimes times)
+        public ScheduleSchema(EntityId id, CinemaId cinemaId, ScheduleSchemaTimes times) : base(id)
         {
             Id = id;
             CinemaId = cinemaId;

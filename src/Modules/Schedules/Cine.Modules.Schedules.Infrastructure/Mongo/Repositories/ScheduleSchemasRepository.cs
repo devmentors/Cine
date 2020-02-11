@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Cine.Modules.Schedules.Core;
+using Cine.Modules.Schedules.Core.Aggregates;
 using Cine.Modules.Schedules.Core.Entities;
 using Cine.Modules.Schedules.Core.Repositories;
 using Cine.Modules.Schedules.Infrastructure.Mongo.Documents;
