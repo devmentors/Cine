@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Convey.CQRS.Events;
 
-namespace Cine.Shared.Services
+namespace Cine.Shared.MessageBrokers
 {
     internal sealed class MessageBroker : IMessageBroker
     {

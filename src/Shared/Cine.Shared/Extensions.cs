@@ -1,4 +1,3 @@
-using Cine.Shared.Services;
 using Convey;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;

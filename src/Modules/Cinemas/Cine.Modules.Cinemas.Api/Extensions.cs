@@ -2,7 +2,6 @@ using System;
 using Cine.Modules.Cinemas.Api.Mongo.Documents;
 using Cine.Modules.Cinemas.Api.Services;
 using Cine.Modules.Cinemas.Api.Validators;
-using Cine.Shared.Services;
 using Convey;
 using Convey.Persistence.MongoDB;
 using Microsoft.AspNetCore.Builder;
