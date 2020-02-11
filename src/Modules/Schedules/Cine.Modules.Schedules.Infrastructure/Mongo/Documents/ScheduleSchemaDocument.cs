@@ -9,6 +9,6 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
     {
         public Guid Id { get; set; }
         public Guid CinemaId { get; set; }
-        public IEnumerable<(int ageRestriction, IEnumerable<ScheduleTime> scheduleTimes)> Hours { get; set; }
+        public IEnumerable<(int ageRestriction, IEnumerable<Time> scheduleTimes)> Hours { get; set; }
     }
 }

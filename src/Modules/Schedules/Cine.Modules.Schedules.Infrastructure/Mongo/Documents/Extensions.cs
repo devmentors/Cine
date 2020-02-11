@@ -22,11 +22,11 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
             {
                 Id = schema.Id,
                 CinemaId = schema.CinemaId,
-                Hours = schema.Hours
+                Hours = schema.Times
             };
 
         public static ScheduleSchema AsEntity(this ScheduleSchemaDocument document)
-            => new ScheduleSchema(document.Id, document.CinemaId, new ScheduleSchemaHours(document.Hours));
+            => new ScheduleSchema(document.Id, document.CinemaId, new ScheduleSchemaTimes(document.Hours));
 
         public static ScheduleDocument AsDocument(this Schedule entity)
             => new ScheduleDocument
@@ -43,7 +43,7 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
         public static Schedule AsEntity(this ScheduleDocument document)
         {
             var reservations = document.Reservations
-                .Select(r => new Reservation(r.HallId, r.Date, new ScheduleTime(r.Time.Hour, r.Time.Minute)));
+                .Select(r => new Reservation(r.HallId, r.Date, new Time(r.Time.Hour, r.Time.Minute)));
 
             return new Schedule(document.Id, document.CinemaId, document.MovieId, reservations);
         }

@@ -36,9 +36,9 @@ namespace Cine.Modules.Schedules.Core.Policies
                 throw new ScheduleSchemaNotFoundException(cinemaId);
             }
 
-            var times = scheme.Hours
+            var times = scheme.Times
                 .Where(h => h.ageRestriction <= ageRestriction)
-                .Select(h => h.scheduleTimes)
+                .Select(h => h.times)
                 .FirstOrDefault();
 
             if (times is null)
@@ -65,7 +65,7 @@ namespace Cine.Modules.Schedules.Core.Policies
         }
 
         private static IEnumerable<Reservation> GenerateReservationsForDay(DateTime date, MovieId movieId,
-            List<Reservation> reservations, List<ScheduleTime> times, List<Hall> halls)
+            List<Reservation> reservations, List<Time> times, List<Hall> halls)
         {
             var generatedReservations = new List<Reservation>();
 

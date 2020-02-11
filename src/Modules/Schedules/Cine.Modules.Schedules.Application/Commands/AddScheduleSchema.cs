@@ -1,6 +1,5 @@
 using System;
-using System.Collections.Generic;
-using Cine.Modules.Schedules.Core.ValueObjects;
+using Cine.Modules.Schedules.Core.Entities;
 using Convey.CQRS.Commands;
 
 namespace Cine.Modules.Schedules.Application.Commands
@@ -9,10 +8,9 @@ namespace Cine.Modules.Schedules.Application.Commands
     {
         public Guid Id { get;  }
         public Guid CinemaId { get; }
-        public IEnumerable<(int ageRestriction, IEnumerable<ScheduleTime> scheduleTimes)> Times { get; }
+        public ScheduleSchemaTimes Times { get; }
 
-        public AddScheduleSchema(Guid id, Guid cinemaId, IEnumerable<(int ageRestriction,
-            IEnumerable<ScheduleTime> scheduleTimes)> times)
+        public AddScheduleSchema(Guid id, Guid cinemaId, ScheduleSchemaTimes times)
         {
             Id = id;
             CinemaId = cinemaId;

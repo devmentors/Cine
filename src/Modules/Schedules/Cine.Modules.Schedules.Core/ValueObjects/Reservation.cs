@@ -7,9 +7,9 @@ namespace Cine.Modules.Schedules.Core.ValueObjects
     {
         public HallId HallId { get; }
         public DateTime Date { get; }
-        public ScheduleTime Time { get; }
+        public Time Time { get; }
 
-        public Reservation(HallId hallId, DateTime date, ScheduleTime time)
+        public Reservation(HallId hallId, DateTime date, Time time)
         {
             HallId = hallId;
             Date = date;

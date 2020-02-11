@@ -8,18 +8,18 @@ namespace Cine.Modules.Schedules.Core.Entities
     {
         public EntityId Id { get; private set; }
         public CinemaId CinemaId { get; private set; }
-        public ScheduleSchemaHours Hours { get; private set; }
+        public ScheduleSchemaTimes Times { get; private set; }
 
-        public ScheduleSchema(EntityId id, CinemaId cinemaId, ScheduleSchemaHours hours)
+        public ScheduleSchema(EntityId id, CinemaId cinemaId, ScheduleSchemaTimes times)
         {
             Id = id;
             CinemaId = cinemaId;
-            Hours = hours;
+            Times = times;
         }
 
-        public void ChangeHours(ScheduleSchemaHours hours)
+        public void ChangeHours(ScheduleSchemaTimes times)
         {
-            var duplicatedAges = hours
+            var duplicatedAges = times
                 .GroupBy(h => h.ageRestriction)
                 .Where(g => g.Count() > 1)
                 .Select(g => g.Key)
@@ -30,7 +30,7 @@ namespace Cine.Modules.Schedules.Core.Entities
                 throw new DuplicatedScheduleTimeException(duplicatedAges);
             }
 
-            Hours = hours;
+            Times = times;
         }
     }
 }
