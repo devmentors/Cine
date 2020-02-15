@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Cine.Modules.Cinemas.Api.DTO;
 using Cine.Modules.Cinemas.Api.Services;
 using Cine.Modules.Cinemas.Api.Validators;
+using Cine.Shared.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cine.Modules.Cinemas.Api.Controllers
@@ -21,50 +22,32 @@ namespace Cine.Modules.Cinemas.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CinemaDto>> Get([FromRoute] Guid id)
+        public async Task<ActionResult<CinemaDto>> Get(Guid id)
         {
-            var cinema = await _service.GetAsync(id);
-
-            if (cinema is null)
-            {
-                return NotFound();
-            }
-
+            var cinema = await _service.GetAsync(id).ThrowIfNotFoundAsync();
             return Ok(cinema);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] CinemaDto dto)
+        public async Task<ActionResult> Post(CinemaDto dto)
         {
-            var validation = _validator.Validate(dto);
-
-            if (!validation.Succeeded)
-            {
-                return BadRequest(new {Errors = validation.ErrorMessages});
-            }
+            _validator.Validate(dto).ThrowIfInvalid();
 
             await _service.CreateAsync(dto);
             return Created(dto.Id.ToString(), null);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put([FromRoute] Guid id, [FromBody] CinemaDto dto)
+        public async Task<ActionResult> Put(Guid id, CinemaDto dto)
         {
-            dto.Id = id;
-
-            var validation = _validator.Validate(dto);
-
-            if (!validation.Succeeded)
-            {
-                return BadRequest(new {Errors = validation.ErrorMessages});
-            }
+            _validator.Validate(dto).ThrowIfInvalid();
 
             await _service.UpdateAsync(dto);
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete([FromRoute] Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             await _service.DeleteAsync(id);
             return Ok();
