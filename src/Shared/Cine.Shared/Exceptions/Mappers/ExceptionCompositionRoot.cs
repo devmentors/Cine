@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Cine.Shared.Exceptions.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cine.Shared.Exceptions.Mappers
@@ -11,7 +12,7 @@ namespace Cine.Shared.Exceptions.Mappers
         public ExceptionCompositionRoot(IServiceScopeFactory serviceScopeFactory)
             => _serviceScopeFactory = serviceScopeFactory;
 
-        public (int httpStatusCode, string[] errorCodes)? Map(Exception exception)
+        public ExceptionResponse Map(Exception exception)
         {
             using var scope = _serviceScopeFactory.CreateScope();
             var mappers = scope.ServiceProvider.GetServices<IExceptionToResponseMapper>();

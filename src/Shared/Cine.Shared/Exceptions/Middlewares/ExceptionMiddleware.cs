@@ -27,10 +27,10 @@ namespace Cine.Shared.Exceptions.Middlewares
             {
                 var responseData = _exceptionCompositionRoot.Map(ex);
 
-                if (responseData is { httpStatusCode: var httpStatusCode, errorCodes: var errorCodes})
+                if (responseData is { })
                 {
-                    var json = JsonConvert.SerializeObject(new { Errors = errorCodes });
-                    httpContext.Response.StatusCode = httpStatusCode;
+                    var json = JsonConvert.SerializeObject(new { Code = responseData.Code, Message = responseData.Message });
+                    httpContext.Response.StatusCode = (int) responseData.HttpStatus;
                     httpContext.Response.Headers.Add("content-type", "application/json");
                     await httpContext.Response.WriteAsync(json);
                 }
