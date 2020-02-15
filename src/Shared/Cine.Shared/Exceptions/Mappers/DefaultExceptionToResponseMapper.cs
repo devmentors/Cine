@@ -9,9 +9,11 @@ namespace Cine.Shared.Exceptions.Mappers
         public ExceptionResponse Map(Exception exception)
             => exception switch
             {
-                EmptyAggregateIdException ex => new ExceptionResponse { HttpStatus = HttpStatusCode.BadGateway,
+                DomainException ex => new ExceptionResponse { HttpStatus = HttpStatusCode.BadRequest,
                     Code = ex.ErrorCode, Message = ex.Message},
-                ValidationException ex => new ExceptionResponse { HttpStatus = HttpStatusCode.BadGateway,
+                AppException ex => new ExceptionResponse { HttpStatus = HttpStatusCode.BadRequest,
+                    Code = ex.ErrorCode, Message = ex.Message},
+                ValidationException ex => new ExceptionResponse { HttpStatus = HttpStatusCode.BadRequest,
                     Code = "validation_failed", Message = string.Join(Environment.NewLine, ex.Errors)},
                 NotFoundException ex => new ExceptionResponse { HttpStatus = HttpStatusCode.NotFound,
                     Code = "resource_not_found", Message = "Requested resource was not found"},
