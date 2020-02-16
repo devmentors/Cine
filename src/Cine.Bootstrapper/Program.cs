@@ -26,6 +26,7 @@ namespace Cine.Bootstrapper
             => WebHost.CreateDefaultBuilder(args)
                 .ConfigureServices(services => services
                     .AddConvey()
+                    .AddSharedModule()
                     .AddMoviesModule()
                     .AddCinemasModule()
                     .AddSchedulesModule()
@@ -36,10 +37,10 @@ namespace Cine.Bootstrapper
                     .AddErrorHandling()
                     .Build())
                 .Configure(app => app
+                    .UseSharedModule()
                     .UseMoviesModule()
                     .UseCinemasModule()
                     .UseSchedulesModule()
-                    .UseSharedModule()
                     .UseErrorHandling()
                     .UseRouting()
                     .UseEndpoints(endpoints => endpoints.MapControllers()))

@@ -18,7 +18,7 @@ namespace Cine.Shared.Exceptions.Mappers
                 NotFoundException ex => new ExceptionResponse { HttpStatus = HttpStatusCode.NotFound,
                     Code = "resource_not_found", Message = "Requested resource was not found"},
                 _ => new ExceptionResponse { HttpStatus = HttpStatusCode.BadRequest, Code = "error",
-                    Message = "There was an error"}
+                    Message = exception.Message}
             };
     }
 }
