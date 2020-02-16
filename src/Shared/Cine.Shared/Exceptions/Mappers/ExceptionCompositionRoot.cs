@@ -15,11 +15,20 @@ namespace Cine.Shared.Exceptions.Mappers
         public ExceptionResponse Map(Exception exception)
         {
             using var scope = _serviceScopeFactory.CreateScope();
-            var mappers = scope.ServiceProvider.GetServices<IExceptionToResponseMapper>();
+            var mappers = scope.ServiceProvider.GetServices<IExceptionToResponseMapper>().ToList();
+            var nonDefaultMappers = mappers.Where(m => !(m is DefaultExceptionToResponseMapper));
 
-            return mappers
+            var result = nonDefaultMappers
                 .Select(m => m.Map(exception))
                 .SingleOrDefault(r => r is {});
+
+            if (result is {})
+            {
+                return result;
+            }
+
+            var defaultMapper = mappers.SingleOrDefault(m => m is DefaultExceptionToResponseMapper);
+            return defaultMapper.Map(exception);
         }
     }
 }
