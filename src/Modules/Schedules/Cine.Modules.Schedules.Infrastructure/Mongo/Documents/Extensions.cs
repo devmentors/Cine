@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cine.Modules.Schedules.Core.Aggregates;
@@ -46,14 +47,15 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
                 MovieId = entity.MovieId,
                 Reservations = entity.Reservations.Select(r => new ReservationDocument
                 {
-                    HallId = r.HallId
+                    HallId = r.HallId,
+                    DateTime = r.Date.AddHours(r.Time.Hour).AddMinutes(r.Time.Minute)
                 })
             };
 
         public static Schedule AsEntity(this ScheduleDocument document)
         {
             var reservations = document.Reservations
-                .Select(r => new Reservation(r.HallId, r.Date, new Time(r.Time.Hour, r.Time.Minute)));
+                .Select(r => new Reservation(r.HallId, r.DateTime.Date, new Time(r.DateTime.Hour, r.DateTime.Minute)));
 
             return new Schedule(document.Id, document.CinemaId, document.MovieId, reservations);
         }
