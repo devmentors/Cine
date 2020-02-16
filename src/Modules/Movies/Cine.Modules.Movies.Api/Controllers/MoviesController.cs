@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Cine.Modules.Movies.Api.DTO;
 using Cine.Modules.Movies.Api.Services;
 using Cine.Modules.Movies.Api.Validators;
+using Cine.Shared.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cine.Modules.Movies.Api.Controllers
@@ -22,63 +23,40 @@ namespace Cine.Modules.Movies.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MovieDto>>> Get([FromQuery] string searchPhrase)
+        public async Task<ActionResult<IEnumerable<MovieDto>>> Get(string searchPhrase)
         {
-            var movies = await _service.SearchAsync(searchPhrase);
-
-            if (movies is null)
-            {
-                return NotFound();
-            }
-
+            var movies = await _service.SearchAsync(searchPhrase).ThrowIfNotFoundAsync();
             return Ok(movies);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<MovieDto>> Get([FromRoute] Guid id)
+        public async Task<ActionResult<MovieDto>> Get(Guid id)
         {
-            var movie = await _service.GetAsync(id);
-
-            if (movie is null)
-            {
-                return NotFound();
-            }
-
+            var movie = await _service.GetAsync(id).ThrowIfNotFoundAsync();
             return Ok(movie);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] MovieDto dto)
+        public async Task<ActionResult> Post(MovieDto dto)
         {
-            var validation = _validator.Validate(dto);
-
-            if (!validation.Succeeded)
-            {
-                return BadRequest(new { Errors = validation.ErrorMessages });
-            }
+            _validator.Validate(dto).ThrowIfInvalid();
 
             await _service.CreateAsync(dto);
             return Created(dto.Id.ToString(), null);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put([FromRoute] Guid id, [FromBody] MovieDto dto)
+        public async Task<ActionResult> Put(Guid id, MovieDto dto)
         {
             dto.Id = id;
-
-            var validation = _validator.Validate(dto);
-
-            if (!validation.Succeeded)
-            {
-                return BadRequest(new { Errors = validation.ErrorMessages });
-            }
+            _validator.Validate(dto).ThrowIfInvalid();
 
             await _service.UpdateAsync(dto);
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete([FromRoute] Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             await _service.DeleteAsync(id);
             return Ok();

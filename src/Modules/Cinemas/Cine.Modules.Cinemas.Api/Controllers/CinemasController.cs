@@ -40,6 +40,7 @@ namespace Cine.Modules.Cinemas.Api.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(Guid id, CinemaDto dto)
         {
+            dto.Id = id;
             _validator.Validate(dto).ThrowIfInvalid();
 
             await _service.UpdateAsync(dto);
