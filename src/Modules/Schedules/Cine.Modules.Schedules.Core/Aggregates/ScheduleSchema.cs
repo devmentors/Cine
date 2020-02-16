@@ -17,7 +17,7 @@ namespace Cine.Modules.Schedules.Core.Aggregates
             Times = times;
         }
 
-        public void ChangeHours(ScheduleSchemaTimes times)
+        public void ChangeTimes(ScheduleSchemaTimes times)
         {
             var duplicatedAges = times
                 .GroupBy(h => h.ageRestriction)
