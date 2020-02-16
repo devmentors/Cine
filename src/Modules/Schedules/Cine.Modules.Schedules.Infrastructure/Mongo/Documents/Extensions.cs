@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Cine.Modules.Schedules.Core.Aggregates;
 using Cine.Modules.Schedules.Core.Entities;
@@ -23,11 +24,19 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
             {
                 Id = schema.Id,
                 CinemaId = schema.CinemaId,
-                Hours = schema.Times
+                Times = schema.Times?.Select(st => new ScheduleSchemaTimesDocument
+                {
+                    AgeRestriction = st.ageRestriction,
+                    Times = st.times?.Select(t => new TimeDocument
+                    {
+                        Hour = t.Hour,
+                        Minute = t.Minute
+                    })
+                })
             };
 
         public static ScheduleSchema AsEntity(this ScheduleSchemaDocument document)
-            => new ScheduleSchema(document.Id, document.CinemaId, new ScheduleSchemaTimes(document.Hours));
+            => new ScheduleSchema(document.Id, document.CinemaId, new ScheduleSchemaTimes(document.Times.AsEntity()));
 
         public static ScheduleDocument AsDocument(this Schedule entity)
             => new ScheduleDocument
@@ -48,5 +57,9 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
 
             return new Schedule(document.Id, document.CinemaId, document.MovieId, reservations);
         }
+
+        private static ScheduleSchemaTimes AsEntity(this IEnumerable<ScheduleSchemaTimesDocument> document)
+            => new ScheduleSchemaTimes(document.Select(d =>
+                (d.AgeRestriction, d.Times.Select(t => new Time(t.Hour, t.Minute)))));
     }
 }

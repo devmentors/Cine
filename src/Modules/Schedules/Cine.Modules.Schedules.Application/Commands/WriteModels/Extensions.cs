@@ -8,11 +8,10 @@ namespace Cine.Modules.Schedules.Application.Commands.WriteModels
 {
     public static class Extensions
     {
-        public static ScheduleSchemaTimes AsScheduleSchemaTimes(
-            this IEnumerable<(int ageRestriction, IEnumerable<TimeWriteModel> times)> times)
+        public static ScheduleSchemaTimes AsScheduleSchemaTimes(this IEnumerable<ScheduleSchemaTimesWriteModel> times)
         {
             var mappedTimes = times
-                .Select(st => (st.ageRestriction, st.times.Select(t => new Time(t.Hour, t.Minute))));
+                .Select(st => (st.AgeRestriction, st.Times.Select(t => new Time(t.Hour, t.Minute))));
 
             return new ScheduleSchemaTimes(mappedTimes);
         }

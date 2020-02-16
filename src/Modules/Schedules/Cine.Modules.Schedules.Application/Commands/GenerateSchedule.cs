@@ -11,12 +11,12 @@ namespace Cine.Modules.Schedules.Application.Commands
         public DateTime From { get; }
         public DateTime To { get; }
 
-        public GenerateSchedule(Guid id, Guid cinemaId, Guid movieId, DateTime @from, DateTime to)
+        public GenerateSchedule(Guid id, Guid cinemaId, Guid movieId, DateTime from, DateTime to)
         {
             Id = id;
             CinemaId = cinemaId;
             MovieId = movieId;
-            From = @from;
+            From = from;
             To = to;
         }
     }

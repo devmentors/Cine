@@ -69,6 +69,60 @@ Content-Type: application/json
 ###
 GET {{url}}/movies/{{movieId}}
 
+###
+POST {{url}}/schedules/schema
+Content-Type: application/json
+
+{
+    "id" : "9ca578df-4d08-4651-a555-f23fc2b5a79b",
+    "cinemaId" : "1c6b9a50-751d-4aa2-ae40-41778bcaf007",
+    "times": [
+        {
+            "ageRestriction": 3,
+            "times" : [
+                {
+                    "hour" : 12,
+                    "minute" : 0
+                },
+                {
+                    "hour" : 16,
+                    "minute" : 0
+                }
+            ]
+        },
+        {
+            "ageRestriction": 16,
+            "times" : [
+                {
+                    "hour" : 14,
+                    "minute" : 30
+                },
+                {
+                    "hour" : 16,
+                    "minute" : 30
+                },
+                {
+                    "hour" : 19,
+                    "minute" : 45
+                }
+            ]
+        },
+        {
+            "ageRestriction": 18,
+            "times" : [
+                {
+                    "hour" : 20,
+                    "minute" : 30
+                },
+                {
+                    "hour" : 22,
+                    "minute" : 30
+                }
+            ]
+        }
+    ]
+}
+
 
 ###
 POST {{url}}/schedules/generate

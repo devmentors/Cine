@@ -9,8 +9,10 @@ namespace Cine.Modules.Schedules.Api.Api
     {
         public static IApplicationBuilder UseSchedulesApi(this IApplicationBuilder app)
         {
-            app.UseDispatcherEndpoints(endpoints =>
-                endpoints.Post<GenerateSchedule>("schedules/generate",
+            app.UseDispatcherEndpoints(endpoints => endpoints
+                .Post<CreateScheduleSchema>("schedules/schema",
+                    afterDispatch: (cmd, ctx) => ctx.Response.Created($"schedules/schema/{cmd.Id}"))
+                .Post<GenerateSchedule>("schedules/generate",
                     afterDispatch: (cmd, ctx) => ctx.Response.Created($"schedules/{cmd.Id}")));
 
             return app;

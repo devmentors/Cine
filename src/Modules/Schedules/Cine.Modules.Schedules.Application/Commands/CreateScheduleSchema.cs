@@ -5,13 +5,13 @@ using Convey.CQRS.Commands;
 
 namespace Cine.Modules.Schedules.Application.Commands
 {
-    public class AddScheduleSchema : ICommand
+    public class CreateScheduleSchema : ICommand
     {
         public Guid Id { get;  }
         public Guid CinemaId { get; }
-        public IEnumerable<(int ageRestriction, IEnumerable<TimeWriteModel> times)> Times { get; }
+        public IEnumerable<ScheduleSchemaTimesWriteModel> Times { get; }
 
-        public AddScheduleSchema(Guid id, Guid cinemaId, IEnumerable<(int ageRestriction, IEnumerable<TimeWriteModel> times)> times)
+        public CreateScheduleSchema(Guid id, Guid cinemaId, IEnumerable<ScheduleSchemaTimesWriteModel> times)
         {
             Id = id;
             CinemaId = cinemaId;
