@@ -8,6 +8,7 @@ namespace Cine.Modules.Schedules.Core.Repositories
     public interface IHallsRepository
     {
         Task<IEnumerable<Hall>> GetAsync(CinemaId cinemaId);
+        Task<bool> ExistsAsync(HallId hallId);
         Task AddAsync(Hall hall);
         Task DeleteAsync(EntityId hall);
     }

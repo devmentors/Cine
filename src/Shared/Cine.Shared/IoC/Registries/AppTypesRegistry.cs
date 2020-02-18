@@ -7,21 +7,18 @@ namespace Cine.Shared.IoC.Registries
 {
     internal sealed class AppTypesRegistry : IAppTypesRegistry
     {
-        private readonly ConcurrentDictionary<string, Type> _registry;
+        private readonly ConcurrentDictionary<Type, string> _registry;
 
         public AppTypesRegistry()
-            => _registry = new ConcurrentDictionary<string, Type>();
+            => _registry = new ConcurrentDictionary<Type, string>();
 
         public bool TryAdd(Type type)
-            => _registry.TryAdd(type.Name, type);
-
-        public bool Contains(Type type)
-            => _registry.ContainsKey(type.Name);
+            => _registry.TryAdd(type, type.Name);
 
         public IEnumerable<Type> GetLocalTypes(Type type)
             => _registry
-                .Where(r => r.Value != type)
-                .Where(r => r.Key.Equals(type.Name, StringComparison.InvariantCultureIgnoreCase))
-                .Select(r => r.Value);
+                .Where(r => r.Key != type)
+                .Where(r => r.Value.Equals(type.Name, StringComparison.InvariantCultureIgnoreCase))
+                .Select(r => r.Key);
     }
 }

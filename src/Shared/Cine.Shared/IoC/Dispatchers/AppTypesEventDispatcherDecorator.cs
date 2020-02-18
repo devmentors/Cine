@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Cine.Shared.IoC.Registries;
@@ -19,10 +20,9 @@ namespace Cine.Shared.IoC.Dispatchers
 
         public async Task PublishAsync<T>(T @event) where T : class, IEvent
         {
-            var eventTypes = _registry.GetLocalTypes(@event.GetType())
-                ?.Where(t => t.FullName !=  @event.GetType().FullName);
+            var eventTypes = _registry.GetLocalTypes(@event.GetType()).ToList();
 
-            foreach (var type in eventTypes)
+            foreach(var type in eventTypes)
             {
                 var json = JsonConvert.SerializeObject(@event);
                 var message = JsonConvert.DeserializeObject(json, type);

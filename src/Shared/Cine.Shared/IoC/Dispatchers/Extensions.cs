@@ -17,7 +17,7 @@ namespace Cine.Shared.IoC.Dispatchers
             var events = AppDomain.CurrentDomain.GetAssemblies()
                 .Where(a => a.FullName.Contains("Cine"))
                 .SelectMany(a => a.GetTypes())
-                .Where(t => t.IsClass && (typeof(IEvent).IsAssignableFrom(t)))
+                .Where(t => t.IsClass && typeof(IEvent).IsAssignableFrom(t))
                 .ToList();
 
             using var serviceProvider = builder.Services.BuildServiceProvider();

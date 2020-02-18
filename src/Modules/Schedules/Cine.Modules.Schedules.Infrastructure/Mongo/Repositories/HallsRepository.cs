@@ -8,6 +8,7 @@ using Cine.Modules.Schedules.Core.Repositories;
 using Cine.Modules.Schedules.Infrastructure.Mongo.Documents;
 using Cine.Shared.BuildingBlocks;
 using Convey.Persistence.MongoDB;
+using MongoDB.Bson;
 
 namespace Cine.Modules.Schedules.Infrastructure.Mongo.Repositories
 {
@@ -25,6 +26,9 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Repositories
             var documents = await _repository.FindAsync(h => h.CinemaId == cinemaId);
             return documents?.Select(d => d.AsEntity());
         }
+
+        public Task<bool> ExistsAsync(HallId hallId)
+            => _repository.ExistsAsync(h => h.Id == hallId);
 
         public Task AddAsync(Hall hall)
             => _repository.AddAsync(hall.AsDocument());

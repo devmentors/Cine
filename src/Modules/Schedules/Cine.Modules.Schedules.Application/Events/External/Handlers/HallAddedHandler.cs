@@ -16,6 +16,11 @@ namespace Cine.Modules.Schedules.Application.Events.External.Handlers
 
         public async Task HandleAsync(HallAdded @event)
         {
+            if (await _hallsRepository.ExistsAsync(@event.HallId))
+            {
+                return;
+            }
+
             var hall = new Hall(@event.HallId, @event.CinemaId);
             await _hallsRepository.AddAsync(hall);
         }

@@ -14,6 +14,7 @@ Content-Type: application/json
 		"zipCode": "05-000"
 	},
 	"halls" : [{
+        "id" : "102876d1-8b38-4dbd-87ff-832746ab6656",
         "name": "A",
         "seats": [{
             "row" : "F",
@@ -21,6 +22,7 @@ Content-Type: application/json
         }]
 	},
 	{
+        "id" : "202876d1-8b38-4dbd-87ff-832746ab6656",
         "name": "B",
         "seats": [{
             "row" : "F",
@@ -28,6 +30,7 @@ Content-Type: application/json
         }]
 	},
 	{
+        "id" : "302876d1-8b38-4dbd-87ff-832746ab6656",        
         "name": "C",
         "seats": [{
             "row" : "F",
@@ -35,6 +38,7 @@ Content-Type: application/json
         }]
 	},
 	{
+        "id" : "402876d1-8b38-4dbd-87ff-832746ab6656",
         "name": "D",
         "seats": [{
             "row" : "F",
