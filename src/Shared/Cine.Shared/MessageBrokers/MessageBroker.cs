@@ -17,7 +17,7 @@ namespace Cine.Shared.MessageBrokers
 
         public async Task PublishAsync(IEnumerable<IEvent> events)
         {
-            var tasks = events.Select(e => _dispatcher.PublishAsync(e));
+            var tasks = events.Select(e => _dispatcher.PublishAsync(e)).ToArray();
             await Task.WhenAll(tasks);
         }
     }
