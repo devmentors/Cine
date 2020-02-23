@@ -15,7 +15,7 @@ namespace Cine.Shared.Types
                 .GetAssemblies()
                 .Where(a => a.FullName.Contains("Cine"))
                 .SelectMany(a => a.GetTypes())
-                .Where(t => t.IsClass && (typeof(IModuleRequest).IsAssignableFrom(t) || typeof(IEvent).IsAssignableFrom(t)))
+                .Where(t => t.IsClass && typeof(IEvent).IsAssignableFrom(t))
                 .ToList();
 
             var registry = new AppTypesRegistry();

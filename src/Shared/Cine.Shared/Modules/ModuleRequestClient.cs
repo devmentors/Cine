@@ -18,33 +18,20 @@ namespace Cine.Shared.Modules
         }
 
         public async Task<TResult> GetAsync<TRequest, TResult>(string path, TRequest moduleRequest)
-            where TRequest : class, IModuleRequest where TResult : class
+            where TRequest : class where TResult : class
         {
-            var moduleRequestTypes = _appTypesRegistry.GetLocalTypes(typeof(TRequest))
-                .ToList();
+            var registration = _moduleRequestsRegistry.GetRegistration(path);
 
-            if (!moduleRequestTypes.Any())
+            if (registration is null)
             {
-                throw new InvalidOperationException("No module request type found in any module");
+                throw new InvalidOperationException($"No action has been defined for path: {path}");
             }
 
-            if (moduleRequestTypes.Count > 1)
-            {
-                throw new InvalidOperationException("Module request cannot be processed by more than one module");
-            }
+            var action = registration.Action;
+            var requestJson = JsonConvert.SerializeObject(moduleRequest);
+            var receiverRequest = JsonConvert.DeserializeObject(requestJson, registration.ReceiverRequestType);
 
-            var type = moduleRequestTypes.First();
-            var json = JsonConvert.SerializeObject(moduleRequest);
-            var message = JsonConvert.DeserializeObject(json, type);
-
-            var action = _moduleRequestsRegistry.GetAction(path);
-
-            if (action is null)
-            {
-                throw new InvalidOperationException($"No action has been defined for module request: {type.Name}");
-            }
-
-            var result = await action((IModuleRequest) message);
+            var result = await action(receiverRequest);
             var resultJson = JsonConvert.SerializeObject(result);
 
             return JsonConvert.DeserializeObject<TResult>(resultJson);

@@ -5,7 +5,7 @@ namespace Cine.Shared.Modules
 {
     public interface IModuleRequestsRegistry
     {
-        Func<IModuleRequest, Task<object>> GetAction(string path);
-        bool TryAddAction(string path, Func<IModuleRequest, Task<object>> action);
+        ModuleRequestRegistration GetRegistration(string path);
+        bool TryAddAction(string path, Type receiverRequestType, Func<object, Task<object>> action);
     }
 }

@@ -4,7 +4,7 @@ using Cine.Shared.Modules;
 
 namespace Cine.Modules.Cinemas.Api.ModuleRequests
 {
-    public class HallModuleRequest : IModuleRequest
+    public class HallModuleRequest
     {
         public Guid HallId { get; set; }
     }
