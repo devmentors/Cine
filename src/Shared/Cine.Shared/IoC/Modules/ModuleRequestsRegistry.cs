@@ -6,12 +6,16 @@ namespace Cine.Shared.IoC.Modules
 {
     internal class ModuleRequestsRegistry : IModuleRequestsRegistry
     {
-        private readonly IDictionary<string, Func<Task<object>>> _actions;
+        private readonly IDictionary<string, Func<IModuleRequest, Task<object>>> _actions;
 
-        public ModuleRequestsRegistry(IDictionary<string, Func<Task<object>>> actions)
-            => _actions = actions;
+        public ModuleRequestsRegistry()
+            => _actions = new Dictionary<string, Func<IModuleRequest, Task<object>>>();
 
-        public bool TryAddAction(string path, Func<Task<object>> action)
+        public Func<IModuleRequest, Task<object>> GetAction(string path)
+            => _actions[path];
+
+
+        public bool TryAddAction(string path, Func<IModuleRequest, Task<object>> action)
             => _actions.TryAdd(path, action);
     }
 }

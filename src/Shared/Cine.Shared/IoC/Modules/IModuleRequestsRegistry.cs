@@ -5,6 +5,7 @@ namespace Cine.Shared.IoC.Modules
 {
     public interface IModuleRequestsRegistry
     {
-        bool TryAddAction(string path, Func<Task<object>> action);
+        Func<IModuleRequest, Task<object>> GetAction(string path);
+        bool TryAddAction(string path, Func<IModuleRequest, Task<object>> action);
     }
 }

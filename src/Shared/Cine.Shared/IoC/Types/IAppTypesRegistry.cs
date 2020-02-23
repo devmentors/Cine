@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Cine.Shared.IoC.Registries
+namespace Cine.Shared.IoC.Types
 {
     internal interface IAppTypesRegistry
     {

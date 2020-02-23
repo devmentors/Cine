@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using Cine.Shared.IoC.Registries;
+using Cine.Shared.IoC.Types;
 using Convey;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,11 +12,13 @@ namespace Cine.Shared.IoC.Modules
         public static IConveyBuilder AddModuleRequests(this IConveyBuilder builder)
         {
             builder.Services.AddSingleton<IModuleRequestsRegistry, ModuleRequestsRegistry>();
-            builder.Services.AddSingleton<IModuleRequestSubscriber, ModuleRequestSubscriber>();
+            builder.Services.AddSingleton<IModuleRequestMapper, ModuleRequestMapper>();
+            builder.Services.AddTransient<IModuleRequestClient, ModuleRequestClient>();
+
             return builder;
         }
 
-        public static IModuleRequestSubscriber UseModuleRequests(this IApplicationBuilder app)
-            => app.ApplicationServices.GetRequiredService<IModuleRequest>()
+        public static IModuleRequestMapper UseModuleRequests(this IApplicationBuilder app)
+            => app.ApplicationServices.GetRequiredService<IModuleRequestMapper>();
     }
 }

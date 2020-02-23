@@ -4,7 +4,7 @@ using Cine.Shared.IoC.Modules;
 
 namespace Cine.Modules.Movies.Api.ModuleRequests
 {
-    public class MovieModuleRequest : IModuleRequest<MovieDto>
+    public class MovieModuleRequest : IModuleRequest
     {
         public Guid MovieId { get; set; }
     }

@@ -1,7 +1,9 @@
 using System;
+using Cine.Modules.Movies.Api.ModuleRequests;
 using Cine.Modules.Movies.Api.Mongo.Documents;
 using Cine.Modules.Movies.Api.Services;
 using Cine.Modules.Movies.Api.Validators;
+using Cine.Shared.IoC.Modules;
 using Convey;
 using Convey.Persistence.MongoDB;
 using Microsoft.AspNetCore.Builder;
@@ -24,7 +26,15 @@ namespace Cine.Modules.Movies.Api
 
         public static IApplicationBuilder UseMoviesModule(this IApplicationBuilder app)
         {
-            return app;
+             app
+                 .UseModuleRequests()
+                 .Map<MovieModuleRequest>("modules/movies/details", async request =>
+                 {
+                     var service = app.ApplicationServices.GetService<IMoviesService>();
+                     return await service.GetAsync(request.MovieId);
+                 });
+
+             return app;
         }
     }
 }
