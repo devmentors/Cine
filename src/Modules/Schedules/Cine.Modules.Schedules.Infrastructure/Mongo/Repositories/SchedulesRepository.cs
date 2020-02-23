@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cine.Modules.Schedules.Core;
 using Cine.Modules.Schedules.Core.Aggregates;
 using Cine.Modules.Schedules.Core.Repositories;
 using Cine.Modules.Schedules.Infrastructure.Mongo.Documents;
@@ -28,6 +29,9 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Repositories
             var document = await _repository.GetAsync(id);
             return document?.AsEntity();
         }
+
+        public Task<bool> ExistsAsync(CinemaId cinemaId, MovieId movieId)
+            => _repository.ExistsAsync(s => s.CinemaId == cinemaId && s.MovieId == movieId);
 
         public Task AddAsync(Schedule schedule)
             => _repository.AddAsync(schedule.AsDocument());

@@ -32,9 +32,9 @@ namespace Cine.Bootstrapper
                     .AddWebApi()
                     .Build())
                 .Configure(app => app.UseMoviesModule()
+                    .UseSharedModule()
                     .UseCinemasModule()
                     .UseSchedulesModule()
-                    .UseSharedModule()
                     .UseRouting()
                     .UseEndpoints(endpoints => endpoints.MapControllers()))
                 .UseLogging();
