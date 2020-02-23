@@ -28,7 +28,7 @@ namespace Cine.Modules.Movies.Api
         {
              app
                  .UseModuleRequests()
-                 .Map<MovieModuleRequest>("modules/movies/details", async request =>
+                 .Subscribe<MovieModuleRequest>("modules/movies/details", async request =>
                  {
                      var service = app.ApplicationServices.GetService<IMoviesService>();
                      return await service.GetAsync(request.MovieId);
