@@ -15,6 +15,6 @@ namespace Cine.Modules.Schedules.Infrastructure.Services.Clients
             => _client = client;
 
         public Task<MovieDto> GetAsync(MovieId movieId)
-            => _client.GetAsync<MovieModuleRequest, MovieDto>("modules/movies/details", new MovieModuleRequest {MovieId = movieId});
+            => _client.GetAsync<MovieDto>("modules/movies/details", new { MovieId = movieId.Value });
     }
 }

@@ -1,24 +1,18 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Cine.Shared.Types;
 using Newtonsoft.Json;
 
 namespace Cine.Shared.Modules
 {
     internal sealed class ModuleRequestClient : IModuleRequestClient
     {
-        private readonly IAppTypesRegistry _appTypesRegistry;
         private readonly IModuleRequestsRegistry _moduleRequestsRegistry;
 
-        public ModuleRequestClient(IAppTypesRegistry appTypesRegistry, IModuleRequestsRegistry moduleRequestsRegistry)
-        {
-            _appTypesRegistry = appTypesRegistry;
-            _moduleRequestsRegistry = moduleRequestsRegistry;
-        }
+        public ModuleRequestClient(IModuleRequestsRegistry moduleRequestsRegistry)
+            => _moduleRequestsRegistry = moduleRequestsRegistry;
 
-        public async Task<TResult> GetAsync<TRequest, TResult>(string path, TRequest moduleRequest)
-            where TRequest : class where TResult : class
+        public async Task<TResult> GetAsync<TResult>(string path, object moduleRequest) where TResult : class
         {
             var registration = _moduleRequestsRegistry.GetRegistration(path);
 

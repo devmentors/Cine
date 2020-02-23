@@ -4,7 +4,6 @@ namespace Cine.Shared.Modules
 {
     public interface IModuleRequestClient
     {
-        Task<TResult> GetAsync<TRequest, TResult>(string path, TRequest moduleRequest)
-            where TRequest : class where TResult : class;
+        Task<TResult> GetAsync<TResult>(string path, object moduleRequest) where TResult : class;
     }
 }
