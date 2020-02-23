@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Cine.Shared.IoC.Modules
+namespace Cine.Shared.Modules
 {
     internal class ModuleRequestsRegistry : IModuleRequestsRegistry
     {

@@ -1,11 +1,8 @@
-using System;
-using System.Linq;
-using Cine.Shared.IoC.Types;
 using Convey;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cine.Shared.IoC.Modules
+namespace Cine.Shared.Modules
 {
     public static class Extensions
     {

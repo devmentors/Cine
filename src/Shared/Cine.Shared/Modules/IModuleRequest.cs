@@ -1,7 +1,7 @@
-namespace Cine.Shared.IoC.Modules
+namespace Cine.Shared.Modules
 {
     public interface IModuleRequest
     {
-        
+
     }
 }

@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Cine.Shared.IoC.Types;
+using Cine.Shared.Types;
 using Newtonsoft.Json;
 
-namespace Cine.Shared.IoC.Modules
+namespace Cine.Shared.Modules
 {
     internal sealed class ModuleRequestClient : IModuleRequestClient
     {

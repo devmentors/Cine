@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Convey.CQRS.Events;
 using Newtonsoft.Json;
 
-namespace Cine.Shared.IoC.Types
+namespace Cine.Shared.Types
 {
     internal sealed class AppTypesEventDispatcherDecorator : IEventDispatcher
     {

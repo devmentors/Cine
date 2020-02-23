@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Cine.Shared.IoC.Modules
+namespace Cine.Shared.Modules
 {
     internal sealed class ModuleRequestMapper : IModuleRequestMapper
     {

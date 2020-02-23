@@ -4,7 +4,6 @@ using Cine.Modules.Movies.Api;
 using Cine.Modules.Schedules.Api;
 using Cine.Shared;
 using Cine.Shared.Exceptions;
-using Cine.Shared.IoC.Modules;
 using Convey;
 using Convey.Logging;
 using Convey.WebApi;

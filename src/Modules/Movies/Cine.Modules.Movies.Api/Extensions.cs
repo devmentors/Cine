@@ -3,7 +3,7 @@ using Cine.Modules.Movies.Api.ModuleRequests;
 using Cine.Modules.Movies.Api.Mongo.Documents;
 using Cine.Modules.Movies.Api.Services;
 using Cine.Modules.Movies.Api.Validators;
-using Cine.Shared.IoC.Modules;
+using Cine.Shared.Modules;
 using Convey;
 using Convey.Persistence.MongoDB;
 using Microsoft.AspNetCore.Builder;

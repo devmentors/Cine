@@ -1,8 +1,8 @@
 using Cine.Shared.Events;
 using Cine.Shared.Exceptions;
-using Cine.Shared.IoC.Modules;
-using Cine.Shared.IoC.Types;
 using Cine.Shared.MessageBrokers;
+using Cine.Shared.Modules;
+using Cine.Shared.Types;
 using Convey;
 using Convey.CQRS.Events;
 using Microsoft.AspNetCore.Builder;

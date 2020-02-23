@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Cine.Shared.IoC.Modules
+namespace Cine.Shared.Modules
 {
     public interface IModuleRequestClient
     {

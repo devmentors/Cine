@@ -1,6 +1,6 @@
 using System;
 using Cine.Modules.Movies.Api.DTO;
-using Cine.Shared.IoC.Modules;
+using Cine.Shared.Modules;
 
 namespace Cine.Modules.Movies.Api.ModuleRequests
 {
