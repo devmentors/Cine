@@ -9,6 +9,7 @@ namespace Cine.Modules.Schedules.Core.Repositories
     {
         Task<IEnumerable<Schedule>> GetAsync();
         Task<Schedule> GetAsync(EntityId id);
+        Task<bool> ExistsAsync(CinemaId cinemaId, MovieId movieId);
         Task AddAsync(Schedule schedule);
         Task UpdateAsync(Schedule schedule);
         Task DeleteAsync(EntityId id);

@@ -22,6 +22,13 @@ namespace Cine.Modules.Schedules.Application.Commands.Handlers
 
         public async Task HandleAsync(GenerateSchedule command)
         {
+            var alreadyExists = await _repository.ExistsAsync(command.CinemaId, command.MovieId);
+
+            if (alreadyExists)
+            {
+                throw new ScheduleAlreadyExistsException(command.CinemaId, command.MovieId);
+            }
+
             var movie = await _client.GetAsync(command.MovieId);
 
             if (movie is null)
