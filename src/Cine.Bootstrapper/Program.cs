@@ -4,8 +4,6 @@ using Cine.Modules.Movies.Api;
 using Cine.Modules.Schedules.Api;
 using Cine.Shared;
 using Cine.Shared.Exceptions;
-using Cine.Shared.IoC.Dispatchers;
-using Cine.Shared.IoC.Modules;
 using Convey;
 using Convey.Logging;
 using Convey.WebApi;
@@ -26,22 +24,17 @@ namespace Cine.Bootstrapper
             => WebHost.CreateDefaultBuilder(args)
                 .ConfigureServices(services => services
                     .AddConvey()
-                    .AddSharedModule()
                     .AddMoviesModule()
                     .AddCinemasModule()
                     .AddSchedulesModule()
                     .AddSchedulesModule()
-                    .AddModuleRequests()
+                    .AddSharedModule()
                     .AddWebApi()
-                    .AddAppTypesEventDispatcher()
-                    .AddErrorHandling()
                     .Build())
-                .Configure(app => app
-                    .UseSharedModule()
-                    .UseMoviesModule()
+                .Configure(app => app.UseMoviesModule()
                     .UseCinemasModule()
                     .UseSchedulesModule()
-                    .UseErrorHandling()
+                    .UseSharedModule()
                     .UseRouting()
                     .UseEndpoints(endpoints => endpoints.MapControllers()))
                 .UseLogging();
