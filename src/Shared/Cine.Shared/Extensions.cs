@@ -2,7 +2,6 @@ using Cine.Shared.Events;
 using Cine.Shared.Exceptions;
 using Cine.Shared.MessageBrokers;
 using Cine.Shared.Modules;
-using Cine.Shared.Types;
 using Convey;
 using Convey.CQRS.Events;
 using Microsoft.AspNetCore.Builder;
@@ -17,10 +16,8 @@ namespace Cine.Shared
             builder
                 .AddInMemoryEventDispatcher()
                 .AddModuleRequests()
-                .AddAppTypesRegistry()
                 .AddErrorHandling();
 
-            builder.Services.Decorate<IEventDispatcher, AppTypesEventDispatcherDecorator>();
             builder.Services.AddTransient<IMessageBroker, MessageBroker>();
             builder.Services.AddTransient<IEventMapperCompositionRoot, EventMapperCompositionRoot>();
             builder.Services.AddTransient<IEventProcessor, EventProcessor>();

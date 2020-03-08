@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace Cine.Shared.Modules
 {
-    public class ModuleRequestRegistration
+    internal sealed  class ModuleRequestRegistration
     {
-        public Type ReceiverRequestType { get; set; }
+        public Type ReceiverType { get; set; }
         public Func<object, Task<object>> Action { get; set; }
     }
 }

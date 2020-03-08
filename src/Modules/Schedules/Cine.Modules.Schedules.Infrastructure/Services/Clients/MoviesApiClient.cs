@@ -9,9 +9,9 @@ namespace Cine.Modules.Schedules.Infrastructure.Services.Clients
 {
     internal sealed class MoviesApiClient : IMoviesApiClient
     {
-        private readonly IModuleRequestClient _client;
+        private readonly IModuleClient _client;
 
-        public MoviesApiClient(IModuleRequestClient client)
+        public MoviesApiClient(IModuleClient client)
             => _client = client;
 
         public Task<MovieDto> GetAsync(MovieId movieId)
