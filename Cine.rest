@@ -139,3 +139,6 @@ Content-Type: application/json
     "from" : "2020-01-10",
     "to" : "2020-01-20"
 }
+
+###
+GET {{url}}/schedules/weekly?cinemId={{cinemaId}}&movieId={{movieId}}
