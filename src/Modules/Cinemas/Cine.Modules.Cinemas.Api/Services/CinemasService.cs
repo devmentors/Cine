@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cine.Modules.Cinemas.Api.DTO;
 using Cine.Modules.Cinemas.Api.Events;
+using Cine.Modules.Cinemas.Api.Exceptions;
 using Cine.Modules.Cinemas.Api.Mongo;
 using Cine.Modules.Cinemas.Api.Mongo.Documents;
 using Cine.Shared.MessageBrokers;
@@ -42,9 +43,15 @@ namespace Cine.Modules.Cinemas.Api.Services
 
         public async Task CreateAsync(CinemaDto dto)
         {
-            await _repository.AddAsync(dto.AsDocument());
+            var alreadyExists = await _repository.ExistsAsync(c => c.Id == dto.Id);
+
+            if (alreadyExists)
+            {
+                throw new CinemaAlreadyExistsException(dto.Id);
+            }
 
             var events = dto.Halls.Select(h => new HallAdded(dto.Id, h.Id));
+            await _repository.AddAsync(dto.AsDocument());
             await _broker.PublishAsync(events);
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cine.Modules.Movies.Api.DTO;
+using Cine.Modules.Movies.Api.Exceptions;
 using Cine.Modules.Movies.Api.Mongo;
 using Cine.Modules.Movies.Api.Mongo.Documents;
 using Convey.Persistence.MongoDB;
@@ -37,8 +38,17 @@ namespace Cine.Modules.Movies.Api.Services
             return documents.Select(d => d.AsDto());
         }
 
-        public Task CreateAsync(MovieDto dto)
-            => _repository.AddAsync(dto.AsDocument());
+        public async Task CreateAsync(MovieDto dto)
+        {
+            var alreadyExists = await _repository.ExistsAsync(m => m.Id == dto.Id);
+
+            if(alreadyExists)
+            {
+                throw new MovieAlreadyExistsException(dto.Id);
+
+            }
+            await _repository.AddAsync(dto.AsDocument());
+        }
 
         public Task UpdateAsync(MovieDto dto)
             => _repository.UpdateAsync(dto.AsDocument());
