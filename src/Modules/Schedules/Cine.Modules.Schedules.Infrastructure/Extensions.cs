@@ -1,7 +1,9 @@
 using System;
+using Cine.Modules.Schedules.Application.Services;
 using Cine.Modules.Schedules.Application.Services.Clients;
 using Cine.Modules.Schedules.Core.Repositories;
 using Cine.Modules.Schedules.Infrastructure.Mongo.Documents;
+using Cine.Modules.Schedules.Infrastructure.Mongo.QueryServices;
 using Cine.Modules.Schedules.Infrastructure.Mongo.Repositories;
 using Cine.Modules.Schedules.Infrastructure.Services.Clients;
 using Convey;
@@ -18,6 +20,7 @@ namespace Cine.Modules.Schedules.Infrastructure
             builder.Services.AddTransient<IHallsRepository, HallsRepository>();
             builder.Services.AddTransient<IScheduleSchemasRepository, ScheduleSchemasRepository>();
             builder.Services.AddTransient<ISchedulesRepository, SchedulesRepository>();
+            builder.Services.AddTransient<ISchedulesQueryService, SchedulesQueryService>();
             builder.Services.AddTransient<IMoviesApiClient, MoviesApiClient>();
 
             return builder

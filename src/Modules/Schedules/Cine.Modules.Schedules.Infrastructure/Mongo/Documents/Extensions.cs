@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cine.Modules.Schedules.Application.DTO;
 using Cine.Modules.Schedules.Core.Aggregates;
 using Cine.Modules.Schedules.Core.Entities;
 using Cine.Modules.Schedules.Core.Types;
@@ -16,9 +17,6 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
                 Id = hall.Id,
                 CinemaId = hall.CinemaId
             };
-
-        public static Hall AsEntity(this HallDocument document)
-            => new Hall(document.Id, document.CinemaId);
 
         public static ScheduleSchemaDocument AsDocument(this ScheduleSchema schema)
             => new ScheduleSchemaDocument
@@ -36,9 +34,6 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
                 })
             };
 
-        public static ScheduleSchema AsEntity(this ScheduleSchemaDocument document)
-            => new ScheduleSchema(document.Id, document.CinemaId, new ScheduleSchemaTimes(document.Times.AsEntity()));
-
         public static ScheduleDocument AsDocument(this Schedule entity)
             => new ScheduleDocument
             {
@@ -52,6 +47,12 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
                 })
             };
 
+        public static Hall AsEntity(this HallDocument document)
+            => new Hall(document.Id, document.CinemaId);
+
+        public static ScheduleSchema AsEntity(this ScheduleSchemaDocument document)
+            => new ScheduleSchema(document.Id, document.CinemaId, new ScheduleSchemaTimes(document.Times.AsEntity()));
+
         public static Schedule AsEntity(this ScheduleDocument document)
         {
             var reservations = document.Reservations
@@ -59,6 +60,19 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
 
             return new Schedule(document.Id, document.CinemaId, document.MovieId, reservations);
         }
+
+        public static ScheduleDto AsDto(this ScheduleDocument document)
+            => new ScheduleDto
+            {
+                Id = document.Id,
+                CinemaId = document.CinemaId,
+                MovieId = document.MovieId,
+                Reservations = document.Reservations.Select(r => new ReservationDto
+                {
+                    HallId = r.HallId,
+                    DateTime = r.DateTime
+                })
+            };
 
         private static ScheduleSchemaTimes AsEntity(this IEnumerable<ScheduleSchemaTimesDocument> document)
             => new ScheduleSchemaTimes(document.Select(d =>
