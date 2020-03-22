@@ -40,7 +40,7 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
                 Id = entity.Id,
                 CinemaId = entity.CinemaId,
                 MovieId = entity.MovieId,
-                Reservations = entity.Reservations.Select(r => new ReservationDocument
+                Reservations = entity.Shows.Select(r => new ReservationDocument
                 {
                     HallId = r.HallId,
                     DateTime = r.Date.AddHours(r.Time.Hour).AddMinutes(r.Time.Minute)
@@ -56,7 +56,7 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
         public static Schedule AsEntity(this ScheduleDocument document)
         {
             var reservations = document.Reservations
-                .Select(r => new Reservation(r.HallId, r.DateTime.Date, new Time(r.DateTime.Hour, r.DateTime.Minute)));
+                .Select(r => new Show(r.HallId, r.DateTime.Date, new Time(r.DateTime.Hour, r.DateTime.Minute)));
 
             return new Schedule(document.Id, document.CinemaId, document.MovieId, reservations);
         }

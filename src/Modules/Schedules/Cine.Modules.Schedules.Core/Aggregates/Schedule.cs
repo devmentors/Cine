@@ -10,16 +10,16 @@ namespace Cine.Modules.Schedules.Core.Aggregates
     {
         public CinemaId CinemaId { get; private set; }
         public MovieId MovieId { get; private set; }
-        public ISet<Reservation> Reservations => _reservations;
+        public ISet<Show> Shows => _shows;
 
-        private readonly HashSet<Reservation> _reservations;
+        private readonly HashSet<Show> _shows;
 
-        public Schedule(EntityId id, CinemaId cinemaId, MovieId movieId, IEnumerable<Reservation> reservations = null)
+        public Schedule(EntityId id, CinemaId cinemaId, MovieId movieId, IEnumerable<Show> reservations = null)
             : base(id)
         {
             CinemaId = cinemaId;
             MovieId = movieId;
-            _reservations = reservations is null ? new HashSet<Reservation>() : reservations.ToHashSet();
+            _shows = reservations is null ? new HashSet<Show>() : reservations.ToHashSet();
         }
 
         public static Schedule Create(EntityId id, CinemaId cinemaId, MovieId movieId)
@@ -28,29 +28,29 @@ namespace Cine.Modules.Schedules.Core.Aggregates
             return schedule;
         }
 
-        public void AddReservation(Reservation reservation)
+        public void AddShow(Show show)
         {
-            if (reservation is null)
+            if (show is null)
             {
-                throw new EmptyReservationException(Id);
+                throw new EmptyShowException(Id);
             }
 
-            var hasCollidingReservation = _reservations
-                .Any(r => r.Date.Date == reservation.Date && r.Time == reservation.Time);
+            var hasCollidingReservation = _shows
+                .Any(r => r.Date.Date == show.Date && r.Time == show.Time);
 
             if (hasCollidingReservation)
             {
-                throw new CollidingScheduleReservationException(Id, reservation.Date, reservation.Time);
+                throw new CollidingScheduleShowException(Id, show.Date, show.Time);
             }
 
-            _reservations.Add(reservation);
+            _shows.Add(show);
         }
 
-        public void AddReservations(IEnumerable<Reservation> reservations)
+        public void AddShows(IEnumerable<Show> shows)
         {
-            foreach (var reservation in reservations)
+            foreach (var reservation in shows)
             {
-                AddReservation(reservation);
+                AddShow(reservation);
             }
         }
     }

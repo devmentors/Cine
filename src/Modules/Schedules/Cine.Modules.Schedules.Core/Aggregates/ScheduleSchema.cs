@@ -19,15 +19,15 @@ namespace Cine.Modules.Schedules.Core.Aggregates
 
         public void ChangeTimes(ScheduleSchemaTimes times)
         {
-            var duplicatedAges = times
+            var duplicatedTimes = times
                 .GroupBy(h => h.ageRestriction)
                 .Where(g => g.Count() > 1)
                 .Select(g => g.Key)
                 .ToList();
 
-            if (duplicatedAges.Any())
+            if (duplicatedTimes.Any())
             {
-                throw new DuplicatedScheduleTimeException(duplicatedAges);
+                throw new DuplicatedScheduleTimeException(duplicatedTimes);
             }
 
             Times = times;

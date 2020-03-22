@@ -16,7 +16,7 @@ namespace Cine.Modules.Schedules.Core.Policies
         private readonly IScheduleSchemasRepository _scheduleSchemasRepository;
         private readonly ISchedulesRepository _schedulesRepository;
         private readonly IHallsRepository _hallsRepository;
-        private const short ReservationLength = 4;
+        private const short ShowLength = 4;
 
         public SchedulePolicy(IScheduleSchemasRepository scheduleSchemasRepository,
             ISchedulesRepository schedulesRepository, IHallsRepository hallsRepository)
@@ -49,7 +49,7 @@ namespace Cine.Modules.Schedules.Core.Policies
             var schedules = await _schedulesRepository.GetAsync();
             var schedule = Schedule.Create(id, cinemaId, movieId);
 
-            var reservations = schedules.SelectMany(s => s.Reservations);
+            var shows = schedules.SelectMany(s => s.Shows);
 
             var dates = Enumerable.Range(0, 1 + to.Subtract(from).Days)
                 .Select(offset => from.AddDays(offset))
@@ -57,43 +57,43 @@ namespace Cine.Modules.Schedules.Core.Policies
 
             var halls = await _hallsRepository.GetAsync(cinemaId);
 
-            var generatedReservations = dates.SelectMany(d =>
-                GenerateReservationsForDay(d, movieId, reservations.ToList(), times.ToList(), halls.ToList()));
+            var generatedShows = dates.SelectMany(d =>
+                GenerateShowsForDay(d, movieId, shows.ToList(), times.ToList(), halls.ToList()));
 
-            schedule.AddReservations(generatedReservations);
+            schedule.AddShows(generatedShows);
             return schedule;
         }
 
-        private static IEnumerable<Reservation> GenerateReservationsForDay(DateTime date, MovieId movieId,
-            List<Reservation> reservations, List<Time> times, List<Hall> halls)
+        private static IEnumerable<Show> GenerateShowsForDay(DateTime date, MovieId movieId,
+            List<Show> shows, List<Time> times, List<Hall> halls)
         {
-            var generatedReservations = new List<Reservation>();
+            var generatedShows = new List<Show>();
 
             foreach (var time in times)
             {
                 foreach (var hall in halls)
                 {
-                    var hasCollidingReservations = reservations.Any(r =>
-                        r.Date.Date == date.Date && r.HallId == hall.Id && r.Time.CollidesOnPeriod(time, ReservationLength));
+                    var collidingShows = shows.Any(r =>
+                        r.Date.Date == date.Date && r.HallId == hall.Id && r.Time.CollidesOnPeriod(time, ShowLength));
 
-                    if (hasCollidingReservations)
+                    if (collidingShows)
                     {
                         continue;
                     }
 
-                    generatedReservations.Add(new Reservation(hall.Id.Value, date, time));
+                    generatedShows.Add(new Show(hall.Id.Value, date, time));
                     break;
                 }
             }
 
-            var hasNotReservedHour = times.Any(t => !generatedReservations.Select(r => r.Time).Contains(t));
+            var hasNotReservedHour = times.Any(t => !generatedShows.Select(r => r.Time).Contains(t));
 
             if (hasNotReservedHour)
             {
-                throw new ImpossibleScheduleReservationException(movieId, date);
+                throw new ImpossibleScheduleShowsException(movieId, date);
             }
 
-            return generatedReservations;
+            return generatedShows;
         }
     }
 }
