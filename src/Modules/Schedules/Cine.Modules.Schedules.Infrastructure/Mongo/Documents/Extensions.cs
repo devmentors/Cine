@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cine.Modules.Schedules.Application.DTO;
@@ -40,10 +39,10 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
                 Id = entity.Id,
                 CinemaId = entity.CinemaId,
                 MovieId = entity.MovieId,
-                Reservations = entity.Shows.Select(r => new ReservationDocument
+                Shows = entity.Shows.Select(s => new ShowDocument
                 {
-                    HallId = r.HallId,
-                    DateTime = r.Date.AddHours(r.Time.Hour).AddMinutes(r.Time.Minute)
+                    HallId = s.HallId,
+                    DateTime = s.Date.AddHours(s.Time.Hour).AddMinutes(s.Time.Minute)
                 })
             };
 
@@ -55,10 +54,10 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
 
         public static Schedule AsEntity(this ScheduleDocument document)
         {
-            var reservations = document.Reservations
-                .Select(r => new Show(r.HallId, r.DateTime.Date, new Time(r.DateTime.Hour, r.DateTime.Minute)));
+            var shows = document.Shows
+                .Select(s => new Show(s.HallId, s.DateTime.Date, new Time(s.DateTime.Hour, s.DateTime.Minute)));
 
-            return new Schedule(document.Id, document.CinemaId, document.MovieId, reservations);
+            return new Schedule(document.Id, document.CinemaId, document.MovieId, shows);
         }
 
         public static ScheduleDto AsDto(this ScheduleDocument document)
@@ -67,10 +66,10 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
                 Id = document.Id,
                 CinemaId = document.CinemaId,
                 MovieId = document.MovieId,
-                Reservations = document.Reservations.Select(r => new ReservationDto
+                Shows = document.Shows.Select(s => new ShowDto
                 {
-                    HallId = r.HallId,
-                    DateTime = r.DateTime
+                    HallId = s.HallId,
+                    DateTime = s.DateTime
                 })
             };
 

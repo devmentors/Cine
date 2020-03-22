@@ -25,7 +25,7 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.QueryServices
             }
 
             var dto = document.AsDto();
-            dto.Reservations = dto.Reservations.Where(r => r.DateTime <= DateTime.UtcNow.AddDays(7));
+            dto.Shows = dto.Shows.Where(r => r.DateTime <= DateTime.UtcNow.AddDays(7));
             return dto;
         }
     }

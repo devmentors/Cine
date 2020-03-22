@@ -9,6 +9,6 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
         public Guid Id { get; set; }
         public Guid CinemaId { get; set; }
         public Guid MovieId { get; set; }
-        public IEnumerable<ReservationDocument> Reservations { get; set; }
+        public IEnumerable<ShowDocument> Shows { get; set; }
     }
 }

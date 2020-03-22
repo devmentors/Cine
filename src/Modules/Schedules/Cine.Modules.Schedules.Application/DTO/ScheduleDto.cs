@@ -8,6 +8,6 @@ namespace Cine.Modules.Schedules.Application.DTO
         public Guid Id { get; set; }
         public Guid CinemaId { get; set; }
         public Guid MovieId { get; set; }
-        public IEnumerable<ReservationDto> Reservations { get; set; }
+        public IEnumerable<ShowDto> Shows { get; set; }
     }
 }
