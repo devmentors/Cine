@@ -3,6 +3,7 @@ using Cine.Modules.Schedules.Application.Exceptions;
 using Cine.Modules.Schedules.Application.Services.Clients;
 using Cine.Modules.Schedules.Core.Policies;
 using Cine.Modules.Schedules.Core.Repositories;
+using Cine.Shared.Events;
 using Convey.CQRS.Commands;
 
 namespace Cine.Modules.Schedules.Application.Commands.Handlers
@@ -12,12 +13,15 @@ namespace Cine.Modules.Schedules.Application.Commands.Handlers
         private readonly IMoviesApiClient _client;
         private readonly ISchedulePolicy _policy;
         private readonly ISchedulesRepository _repository;
+        private readonly IEventProcessor _processor;
 
-        public GenerateScheduleHandler(IMoviesApiClient client, ISchedulePolicy policy, ISchedulesRepository repository)
+        public GenerateScheduleHandler(IMoviesApiClient client, ISchedulePolicy policy, ISchedulesRepository repository,
+            IEventProcessor processor)
         {
             _client = client;
             _policy = policy;
             _repository = repository;
+            _processor = processor;
         }
 
         public async Task HandleAsync(GenerateSchedule command)
@@ -40,6 +44,7 @@ namespace Cine.Modules.Schedules.Application.Commands.Handlers
                 command.From, command.To, movie.AgeRestriction);
 
             await _repository.AddAsync(schedule);
+            await _processor.ProcessAsync(schedule.DomainEvents);
         }
     }
 }

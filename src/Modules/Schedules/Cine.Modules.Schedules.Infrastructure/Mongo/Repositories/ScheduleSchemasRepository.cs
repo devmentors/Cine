@@ -23,6 +23,9 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Repositories
             return document?.AsEntity();
         }
 
+        public Task<bool> ExistsAsync(CinemaId cinemaId)
+            => _repository.ExistsAsync(ss => ss.CinemaId == cinemaId);
+
         public Task AddAsync(ScheduleSchema schema)
             => _repository.AddAsync(schema.AsDocument());
 
