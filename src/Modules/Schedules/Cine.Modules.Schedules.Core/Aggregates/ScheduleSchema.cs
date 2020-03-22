@@ -1,4 +1,5 @@
 using System.Linq;
+using Cine.Modules.Schedules.Core.Events;
 using Cine.Modules.Schedules.Core.Exceptions;
 using Cine.Modules.Schedules.Core.Types;
 using Cine.Shared.BuildingBlocks;
@@ -17,6 +18,13 @@ namespace Cine.Modules.Schedules.Core.Aggregates
             Times = times;
         }
 
+        public static ScheduleSchema Create(EntityId id, CinemaId cinemaId, ScheduleSchemaTimes times)
+        {
+            var schema = new ScheduleSchema(id, cinemaId, times);
+            schema.AddDomainEvent(new ScheduleSchemaAdded(schema));
+            return schema;
+        }
+
         public void ChangeTimes(ScheduleSchemaTimes times)
         {
             var duplicatedTimes = times
@@ -31,6 +39,7 @@ namespace Cine.Modules.Schedules.Core.Aggregates
             }
 
             Times = times;
+            AddDomainEvent(new ScheduleSchemaTimesChanged(this, times));
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Cine.Modules.Schedules.Application.Commands.Handlers
 
         public async Task HandleAsync(CreateScheduleSchema command)
         {
-            var scheduleSchema = new ScheduleSchema(command.Id, command.CinemaId, command.Times.AsScheduleSchemaTimes());
+            var scheduleSchema = ScheduleSchema.Create(command.Id, command.CinemaId, command.Times.AsScheduleSchemaTimes());
             await _repository.AddAsync(scheduleSchema);
         }
     }

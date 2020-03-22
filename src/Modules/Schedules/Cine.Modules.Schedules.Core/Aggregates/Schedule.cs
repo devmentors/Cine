@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Cine.Modules.Schedules.Core.Events;
 using Cine.Modules.Schedules.Core.Exceptions;
 using Cine.Modules.Schedules.Core.ValueObjects;
 using Cine.Shared.BuildingBlocks;
@@ -25,6 +26,7 @@ namespace Cine.Modules.Schedules.Core.Aggregates
         public static Schedule Create(EntityId id, CinemaId cinemaId, MovieId movieId)
         {
             var schedule = new Schedule(id, cinemaId, movieId);
+            schedule.AddDomainEvent(new ScheduleAdded(schedule));
             return schedule;
         }
 
@@ -44,6 +46,7 @@ namespace Cine.Modules.Schedules.Core.Aggregates
             }
 
             _shows.Add(show);
+            AddDomainEvent(new ShowAdded(this, show));
         }
 
         public void AddShows(IEnumerable<Show> shows)
