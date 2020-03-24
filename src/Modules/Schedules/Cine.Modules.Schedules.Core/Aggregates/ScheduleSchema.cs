@@ -22,6 +22,7 @@ namespace Cine.Modules.Schedules.Core.Aggregates
         {
             var schema = new ScheduleSchema(id, cinemaId, times);
             schema.AddDomainEvent(new ScheduleSchemaAdded(schema));
+            schema.Version = 1;
             return schema;
         }
 

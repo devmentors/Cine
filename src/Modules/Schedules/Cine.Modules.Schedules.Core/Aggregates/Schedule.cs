@@ -28,6 +28,7 @@ namespace Cine.Modules.Schedules.Core.Aggregates
         {
             var schedule = new Schedule(id, cinemaId, movieId);
             schedule.AddDomainEvent(new ScheduleAdded(schedule));
+            schedule.Version = 1;
             return schedule;
         }
 

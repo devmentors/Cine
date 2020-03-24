@@ -18,7 +18,7 @@ namespace Cine.Reservations.Application.Commands.Handlers
 
         public Task HandleAsync(CreateReservation command)
         {
-            throw new System.NotImplementedException();
+            var
         }
     }
 }
