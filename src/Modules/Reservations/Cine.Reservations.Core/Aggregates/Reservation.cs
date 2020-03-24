@@ -29,11 +29,12 @@ namespace Cine.Reservations.Core.Aggregates
             Version = version ?? 1;
         }
 
-        public static Reservation Create(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, decimal price,
-            string row, int number, bool isVip)
+        public static Reservation Create(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId,
+            decimal price, bool isPaymentUponArrival, string row, int number, bool isVip)
         {
             var seat = new Seat(row, number, isVip);
-            var reservation = new Reservation(id, cinemaId, movieId, hallId, price, seat, ReservationStatus.Pending);
+            var status = isPaymentUponArrival ? ReservationStatus.PaymentUponArrival : ReservationStatus.Pending;
+            var reservation = new Reservation(id, cinemaId, movieId, hallId, price, seat, status);
             reservation.ClearEvents();
             reservation.AddDomainEvent(new ReservationAdded(reservation));
             return reservation;
@@ -58,6 +59,11 @@ namespace Cine.Reservations.Core.Aggregates
 
         public void ChangeStatus(ReservationStatus status)
         {
+            if (Status is ReservationStatus.Paid || Status is ReservationStatus.Canceled)
+            {
+                throw new InvalidReservationStateException(Id);
+            }
+
             Status = status;
             AddDomainEvent(new ReservationStatusChanged(this, status));
         }

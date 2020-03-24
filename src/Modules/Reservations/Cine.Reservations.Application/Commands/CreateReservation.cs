@@ -9,18 +9,20 @@ namespace Cine.Reservations.Application.Commands
         public Guid CinemaId { get; }
         public Guid MovieId { get; }
         public Guid HallId { get; }
+        public bool IsPaymentUponArrival { get; }
         public string Row { get; }
         public int Number { get; }
         public decimal Price { get; }
         public bool IsVip { get; }
 
-        public CreateReservation(Guid id, Guid cinemaId, Guid movieId, Guid hallId, string row, int number,
-            decimal price, bool isVip)
+        public CreateReservation(Guid id, Guid cinemaId, Guid movieId, Guid hallId, bool isPaymentUponArrival,
+            string row, int number, decimal price, bool isVip)
         {
             Id = id;
             CinemaId = cinemaId;
             MovieId = movieId;
             HallId = hallId;
+            IsPaymentUponArrival = isPaymentUponArrival;
             Row = row;
             Number = number;
             Price = price;

@@ -21,7 +21,7 @@ namespace Cine.Reservations.Application.Commands.Handlers
         public async Task HandleAsync(CreateReservation command)
         {
             var reservation = Reservation.Create(command.Id, command.CinemaId, command.MovieId, command.HallId,
-                command.Price, command.Row, command.Number, command.IsVip);
+                command.Price, command.IsPaymentUponArrival, command.Row, command.Number, command.IsVip);
 
             var alreadyExists = await _repository.ExistsAsync(reservation.Key);
 
