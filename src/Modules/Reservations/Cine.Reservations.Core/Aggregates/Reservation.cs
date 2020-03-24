@@ -14,6 +14,7 @@ namespace Cine.Reservations.Core.Aggregates
         public decimal Price { get; private set; }
         public Seat Seat { get; private set; }
         public ReservationStatus Status { get; private set; }
+        public ReservationKey Key { get; }
 
         public Reservation(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, decimal price, Seat seat,
             ReservationStatus status, int? version = null) : base(id)
@@ -24,11 +25,14 @@ namespace Cine.Reservations.Core.Aggregates
             ChangePrice(price);
             ChangeSeat(seat);
             ChangeStatus(status);
+            Key = new ReservationKey(CinemaId, MovieId, HallId, Seat.Row, Seat.Number);
             Version = version ?? 1;
         }
 
-        public static Reservation Create(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, decimal price, Seat seat)
+        public static Reservation Create(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, decimal price,
+            string row, int number, bool isVip)
         {
+            var seat = new Seat(row, number, isVip);
             var reservation = new Reservation(id, cinemaId, movieId, hallId, price, seat, ReservationStatus.Pending);
             reservation.ClearEvents();
             reservation.AddDomainEvent(new ReservationAdded(reservation));
