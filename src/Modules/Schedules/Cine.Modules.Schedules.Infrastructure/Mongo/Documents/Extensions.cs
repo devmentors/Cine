@@ -30,7 +30,8 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
                         Hour = t.Hour,
                         Minute = t.Minute
                     })
-                })
+                }),
+
             };
 
         public static ScheduleDocument AsDocument(this Schedule entity)

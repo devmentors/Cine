@@ -10,5 +10,6 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
         public Guid Id { get; set; }
         public Guid CinemaId { get; set; }
         public IEnumerable<ScheduleSchemaTimesDocument> Times { get; set; }
+        public int Version { get; set; }
     }
 }

@@ -15,12 +15,13 @@ namespace Cine.Modules.Schedules.Core.Aggregates
 
         private readonly HashSet<Show> _shows;
 
-        public Schedule(EntityId id, CinemaId cinemaId, MovieId movieId, IEnumerable<Show> reservations = null)
+        public Schedule(EntityId id, CinemaId cinemaId, MovieId movieId, IEnumerable<Show> shows = null, int? version = null)
             : base(id)
         {
             CinemaId = cinemaId;
             MovieId = movieId;
-            _shows = reservations is null ? new HashSet<Show>() : reservations.ToHashSet();
+            _shows = shows is null ? new HashSet<Show>() : shows.ToHashSet();
+            Version = version ?? 1;
         }
 
         public static Schedule Create(EntityId id, CinemaId cinemaId, MovieId movieId)
