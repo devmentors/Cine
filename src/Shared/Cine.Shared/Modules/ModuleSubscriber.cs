@@ -10,9 +10,9 @@ namespace Cine.Shared.Modules
         public ModuleSubscriber(IModuleRegistry registry)
             => _registry = registry;
 
-        public IModuleSubscriber Subscribe<TRequest>(string path, Func<TRequest, Task<object>> action) where TRequest : class
+        public IModuleSubscriber Subscribe<TRequest>(string path, Func<IServiceProvider, TRequest, Task<object>> action) where TRequest : class
         {
-            if (!_registry.TryAddRequestAction(path, typeof(TRequest), o => action((TRequest)o)))
+            if (!_registry.TryAddRequestAction(path, typeof(TRequest), (sp, o) => action(sp, (TRequest)o)))
             {
                 throw new Exception();
             }

@@ -28,9 +28,9 @@ namespace Cine.Modules.Movies.Api
         {
              app
                  .UseModuleRequests()
-                 .Subscribe<MovieModuleRequest>("modules/movies/details", async request =>
+                 .Subscribe<MovieModuleRequest>("modules/movies/details", async (sp, request) =>
                  {
-                     var service = app.ApplicationServices.GetService<IMoviesService>();
+                     var service = sp.GetService<IMoviesService>();
                      return await service.GetAsync(request.MovieId);
                  });
 

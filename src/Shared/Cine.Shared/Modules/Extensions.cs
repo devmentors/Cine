@@ -31,18 +31,20 @@ namespace Cine.Shared.Modules
                 .Where(t => t.IsClass && typeof(IEvent).IsAssignableFrom(t))
                 .ToList();
 
-            builder.Services.AddSingleton<IModuleRegistry>(sp =>
+            builder.Services.AddSingleton<IModuleRegistry>(_ =>
             {
                 var registry = new ModuleRegistry();
-                var dispatcher = sp.GetService<IEventDispatcher>();
 
                 foreach (var type in eventTypes)
                 {
-                    registry.AddBroadcastAction(type, @event =>
-                        (Task)dispatcher.GetType()
+                    registry.AddBroadcastAction(type, (sp, @event) =>
+                    {
+                        var dispatcher = sp.GetService<IEventDispatcher>();
+                        return (Task)dispatcher.GetType()
                             .GetMethod(nameof(dispatcher.PublishAsync))
                             .MakeGenericMethod(type)
-                            .Invoke(dispatcher, new[] { @event}));
+                            .Invoke(dispatcher, new[] {@event});
+                    });
                 }
 
                 return registry;

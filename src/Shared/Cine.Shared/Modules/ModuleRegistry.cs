@@ -22,7 +22,7 @@ namespace Cine.Shared.Modules
         public IEnumerable<ModuleBroadcastRegistration> GetBroadcastRegistration(string path)
             => _broadcastActions.Where(r => r.Path == path);
 
-        public bool TryAddRequestAction(string path, Type receiverType, Func<object, Task<object>> action)
+        public bool TryAddRequestAction(string path, Type receiverType, Func<IServiceProvider, object, Task<object>> action)
         {
             var registration = new ModuleRequestRegistration
             {
@@ -33,7 +33,7 @@ namespace Cine.Shared.Modules
             return _requestActions.TryAdd(path, registration);
         }
 
-        public void AddBroadcastAction(Type receiverType, Func<object, Task> action)
+        public void AddBroadcastAction(Type receiverType, Func<IServiceProvider, object, Task> action)
         {
             var registration = new ModuleBroadcastRegistration
             {

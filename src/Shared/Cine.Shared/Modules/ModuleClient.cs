@@ -8,10 +8,14 @@ namespace Cine.Shared.Modules
 {
     internal sealed class ModuleClient : IModuleClient
     {
+        private readonly IServiceProvider _serviceProvider;
         private readonly IModuleRegistry _moduleRegistry;
 
-        public ModuleClient(IModuleRegistry moduleRegistry)
-            => _moduleRegistry = moduleRegistry;
+        public ModuleClient(IServiceProvider serviceProvider, IModuleRegistry moduleRegistry)
+        {
+            _serviceProvider = serviceProvider;
+            _moduleRegistry = moduleRegistry;
+        }
 
         public async Task<TResult> GetAsync<TResult>(string path, object moduleRequest) where TResult : class
         {
@@ -25,7 +29,7 @@ namespace Cine.Shared.Modules
             var action = registration.Action;
             var receiverRequest = TranslateType(moduleRequest, registration.ReceiverType);
 
-            var result = await action(receiverRequest);
+            var result = await action(_serviceProvider, receiverRequest);
             var resultJson = JsonConvert.SerializeObject(result);
 
             return JsonConvert.DeserializeObject<TResult>(resultJson);
@@ -43,7 +47,7 @@ namespace Cine.Shared.Modules
             {
                 var action = registration.Action;
                 var receiverBroadcast = TranslateType(moduleBroadcast, registration.ReceiverType);
-                tasks.Add(action(receiverBroadcast));
+                tasks.Add(action(_serviceProvider, receiverBroadcast));
             }
 
             await Task.WhenAll(tasks);
