@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\Cine.Shared.Kernel\Cine.Shared.Kernel.csproj" />
       <ProjectReference Include="..\..\..\Shared\Cine.Shared\Cine.Shared.csproj" />
     </ItemGroup>
 
