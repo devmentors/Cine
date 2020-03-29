@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Cine.Reservations.Core.Events;
 using Cine.Reservations.Core.Exceptions;
 using Cine.Reservations.Core.Types;
@@ -8,60 +9,68 @@ namespace Cine.Reservations.Core.Aggregates
 {
     public class Reservation : AggregateRoot
     {
+        private HashSet<Seat> _seats = new HashSet<Seat>();
+        private bool IsCompleted => Status is ReservationStatus.Paid || Status is ReservationStatus.Canceled;
+
         public CinemaId CinemaId { get; }
         public MovieId MovieId { get; }
         public HallId HallId { get; }
-        public decimal Price { get; private set; }
-        public Seat Seat { get; private set; }
         public ReservationStatus Status { get; private set; }
-        public ReservationKey Key { get; private set; }
+        public ISet<Seat> Seats
+        {
+            get => _seats;
+            private set => _seats = new HashSet<Seat>(value);
+        }
 
-        public Reservation(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, decimal price, Seat seat,
-            ReservationStatus status, int? version = null) : base(id)
+        public Reservation(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, ReservationStatus status,
+            IEnumerable<Seat> seats, int? version = null) : base(id)
         {
             CinemaId = cinemaId ?? throw new EmptyReservationCinemaException(id);
             MovieId = movieId ?? throw new EmptyReservationMovieException(id);
             HallId = hallId ?? throw new EmptyReservationHallException(id);
-            ChangePrice(price);
-            ChangeSeat(seat);
+            AddSeats(seats);
             ChangeStatus(status);
             Version = version ?? 1;
         }
 
         public static Reservation Create(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId,
-            decimal price, bool isPaymentUponArrival, string row, int number, bool isVip)
+            bool isPaymentUponArrival, IEnumerable<Seat> seats)
         {
-            var seat = new Seat(row, number, isVip);
             var status = isPaymentUponArrival ? ReservationStatus.PaymentUponArrival : ReservationStatus.Pending;
-            var reservation = new Reservation(id, cinemaId, movieId, hallId, price, seat, status);
+            var reservation = new Reservation(id, cinemaId, movieId, hallId, status, seats);
             reservation.ClearEvents();
             reservation.AddDomainEvent(new ReservationAdded(reservation));
             return reservation;
         }
 
-        public void ChangePrice(decimal price)
+        public void AddSeat(Seat seat)
         {
-            if (price <= 0)
+            _ = seat ?? throw new EmptyReservationSeatException(Id);
+
+            if (IsCompleted)
             {
-                throw new InvalidReservationPriceException(Id);
+                throw new InvalidReservationChangeException(Id, Status);
             }
 
-            Price = price;
-            AddDomainEvent(new ReservationPriceChanged(this, price));
+            if(_seats.Add(seat))
+            {
+                AddDomainEvent(new ReservationSeatChanged(this, seat));
+            }
         }
 
-        public void ChangeSeat(Seat seat)
+        public void AddSeats(IEnumerable<Seat> seats)
         {
-            Seat = seat ?? throw new EmptyReservationSeatException(Id);
-            Key = new ReservationKey(CinemaId, MovieId, HallId, Seat.Row, Seat.Number);
-            AddDomainEvent(new ReservationSeatChanged(this, seat));
+            foreach (var seat in seats)
+            {
+                AddSeat(seat);
+            }
         }
 
         public void ChangeStatus(ReservationStatus status)
         {
-            if (Status is ReservationStatus.Paid || Status is ReservationStatus.Canceled)
+            if (IsCompleted)
             {
-                throw new InvalidReservationStateException(Id);
+                throw new InvalidReservationChangeException(Id, Status);
             }
 
             Status = status;

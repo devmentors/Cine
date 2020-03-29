@@ -14,9 +14,14 @@ namespace Cine.Reservations.Application.Commands
         public int Number { get; }
         public decimal Price { get; }
         public bool IsVip { get; }
+        public bool IsGuest { get; }
+        public string GuestFullName { get; }
+        public string GuestEmail { get; }
+        public string GuestFullNumber { get; }
 
         public CreateReservation(Guid id, Guid cinemaId, Guid movieId, Guid hallId, bool isPaymentUponArrival,
-            string row, int number, decimal price, bool isVip)
+            string row, int number, decimal price, bool isVip, bool isGuest, string guestFullName,
+            string guestEmail, string guestFullNumber)
         {
             Id = id;
             CinemaId = cinemaId;
@@ -27,6 +32,10 @@ namespace Cine.Reservations.Application.Commands
             Number = number;
             Price = price;
             IsVip = isVip;
+            IsGuest = isGuest;
+            GuestFullName = guestFullName;
+            GuestEmail = guestEmail;
+            GuestFullNumber = guestFullNumber;
         }
     }
 }
