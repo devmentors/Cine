@@ -20,18 +20,18 @@ namespace Cine.Reservations.Application.Commands.Handlers
 
         public async Task HandleAsync(CreateReservation command)
         {
-            var reservation = Reservation.Create(command.Id, command.CinemaId, command.MovieId, command.HallId,
-                command.Price, command.IsPaymentUponArrival, command.Row, command.Number, command.IsVip);
+            // var reservation = Reservation.Create(command.Id, command.CinemaId, command.MovieId, command.HallId,
+            //     command.Price, command.IsPaymentUponArrival, command.Row, command.Number, command.IsVip);
 
-            var alreadyExists = await _repository.ExistsAsync(reservation.Key);
-
-            if (alreadyExists)
-            {
-                throw new ReservationAlreadyExistsException(command.MovieId, command.Row, command.Number);
-            }
-
-            await _repository.AddAsync(reservation);
-            await _processor.ProcessAsync(reservation.DomainEvents);
+            // var alreadyExists = await _repository.ExistsAsync(reservation.Key);
+            //
+            // if (alreadyExists)
+            // {
+            //     throw new ReservationAlreadyExistsException(command.MovieId, command.Row, command.Number);
+            // }
+            //
+            // await _repository.AddAsync(reservation);
+            // await _processor.ProcessAsync(reservation.DomainEvents);
         }
     }
 }
