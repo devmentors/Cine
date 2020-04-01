@@ -19,15 +19,15 @@ namespace Cine.Shared.Kernel.ValueObjects
             if (!Regex.IsMatch(phoneNumber, @"^(\+[0-9]{9})$",
                 RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250)))
             {
-                throw new InvalidEmail(phoneNumber);
+                throw new InvalidPhoneNumberException(phoneNumber);
             }
 
             Value = phoneNumber.ToLowerInvariant();
         }
 
-        public static implicit operator string(Email email) => email.Value;
+        public static implicit operator string(PhoneNumber phoneNumber) => phoneNumber.Value;
 
-        public static implicit operator Email(string email) => new Email(email);
+        public static implicit operator PhoneNumber(string phoneNumber) => new PhoneNumber(phoneNumber);
 
         public override string ToString() => Value;
     }

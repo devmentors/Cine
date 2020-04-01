@@ -16,6 +16,7 @@ namespace Cine.Reservations.Core.Aggregates
         public MovieId MovieId { get; }
         public HallId HallId { get; }
         public ReservationStatus Status { get; private set; }
+        public Reservee Reservee { get; private set; }
         public ISet<Seat> Seats
         {
             get => _seats;
@@ -23,24 +24,31 @@ namespace Cine.Reservations.Core.Aggregates
         }
 
         public Reservation(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, ReservationStatus status,
-            IEnumerable<Seat> seats, int? version = null) : base(id)
+            Reservee reservee, IEnumerable<Seat> seats, int? version = null) : base(id)
         {
             CinemaId = cinemaId ?? throw new EmptyReservationCinemaException(id);
             MovieId = movieId ?? throw new EmptyReservationMovieException(id);
             HallId = hallId ?? throw new EmptyReservationHallException(id);
-            AddSeats(seats);
             ChangeStatus(status);
+            ChangeReservee(reservee);
+            AddSeats(seats);
             Version = version ?? 1;
         }
 
         public static Reservation Create(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId,
-            bool isPaymentUponArrival, IEnumerable<Seat> seats)
+            bool isPaymentUponArrival, Reservee reservee, IEnumerable<Seat> seats)
         {
             var status = isPaymentUponArrival ? ReservationStatus.PaymentUponArrival : ReservationStatus.Pending;
-            var reservation = new Reservation(id, cinemaId, movieId, hallId, status, seats);
+            var reservation = new Reservation(id, cinemaId, movieId, hallId, status, reservee, seats);
             reservation.ClearEvents();
             reservation.AddDomainEvent(new ReservationAdded(reservation));
             return reservation;
+        }
+
+        public void ChangeReservee(Reservee reservee)
+        {
+            _ = reservee ?? throw new EmptyReserveeException(Id);
+            Reservee = reservee;
         }
 
         public void AddSeat(Seat seat)
