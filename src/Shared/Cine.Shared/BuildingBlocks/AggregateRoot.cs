@@ -20,9 +20,9 @@ namespace Cine.Shared.BuildingBlocks
         }
 
         private readonly List<IDomainEvent> _domainEvents = new List<IDomainEvent>();
-        public virtual IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents;
+        public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents;
 
-        protected virtual void AddDomainEvent(IDomainEvent newEvent)
+        public void AddDomainEvent(IDomainEvent newEvent)
         {
             if (!_domainEvents.Any())
             {
@@ -32,7 +32,7 @@ namespace Cine.Shared.BuildingBlocks
             _domainEvents.Add(newEvent);
         }
 
-        public virtual void ClearEvents()
+        public void ClearEvents()
             => _domainEvents.Clear();
 
     }

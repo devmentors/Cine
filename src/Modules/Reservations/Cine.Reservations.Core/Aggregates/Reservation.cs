@@ -24,7 +24,8 @@ namespace Cine.Reservations.Core.Aggregates
         }
 
         public Reservation(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, ReservationStatus status,
-            Reservee reservee, IEnumerable<Seat> seats, int? version = null) : base(id)
+            Reservee reservee, IEnumerable<Seat> seats, int? version = null)
+            : base(id)
         {
             CinemaId = cinemaId ?? throw new EmptyReservationCinemaException(id);
             MovieId = movieId ?? throw new EmptyReservationMovieException(id);
@@ -35,16 +36,6 @@ namespace Cine.Reservations.Core.Aggregates
             Version = version ?? 1;
         }
 
-        public static Reservation Create(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId,
-            bool isPaymentUponArrival, Reservee reservee, IEnumerable<Seat> seats)
-        {
-            var status = isPaymentUponArrival ? ReservationStatus.PaymentUponArrival : ReservationStatus.Pending;
-            var reservation = new Reservation(id, cinemaId, movieId, hallId, status, reservee, seats);
-            reservation.ClearEvents();
-            reservation.AddDomainEvent(new ReservationAdded(reservation));
-            return reservation;
-        }
-
         public void ChangeReservee(Reservee reservee)
         {
             _ = reservee ?? throw new EmptyReserveeException(Id);
@@ -52,27 +43,27 @@ namespace Cine.Reservations.Core.Aggregates
         }
 
         public void AddSeat(Seat seat)
-        {
-            _ = seat ?? throw new EmptyReservationSeatException(Id);
-
-            if (IsCompleted)
-            {
-                throw new InvalidReservationChangeException(Id, Status);
-            }
-
-            if(_seats.Add(seat))
-            {
-                AddDomainEvent(new ReservationSeatChanged(this, seat));
-            }
-        }
+            => AddSeats(new[] {seat});
 
         public void AddSeats(IEnumerable<Seat> seats)
         {
             foreach (var seat in seats)
             {
-                AddSeat(seat);
+                _ = seat ?? throw new EmptyReservationSeatException(Id);
+
+                if (IsCompleted)
+                {
+                    throw new InvalidReservationChangeException(Id, Status);
+                }
+
+                if(_seats.Add(seat))
+                {
+                    AddDomainEvent(new ReservationSeatAdded(this, seat));
+                }
             }
         }
+
+        public void RemoveSeat() { }
 
         public void ChangeStatus(ReservationStatus status)
         {
