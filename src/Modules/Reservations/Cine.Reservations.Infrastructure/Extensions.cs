@@ -1,7 +1,9 @@
 using System;
 using Cine.Reservations.Core.Repositories;
+using Cine.Reservations.Core.Services;
 using Cine.Reservations.Infrastructure.Mongo.Documents;
 using Cine.Reservations.Infrastructure.Mongo.Repositories;
+using Cine.Reservations.Infrastructure.Services;
 using Convey;
 using Convey.Persistence.MongoDB;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +16,7 @@ namespace Cine.Reservations.Infrastructure
         public static IConveyBuilder AddInfrastructure(this IConveyBuilder builder)
         {
             builder.Services.AddTransient<IReservationsRepository, ReservationsRepository>();
+            builder.Services.AddTransient<IReserveesService, ReserveesService>();
 
             builder
                 .AddMongo()
