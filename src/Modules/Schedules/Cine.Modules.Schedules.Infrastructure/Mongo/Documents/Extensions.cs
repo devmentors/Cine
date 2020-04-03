@@ -31,34 +31,35 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
                         Minute = t.Minute
                     })
                 }),
-
+                Version = schema.Version
             };
 
-        public static ScheduleDocument AsDocument(this Schedule entity)
+        public static ScheduleDocument AsDocument(this Schedule schedule)
             => new ScheduleDocument
             {
-                Id = entity.Id,
-                CinemaId = entity.CinemaId,
-                MovieId = entity.MovieId,
-                Shows = entity.Shows.Select(s => new ShowDocument
+                Id = schedule.Id,
+                CinemaId = schedule.CinemaId,
+                MovieId = schedule.MovieId,
+                Shows = schedule.Shows.Select(s => new ShowDocument
                 {
                     HallId = s.HallId,
                     DateTime = s.Date.AddHours(s.Time.Hour).AddMinutes(s.Time.Minute)
-                })
+                }),
+                Version = schedule.Version
             };
 
         public static Hall AsEntity(this HallDocument document)
             => new Hall(document.Id, document.CinemaId);
 
         public static ScheduleSchema AsEntity(this ScheduleSchemaDocument document)
-            => new ScheduleSchema(document.Id, document.CinemaId, new ScheduleSchemaTimes(document.Times.AsEntity()));
+            => new ScheduleSchema(document.Id, document.CinemaId, new ScheduleSchemaTimes(document.Times.AsEntity()), document.Version);
 
         public static Schedule AsEntity(this ScheduleDocument document)
         {
             var shows = document.Shows
                 .Select(s => new Show(s.HallId, s.DateTime.Date, new Time(s.DateTime.Hour, s.DateTime.Minute)));
 
-            return new Schedule(document.Id, document.CinemaId, document.MovieId, shows);
+            return new Schedule(document.Id, document.CinemaId, document.MovieId, shows, document.Version);
         }
 
         public static ScheduleDto AsDto(this ScheduleDocument document)

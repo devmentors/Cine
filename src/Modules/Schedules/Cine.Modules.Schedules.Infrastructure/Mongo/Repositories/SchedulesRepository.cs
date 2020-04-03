@@ -8,6 +8,7 @@ using Cine.Modules.Schedules.Core.Repositories;
 using Cine.Modules.Schedules.Infrastructure.Mongo.Documents;
 using Cine.Shared.BuildingBlocks;
 using Convey.Persistence.MongoDB;
+using MongoDB.Driver;
 
 namespace Cine.Modules.Schedules.Infrastructure.Mongo.Repositories
 {
@@ -37,7 +38,8 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Repositories
             => _repository.AddAsync(schedule.AsDocument());
 
         public Task UpdateAsync(Schedule schedule)
-            => _repository.UpdateAsync(schedule.AsDocument());
+            => _repository.Collection.ReplaceOneAsync(s => s.Id == schedule.Id && s.Version < schedule.Version,
+                schedule.AsDocument());
 
         public Task DeleteAsync(EntityId id)
             => _repository.DeleteAsync(id);

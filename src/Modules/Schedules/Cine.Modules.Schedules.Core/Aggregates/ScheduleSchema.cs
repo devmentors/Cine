@@ -11,11 +11,12 @@ namespace Cine.Modules.Schedules.Core.Aggregates
         public CinemaId CinemaId { get; private set; }
         public ScheduleSchemaTimes Times { get; private set; }
 
-        public ScheduleSchema(EntityId id, CinemaId cinemaId, ScheduleSchemaTimes times) : base(id)
+        public ScheduleSchema(EntityId id, CinemaId cinemaId, ScheduleSchemaTimes times, int? version = null) : base(id)
         {
             Id = id;
             CinemaId = cinemaId;
             Times = times;
+            Version = version ?? 1;
         }
 
         public static ScheduleSchema Create(EntityId id, CinemaId cinemaId, ScheduleSchemaTimes times)

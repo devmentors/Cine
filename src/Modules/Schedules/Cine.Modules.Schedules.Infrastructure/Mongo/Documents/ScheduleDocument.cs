@@ -10,5 +10,6 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
         public Guid CinemaId { get; set; }
         public Guid MovieId { get; set; }
         public IEnumerable<ShowDocument> Shows { get; set; }
+        public int Version { get; set; }
     }
 }

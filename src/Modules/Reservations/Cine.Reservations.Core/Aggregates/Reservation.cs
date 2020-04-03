@@ -11,7 +11,6 @@ namespace Cine.Reservations.Core.Aggregates
     {
         private HashSet<Seat> _seats = new HashSet<Seat>();
         private bool IsCompleted => Status is ReservationStatus.Paid || Status is ReservationStatus.Canceled;
-
         public CinemaId CinemaId { get; }
         public MovieId MovieId { get; }
         public HallId HallId { get; }
@@ -43,27 +42,45 @@ namespace Cine.Reservations.Core.Aggregates
         }
 
         public void AddSeat(Seat seat)
-            => AddSeats(new[] {seat});
+        {
+            _ = seat ?? throw new EmptyReservationSeatException(Id);
+
+            if (IsCompleted)
+            {
+                throw new InvalidReservationChangeException(Id, Status);
+            }
+
+            if(_seats.Add(seat))
+            {
+                AddDomainEvent(new ReservationSeatAdded(this, seat));
+            }
+        }
 
         public void AddSeats(IEnumerable<Seat> seats)
         {
             foreach (var seat in seats)
             {
-                _ = seat ?? throw new EmptyReservationSeatException(Id);
-
-                if (IsCompleted)
-                {
-                    throw new InvalidReservationChangeException(Id, Status);
-                }
-
-                if(_seats.Add(seat))
-                {
-                    AddDomainEvent(new ReservationSeatAdded(this, seat));
-                }
+                AddSeat(seat);
             }
         }
 
-        public void RemoveSeat() { }
+        public void RemoveSeat(Seat seat)
+        {
+            if (!_seats.Remove(seat))
+            {
+                return;
+            }
+
+            AddDomainEvent(new ReservationSeatRemoved(this, seat));
+        }
+
+        public void RemoveSeats(IEnumerable<Seat> seats)
+        {
+            foreach (var seat in seats)
+            {
+                RemoveSeat(seat);
+            }
+        }
 
         public void ChangeStatus(ReservationStatus status)
         {

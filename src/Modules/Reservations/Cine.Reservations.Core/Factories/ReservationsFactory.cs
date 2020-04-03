@@ -11,7 +11,7 @@ using Cine.Shared.BuildingBlocks;
 
 namespace Cine.Reservations.Core.Factories
 {
-    internal sealed class ReservationsFactory : IReservationsFactory
+    public sealed class ReservationsFactory : IReservationsFactory
     {
         private readonly IReservationSeatsValidator _validator;
         private readonly IReserveesService _service;
@@ -25,7 +25,7 @@ namespace Cine.Reservations.Core.Factories
         public async Task<Reservation> CreateAsync(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, CustomerId customerId,
             bool isPaymentUponArrival, IEnumerable<Seat> seats, Reservee reservee)
         {
-            var areSeatsValid = await _validator.ValidateAsync(seats);
+            var areSeatsValid = await _validator.ValidateAsync(cinemaId, movieId, hallId, seats);
 
             if (!areSeatsValid)
             {

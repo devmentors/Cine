@@ -6,6 +6,6 @@ namespace Cine.Reservations.Core.Validators
 {
     public interface IReservationSeatsValidator
     {
-        Task<bool> ValidateAsync(IEnumerable<Seat> seats);
+        Task<bool> ValidateAsync(CinemaId cinemaId, MovieId movieId, HallId hallId, IEnumerable<Seat> seats);
     }
 }

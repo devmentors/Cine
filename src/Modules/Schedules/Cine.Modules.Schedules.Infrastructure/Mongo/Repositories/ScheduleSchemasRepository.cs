@@ -6,6 +6,7 @@ using Cine.Modules.Schedules.Core.Entities;
 using Cine.Modules.Schedules.Core.Repositories;
 using Cine.Modules.Schedules.Infrastructure.Mongo.Documents;
 using Convey.Persistence.MongoDB;
+using MongoDB.Driver;
 
 namespace Cine.Modules.Schedules.Infrastructure.Mongo.Repositories
 {
@@ -30,6 +31,7 @@ namespace Cine.Modules.Schedules.Infrastructure.Mongo.Repositories
             => _repository.AddAsync(schema.AsDocument());
 
         public Task UpdateAsync(ScheduleSchema schema)
-            => _repository.UpdateAsync(schema.AsDocument());
+            => _repository.Collection.ReplaceOneAsync(s => s.Id == schema.Id && s.Version < schema.Version,
+                schema.AsDocument());
     }
 }

@@ -1,4 +1,4 @@
-using Cine.Reservations.Core;
+using System;
 using Cine.Shared.Exceptions;
 
 namespace Cine.Reservations.Application.Exceptions
@@ -7,8 +7,8 @@ namespace Cine.Reservations.Application.Exceptions
     {
         public override string ErrorCode => "reservation_already_exists";
 
-        public ReservationAlreadyExistsException(MovieId movieId, string row, int number)
-            : base($"Reservation {row}:{number} for movie with id {movieId} already exists.")
+        public ReservationAlreadyExistsException(Guid id)
+            : base($"Reservation with id: {id} already exists")
         {
         }
     }
