@@ -9,6 +9,9 @@ namespace Cine.Shared.BuildingBlocks
         protected TypedId(Guid value)
             => Value = value;
 
+        protected TypedId(Guid? value)
+            => Value = value ?? Guid.Empty;
+
         public bool IsEmpty() => Value == Guid.Empty;
 
         public bool Equals(TypedId other)

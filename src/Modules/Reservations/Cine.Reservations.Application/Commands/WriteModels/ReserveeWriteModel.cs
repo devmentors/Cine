@@ -5,10 +5,10 @@ namespace Cine.Reservations.Application.Commands.WriteModels
     public class ReserveeWriteModel
     {
         public string FullName { get; }
-        public Email Email { get; }
-        public PhoneNumber PhoneNumber { get; }
+        public string Email { get; }
+        public string PhoneNumber { get; }
 
-        public ReserveeWriteModel(string fullName, Email email, PhoneNumber phoneNumber)
+        public ReserveeWriteModel(string fullName, string email, string phoneNumber)
         {
             FullName = fullName;
             Email = email;

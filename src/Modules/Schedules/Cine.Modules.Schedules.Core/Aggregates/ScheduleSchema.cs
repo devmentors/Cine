@@ -15,13 +15,14 @@ namespace Cine.Modules.Schedules.Core.Aggregates
         {
             Id = id;
             CinemaId = cinemaId;
-            Times = times;
+            ChangeTimes(times);
             Version = version ?? 1;
         }
 
         public static ScheduleSchema Create(EntityId id, CinemaId cinemaId, ScheduleSchemaTimes times)
         {
             var schema = new ScheduleSchema(id, cinemaId, times);
+            schema.ClearEvents();
             schema.AddDomainEvent(new ScheduleSchemaAdded(schema));
             schema.Version = 1;
             return schema;

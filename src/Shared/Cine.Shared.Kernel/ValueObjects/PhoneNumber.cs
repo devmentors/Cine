@@ -16,7 +16,7 @@ namespace Cine.Shared.Kernel.ValueObjects
                 throw new InvalidPhoneNumberException(phoneNumber);
             }
 
-            if (!Regex.IsMatch(phoneNumber, @"^(\+[0-9]{9})$",
+            if (!Regex.IsMatch(phoneNumber, @"^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$",
                 RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250)))
             {
                 throw new InvalidPhoneNumberException(phoneNumber);

@@ -20,7 +20,7 @@ namespace Cine.Shared.Kernel.ValueObjects
                 throw new InvalidEmailException(email);
             }
 
-            if (new EmailAddressAttribute().IsValid(email))
+            if (!new EmailAddressAttribute().IsValid(email))
             {
                 throw new InvalidEmailException(email);
             }

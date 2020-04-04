@@ -7,11 +7,11 @@ namespace Cine.Reservations.Core
     {
         public static CustomerId Empty => new CustomerId(Guid.Empty);
 
-        public CustomerId(Guid value) : base(value)
+        public CustomerId(Guid? value) : base(value)
         {
         }
 
-        public static implicit operator CustomerId(Guid hallId)
+        public static implicit operator CustomerId(Guid? hallId)
             => new CustomerId(hallId);
     }
 }
