@@ -141,4 +141,27 @@ Content-Type: application/json
 }
 
 ###
-GET {{url}}/schedules/weekly?cinemId={{cinemaId}}&movieId={{movieId}}
+GET {{url}}/schedules/weekly?cinemaId={{cinemaId}}&movieId={{movieId}}
+
+
+###
+POST {{url}}/reservations
+Content-Type: application/json
+
+{
+    "id" : "132876d1-8b38-4dbd-87ff-832746ab6656",
+    "cinemaId": "{{cinemaId}}",
+    "movieId": "{{movieId}}",
+    "hallId" : "102876d1-8b38-4dbd-87ff-832746ab6656",
+    "seats" : [{
+        "row" : "F",
+        "number" : 12,
+        "isVip" : true,
+        "price" : 20.50
+    }],
+    "reservee" : {
+        "fullName" :  "John Smith",
+        "email" : "test@mail.com",
+        "phoneNumber" : "956432098"
+    }
+}

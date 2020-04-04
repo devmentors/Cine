@@ -18,11 +18,9 @@ namespace Cine.Reservations.Infrastructure
             builder.Services.AddTransient<IReservationsRepository, ReservationsRepository>();
             builder.Services.AddTransient<IReserveesService, ReserveesService>();
 
-            builder
+            return builder
                 .AddMongo()
                 .AddMongoRepository<ReservationDocument, Guid>("reservations");
-
-            return builder;
         }
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)

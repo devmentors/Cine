@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Convey.WebApi.CQRS" Version="0.4.*" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Cine.Reservations.Infrastructure\Cine.Reservations.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

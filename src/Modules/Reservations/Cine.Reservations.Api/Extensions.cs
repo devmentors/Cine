@@ -8,10 +8,10 @@ namespace Cine.Reservations.Api
 {
     public static class Extensions
     {
-        public static IConveyBuilder AddSchedulesModule(this IConveyBuilder builder)
+        public static IConveyBuilder AddReservationsModule(this IConveyBuilder builder)
             => builder.AddInfrastructure().AddApplication();
 
-        public static IApplicationBuilder UseSchedulesModule(this IApplicationBuilder app)
+        public static IApplicationBuilder UseReservationsModule(this IApplicationBuilder app)
             => app
                 .UseReservationsApi()
                 .UseInfrastructure()

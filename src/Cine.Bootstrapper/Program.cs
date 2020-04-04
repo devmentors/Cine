@@ -2,8 +2,8 @@ using System.Threading.Tasks;
 using Cine.Modules.Cinemas.Api;
 using Cine.Modules.Movies.Api;
 using Cine.Modules.Schedules.Api;
+using Cine.Reservations.Api;
 using Cine.Shared;
-using Cine.Shared.Exceptions;
 using Convey;
 using Convey.Logging;
 using Convey.WebApi;
@@ -27,6 +27,7 @@ namespace Cine.Bootstrapper
                     .AddMoviesModule()
                     .AddCinemasModule()
                     .AddSchedulesModule()
+                    .AddReservationsModule()
                     .AddSharedModule()
                     .AddWebApi()
                     .Build())
@@ -35,6 +36,7 @@ namespace Cine.Bootstrapper
                     .UseMoviesModule()
                     .UseCinemasModule()
                     .UseSchedulesModule()
+                   .UseReservationsModule()
                     .UseRouting()
                     .UseEndpoints(endpoints => endpoints.MapControllers()))
                 .UseLogging();
