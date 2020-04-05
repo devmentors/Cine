@@ -7,8 +7,8 @@ namespace Cine.Reservations.Application.Exceptions
     {
         public override string ErrorCode => "reservation_already_exists";
 
-        public ReservationAlreadyExistsException(Guid id)
-            : base($"Reservation with id: {id} already exists")
+        public ReservationAlreadyExistsException(Guid reservationId)
+            : base($"Reservation with id: {reservationId} already exists")
         {
         }
     }

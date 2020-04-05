@@ -18,8 +18,8 @@ namespace Cine.Modules.Schedules.Core.Aggregates
         public Schedule(EntityId id, CinemaId cinemaId, MovieId movieId, IEnumerable<Show> shows = null, int? version = null)
             : base(id)
         {
-            CinemaId = cinemaId;
-            MovieId = movieId;
+            CinemaId = cinemaId ?? throw new EmptyScheduleCinemaException(id);
+            MovieId = movieId ?? throw new EmptyScheduleMovieException(id);
             _shows = shows is null ? new HashSet<Show>() : shows.ToHashSet();
             Version = version ?? 1;
         }

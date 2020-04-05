@@ -2,6 +2,7 @@ using System.Linq;
 using Cine.Modules.Schedules.Core.Events;
 using Cine.Modules.Schedules.Core.Exceptions;
 using Cine.Modules.Schedules.Core.Types;
+using Cine.Modules.Schedules.Core.ValueObjects;
 using Cine.Shared.BuildingBlocks;
 
 namespace Cine.Modules.Schedules.Core.Aggregates
@@ -11,17 +12,20 @@ namespace Cine.Modules.Schedules.Core.Aggregates
         public CinemaId CinemaId { get; private set; }
         public ScheduleSchemaTimes Times { get; private set; }
 
-        public ScheduleSchema(EntityId id, CinemaId cinemaId, ScheduleSchemaTimes times, int? version = null) : base(id)
+        private ScheduleSchema(EntityId id, CinemaId cinemaId) : base(id)
+            => CinemaId = cinemaId ?? throw new EmptyScheduleSchemaCinemaException(id);
+
+        public ScheduleSchema(EntityId id, CinemaId cinemaId, ScheduleSchemaTimes times, int? version = null)
+            : this(id, cinemaId)
         {
-            Id = id;
-            CinemaId = cinemaId;
-            ChangeTimes(times);
+            Times = times;
             Version = version ?? 1;
         }
 
         public static ScheduleSchema Create(EntityId id, CinemaId cinemaId, ScheduleSchemaTimes times)
         {
-            var schema = new ScheduleSchema(id, cinemaId, times);
+            var schema = new ScheduleSchema(id, cinemaId);
+            schema.ChangeTimes(times);
             schema.ClearEvents();
             schema.AddDomainEvent(new ScheduleSchemaAdded(schema));
             schema.Version = 1;

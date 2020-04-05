@@ -22,7 +22,7 @@ namespace Cine.Shared.BuildingBlocks
         private readonly List<IDomainEvent> _domainEvents = new List<IDomainEvent>();
         public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents;
 
-        public void AddDomainEvent(IDomainEvent newEvent)
+        protected void AddDomainEvent(IDomainEvent newEvent)
         {
             if (!_domainEvents.Any())
             {

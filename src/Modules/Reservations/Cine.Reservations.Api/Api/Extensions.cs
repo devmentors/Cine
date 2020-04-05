@@ -13,6 +13,8 @@ namespace Cine.Reservations.Api.Api
             => app.UseDispatcherEndpoints(endpoints => endpoints
                 .Get<GetReservation, ReservationDto>("reservations/{id}")
                 .Post<CreateReservation>("reservations", (cmd, ctx) =>
-                    ctx.Response.Created($"reservations/{cmd.Id}")));
+                    ctx.Response.Created($"reservations/{cmd.Id}"))
+                .Post<CompleteReservation>("reservations/{id}/complete")
+                .Post<CancelReservation>("reservations/{id}/cancel"));
     }
 }

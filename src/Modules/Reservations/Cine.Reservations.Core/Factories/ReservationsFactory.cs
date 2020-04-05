@@ -38,9 +38,7 @@ namespace Cine.Reservations.Core.Factories
             }
 
             var status = isPaymentUponArrival ? ReservationStatus.PaymentUponArrival : ReservationStatus.Pending;
-            var reservation = new Reservation(id, cinemaId, movieId, hallId, status, reservee, seats);
-            reservation.ClearEvents();
-            reservation.AddDomainEvent(new ReservationAdded(reservation));
+            var reservation = Reservation.Create(id, cinemaId, movieId, hallId, status, reservee, seats);
 
             return reservation;
         }

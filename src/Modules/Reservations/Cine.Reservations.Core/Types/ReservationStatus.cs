@@ -5,6 +5,7 @@ namespace Cine.Reservations.Core.Types
         Pending,
         PaymentUponArrival,
         Paid,
+        Completed,
         Canceled
     }
 }

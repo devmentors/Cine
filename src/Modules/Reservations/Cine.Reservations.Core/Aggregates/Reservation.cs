@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Cine.Reservations.Core.Events;
 using Cine.Reservations.Core.Exceptions;
 using Cine.Reservations.Core.Types;
@@ -10,7 +11,7 @@ namespace Cine.Reservations.Core.Aggregates
     public class Reservation : AggregateRoot
     {
         private HashSet<Seat> _seats = new HashSet<Seat>();
-        private bool IsCompleted => Status is ReservationStatus.Paid || Status is ReservationStatus.Canceled;
+        private bool IsCompleted => Status is ReservationStatus.Completed || Status is ReservationStatus.Canceled;
         public CinemaId CinemaId { get; }
         public MovieId MovieId { get; }
         public HallId HallId { get; }
@@ -22,17 +23,48 @@ namespace Cine.Reservations.Core.Aggregates
             private set => _seats = new HashSet<Seat>(value);
         }
 
-        public Reservation(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, ReservationStatus status,
-            Reservee reservee, IEnumerable<Seat> seats, int? version = null)
+        private Reservation(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId)
             : base(id)
         {
             CinemaId = cinemaId ?? throw new EmptyReservationCinemaException(id);
             MovieId = movieId ?? throw new EmptyReservationMovieException(id);
             HallId = hallId ?? throw new EmptyReservationHallException(id);
-            ChangeStatus(status);
-            ChangeReservee(reservee);
-            AddSeats(seats);
+        }
+
+        public Reservation(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, ReservationStatus status,
+            Reservee reservee, IEnumerable<Seat> seats, int? version = null)
+            : this(id, cinemaId, movieId, hallId)
+        {
+            Status = status;
+            Reservee = reservee;
+            _seats = seats.ToHashSet();
             Version = version ?? 1;
+        }
+
+        public static Reservation Create(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId,
+            ReservationStatus status, Reservee reservee, IEnumerable<Seat> seats)
+        {
+            var reservation = new Reservation(id, cinemaId, movieId, hallId);
+
+            reservation.ChangeStatus(status);
+            reservation.ChangeReservee(reservee);
+            reservation.AddSeats(seats);
+            reservation.ClearEvents();
+            reservation.AddDomainEvent(new ReservationAdded(reservation));
+            reservation.Version = 1;
+
+            return reservation;
+        }
+
+        public void ChangeStatus(ReservationStatus status)
+        {
+            if (IsCompleted)
+            {
+                throw new InvalidReservationChangeException(Id, Status);
+            }
+
+            Status = status;
+            AddDomainEvent(new ReservationStatusChanged(this, status));
         }
 
         public void ChangeReservee(Reservee reservee)
@@ -80,17 +112,6 @@ namespace Cine.Reservations.Core.Aggregates
             {
                 RemoveSeat(seat);
             }
-        }
-
-        public void ChangeStatus(ReservationStatus status)
-        {
-            if (IsCompleted)
-            {
-                throw new InvalidReservationChangeException(Id, Status);
-            }
-
-            Status = status;
-            AddDomainEvent(new ReservationStatusChanged(this, status));
         }
     }
 }
