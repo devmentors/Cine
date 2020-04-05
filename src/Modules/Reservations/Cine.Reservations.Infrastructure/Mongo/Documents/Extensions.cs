@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Cine.Reservations.Application.DTO;
 using Cine.Reservations.Core.Aggregates;
 using Cine.Reservations.Core.Types;
 using Cine.Reservations.Core.ValueObjects;
@@ -40,5 +41,28 @@ namespace Cine.Reservations.Infrastructure.Mongo.Documents
 
             return new Reservation(document.Id, document.CinemaId, document.HallId, document.HallId, status, reservee, seats, document.Version);
         }
+
+        public static ReservationDto AsDocument(this ReservationDocument document)
+            => new ReservationDto
+            {
+                Id = document.Id,
+                CinemaId = document.CinemaId,
+                MovieId = document.MovieId,
+                HallId = document.HallId,
+                Reservee = new ReserveeDto
+                {
+                    FullName = document.Reservee.FullName,
+                    Email = document.Reservee.Email,
+                    PhoneNumber = document.Reservee.PhoneNumber
+                },
+                Seats = document.Seats.Select(s => new SeatDto
+                {
+                    Row = s.Row,
+                    Number = s.Number,
+                    Price = s.Price,
+                    IsVip = s.IsVip
+                }),
+                Status = document.Status
+            };
     }
 }

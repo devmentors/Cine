@@ -7,10 +7,8 @@ using Cine.Reservations.Core.Validators;
 using Cine.Reservations.Core.ValueObjects;
 using Cine.Reservations.Infrastructure.Mongo.Documents;
 using Convey.Persistence.MongoDB;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 
-namespace Cine.Reservations.Infrastructure.Validators
+namespace Cine.Reservations.Infrastructure.Mongo.Validators
 {
     internal sealed class ReservationSeatsValidator : IReservationSeatsValidator
     {

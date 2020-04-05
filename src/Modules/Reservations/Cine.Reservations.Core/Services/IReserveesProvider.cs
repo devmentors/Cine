@@ -4,7 +4,7 @@ using Cine.Reservations.Core.ValueObjects;
 
 namespace Cine.Reservations.Core.Services
 {
-    public interface IReserveesService
+    public interface IReserveesProvider
     {
         Task<Reservee> GetAsync(Guid customerId);
     }

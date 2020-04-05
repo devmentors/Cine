@@ -14,12 +14,12 @@ namespace Cine.Reservations.Core.Factories
     public sealed class ReservationsFactory : IReservationsFactory
     {
         private readonly IReservationSeatsValidator _validator;
-        private readonly IReserveesService _service;
+        private readonly IReserveesProvider _provider;
 
-        public ReservationsFactory(IReservationSeatsValidator validator, IReserveesService service)
+        public ReservationsFactory(IReservationSeatsValidator validator, IReserveesProvider provider)
         {
             _validator = validator;
-            _service = service;
+            _provider = provider;
         }
 
         public async Task<Reservation> CreateAsync(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, CustomerId customerId,
@@ -34,7 +34,7 @@ namespace Cine.Reservations.Core.Factories
 
             if (!customerId.IsEmpty())
             {
-                reservee = await _service.GetAsync(customerId);
+                reservee = await _provider.GetAsync(customerId);
             }
 
             var status = isPaymentUponArrival ? ReservationStatus.PaymentUponArrival : ReservationStatus.Pending;

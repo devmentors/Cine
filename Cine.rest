@@ -145,13 +145,14 @@ GET {{url}}/schedules/weekly?cinemaId={{cinemaId}}&movieId={{movieId}}
 
 
 ###
+# @name create_reservation
 POST {{url}}/reservations
 Content-Type: application/json
 
 {
     "id" : "132876d1-8b38-4dbd-87ff-832746ab6656",
-    "cinemaId": "{{cinemaId}}",
-    "movieId": "{{movieId}}",
+    "cinemaId" : "{{cinemaId}}",
+    "movieId" : "{{movieId}}",
     "hallId" : "102876d1-8b38-4dbd-87ff-832746ab6656",
     "seats" : [{
         "row" : "F",
@@ -160,8 +161,14 @@ Content-Type: application/json
         "price" : 20.50
     }],
     "reservee" : {
-        "fullName" :  "John Smith",
+        "fullName" : "John Smith",
         "email" : "test@mail.com",
-        "phoneNumber" : "956432098"
+        "phoneNumber" : "+48 602 781 895"
     }
 }
+
+
+@reservationId = {{create_reservation.response.headers.Location}}
+
+###
+GET {{url}}/reservations

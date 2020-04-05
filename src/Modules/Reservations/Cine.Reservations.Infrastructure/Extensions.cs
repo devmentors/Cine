@@ -1,11 +1,14 @@
 using System;
+using Cine.Reservations.Application.Services;
 using Cine.Reservations.Core.Repositories;
 using Cine.Reservations.Core.Services;
 using Cine.Reservations.Core.Validators;
 using Cine.Reservations.Infrastructure.Mongo.Documents;
+using Cine.Reservations.Infrastructure.Mongo.QueryServices;
 using Cine.Reservations.Infrastructure.Mongo.Repositories;
+using Cine.Reservations.Infrastructure.Mongo.Validators;
 using Cine.Reservations.Infrastructure.Services;
-using Cine.Reservations.Infrastructure.Validators;
+using Cine.Shared.Events;
 using Convey;
 using Convey.Persistence.MongoDB;
 using Microsoft.AspNetCore.Builder;
@@ -18,8 +21,10 @@ namespace Cine.Reservations.Infrastructure
         public static IConveyBuilder AddInfrastructure(this IConveyBuilder builder)
         {
             builder.Services.AddTransient<IReservationsRepository, ReservationsRepository>();
-            builder.Services.AddTransient<IReserveesService, ReserveesService>();
+            builder.Services.AddTransient<IReservationsQueryService, ReservationsQueryService>();
+            builder.Services.AddTransient<IReserveesProvider, ReserveesProvider>();
             builder.Services.AddTransient<IReservationSeatsValidator, ReservationSeatsValidator>();
+            builder.Services.AddSingleton<IEventMapper, EventMapper>();
 
             return builder
                 .AddMongo()

@@ -8,11 +8,11 @@ using Cine.Shared.Modules;
 
 namespace Cine.Reservations.Infrastructure.Services
 {
-    internal sealed class ReserveesService : IReserveesService
+    internal sealed class ReserveesProvider : IReserveesProvider
     {
         private readonly IModuleClient _client;
 
-        public ReserveesService(IModuleClient client)
+        public ReserveesProvider(IModuleClient client)
             => _client = client;
 
         public async Task<Reservee> GetAsync(Guid customerId)
