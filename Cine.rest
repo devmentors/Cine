@@ -171,4 +171,4 @@ Content-Type: application/json
 @reservationId = {{create_reservation.response.headers.Location}}
 
 ###
-GET {{url}}/reservations
+GET {{url}}/reservations/132876d1-8b38-4dbd-87ff-832746ab6656
