@@ -5,6 +5,7 @@ namespace Cine.Modules.Identity.Api.Services
 {
     public interface ITokensService
     {
-        TokenDto Create(Guid userId);
+        void Create(string username);
+        TokenDto GetToken(string issuer);
     }
 }

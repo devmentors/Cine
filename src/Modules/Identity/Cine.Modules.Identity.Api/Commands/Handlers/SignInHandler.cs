@@ -12,15 +12,13 @@ namespace Cine.Modules.Identity.Api.Commands.Handlers
     {
         private readonly IPasswordsService _passwordService;
         private readonly ITokensService _tokensService;
-        private readonly ITokensCache _cache;
         private readonly IMongoRepository<UserDocument, Guid> _repository;
 
-        public SignInHandler(IPasswordsService passwordService, ITokensService tokensService, ITokensCache cache,
+        public SignInHandler(IPasswordsService passwordService, ITokensService tokensService,
             IMongoRepository<UserDocument, Guid> repository)
         {
             _passwordService = passwordService;
             _tokensService = tokensService;
-            _cache = cache;
             _repository = repository;
         }
 
@@ -40,8 +38,7 @@ namespace Cine.Modules.Identity.Api.Commands.Handlers
                 throw new InvalidUserPasswordException(user.Username);
             }
 
-            var token = _tokensService.Create(user.Id);
-            _cache.Insert(token);
+            _tokensService.Create(user.Username);
         }
     }
 }

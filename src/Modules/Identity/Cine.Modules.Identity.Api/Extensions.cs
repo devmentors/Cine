@@ -1,8 +1,10 @@
 using System;
-using System.IdentityModel.Tokens.Jwt;
+using Cine.Modules.Identity.Api.Mongo.Documents;
 using Cine.Modules.Identity.Api.Options;
 using Cine.Modules.Identity.Api.Services;
 using Convey;
+using Convey.CQRS.Commands;
+using Convey.CQRS.Queries;
 using Convey.Persistence.MongoDB;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -19,6 +21,7 @@ namespace Cine.Modules.Identity.Api
 
             builder.Services.AddSingleton(options);
             builder.Services.AddTransient<ITokensService, TokensService>();
+            builder.Services.AddSingleton<IPasswordsService, PasswordService>();
             builder.Services.AddMemoryCache();
 
             builder.Services.AddAuthentication(o =>
@@ -38,8 +41,14 @@ namespace Cine.Modules.Identity.Api
                     ValidateAudience = false
                 };
             });
+
             return builder
-                .AddMongo();
+                .AddCommandHandlers()
+                .AddQueryHandlers()
+                .AddInMemoryCommandDispatcher()
+                .AddInMemoryQueryDispatcher()
+                .AddMongo()
+                .AddMongoRepository<UserDocument, Guid>("users");
         }
 
         public static IApplicationBuilder UseIdentityModule(this IApplicationBuilder app)

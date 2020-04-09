@@ -19,8 +19,4 @@
     <ProjectReference Include="..\..\..\Shared\Cine.Shared\Cine.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers" />
-  </ItemGroup>
-
 </Project>
