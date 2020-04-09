@@ -1,0 +1,52 @@
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using Cine.Modules.Identity.Api.Options;
+using Cine.Modules.Identity.Api.Services;
+using Convey;
+using Convey.Persistence.MongoDB;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+
+namespace Cine.Modules.Identity.Api
+{
+    public static class Extensions
+    {
+        public static IConveyBuilder AddIdentityModule(this IConveyBuilder builder)
+        {
+            var options = builder.GetOptions<IdentityOptions>("identity");
+
+            builder.Services.AddSingleton(options);
+            builder.Services.AddTransient<ITokensService, TokensService>();
+            builder.Services.AddMemoryCache();
+
+            builder.Services.AddAuthentication(o =>
+            {
+                o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(o =>
+            {
+                o.RequireHttpsMetadata = false;
+                o.SaveToken = true;
+                o.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(options.Key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+            return builder
+                .AddMongo();
+        }
+
+        public static IApplicationBuilder UseIdentityModule(this IApplicationBuilder app)
+        {
+            app.UseAuthentication();
+            app.UseAuthorization();
+            return app;
+        }
+    }
+}

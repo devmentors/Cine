@@ -45,8 +45,8 @@ namespace Cine.Modules.Movies.Api.Services
             if(alreadyExists)
             {
                 throw new MovieAlreadyExistsException(dto.Id);
-
             }
+
             await _repository.AddAsync(dto.AsDocument());
         }
 

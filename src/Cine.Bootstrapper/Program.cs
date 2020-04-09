@@ -36,7 +36,7 @@ namespace Cine.Bootstrapper
                     .UseMoviesModule()
                     .UseCinemasModule()
                     .UseSchedulesModule()
-                   .UseReservationsModule()
+                    .UseReservationsModule()
                     .UseRouting()
                     .UseEndpoints(endpoints => endpoints.MapControllers()))
                 .UseLogging();

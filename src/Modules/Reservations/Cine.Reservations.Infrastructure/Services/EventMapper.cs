@@ -5,6 +5,7 @@ using Cine.Reservations.Core.Events;
 using Cine.Shared.BuildingBlocks;
 using Cine.Shared.Events;
 using Convey.CQRS.Events;
+using ReservationStatusChanged = Cine.Reservations.Core.Events.ReservationStatusChanged;
 
 namespace Cine.Reservations.Infrastructure.Services
 {
@@ -14,6 +15,7 @@ namespace Cine.Reservations.Infrastructure.Services
             => domainEvent switch
             {
                 ReservationAdded @event => new ReservationCreated(@event.Reservation.Id),
+                ReservationStatusChanged @event => new Application.Events.ReservationStatusChanged(@event.Reservation.Id, @event.Status.ToString()),
                 _ => null
             };
 

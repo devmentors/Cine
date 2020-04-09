@@ -17,7 +17,6 @@ namespace Cine.Modules.Movies.Api
         {
             builder.Services.AddSingleton<IMovieDtoValidator, MovieDtoValidator>();
             builder.Services.AddSingleton<IMoviesService, MoviesService>();
-            builder.Services.AddControllers().AddNewtonsoftJson();
 
             return builder
                 .AddMongo()
