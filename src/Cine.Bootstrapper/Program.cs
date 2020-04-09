@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Cine.Modules.Cinemas.Api;
+using Cine.Modules.Identity.Api;
 using Cine.Modules.Movies.Api;
 using Cine.Modules.Schedules.Api;
 using Cine.Reservations.Api;
@@ -28,6 +29,7 @@ namespace Cine.Bootstrapper
                     .AddCinemasModule()
                     .AddSchedulesModule()
                     .AddReservationsModule()
+                    .AddIdentityModule()
                     .AddSharedModule()
                     .AddWebApi()
                     .Build())
@@ -37,8 +39,7 @@ namespace Cine.Bootstrapper
                     .UseCinemasModule()
                     .UseSchedulesModule()
                     .UseReservationsModule()
-                    .UseRouting()
-                    .UseEndpoints(endpoints => endpoints.MapControllers()))
+                    .UseIdentityModule())
                 .UseLogging();
     }
 }

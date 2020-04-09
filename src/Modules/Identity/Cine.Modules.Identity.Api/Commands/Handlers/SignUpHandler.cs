@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Cine.Modules.Identity.Api.Exceptions;
 using Cine.Modules.Identity.Api.Mongo.Documents;
@@ -29,7 +30,8 @@ namespace Cine.Modules.Identity.Api.Commands.Handlers
                 throw new UserAlreadyExistsException(command.Username, command.Email);
             }
 
-            var passwordHash = _passwordService.HashPassword(command.Password);
+            var salt = _passwordService.CreateSalt();
+            var passwordHash = _passwordService.HashPassword(command.Password, salt);
 
             var user = new UserDocument
             {
@@ -39,6 +41,7 @@ namespace Cine.Modules.Identity.Api.Commands.Handlers
                 Email = command.Email,
                 PhoneNumber = command.PhoneNumber,
                 Password = passwordHash,
+                Salt = salt,
                 UpdatedAt = DateTime.UtcNow
             };
 

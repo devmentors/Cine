@@ -6,14 +6,8 @@ namespace Cine.Modules.Identity.Api.Services
 {
     internal sealed class PasswordService : IPasswordsService
     {
-        public string HashPassword(string password)
+        public string HashPassword(string password, byte[] salt)
         {
-            var salt = new byte[128 / 8];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(salt);
-            }
-
             var hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,
                 salt: salt,
@@ -22,6 +16,17 @@ namespace Cine.Modules.Identity.Api.Services
                 numBytesRequested: 256 / 8));
 
             return hashedPassword;
+        }
+
+        public byte[] CreateSalt()
+        {
+            var salt = new byte[128 / 8];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(salt);
+            }
+
+            return salt;
         }
     }
 }

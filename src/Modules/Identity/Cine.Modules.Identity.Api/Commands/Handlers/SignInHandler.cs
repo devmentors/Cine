@@ -31,7 +31,7 @@ namespace Cine.Modules.Identity.Api.Commands.Handlers
                 throw new UserNotFoundException(command.Username);
             }
 
-            var passwordHash = _passwordService.HashPassword(command.Password);
+            var passwordHash = _passwordService.HashPassword(command.Password, user.Salt);
 
             if (passwordHash != user.Password)
             {

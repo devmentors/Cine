@@ -24,6 +24,7 @@ namespace Cine.Modules.Identity.Api.Services
             var handler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor
             {
+                Issuer = username,
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, username),
@@ -43,7 +44,7 @@ namespace Cine.Modules.Identity.Api.Services
                 ValidTo = securityToken.ValidTo
             };
 
-            _cache.Set(token.Issuer, token);
+            _cache.Set(token.Issuer, token, TimeSpan.FromSeconds(30));
         }
 
         public TokenDto GetToken(string issuer)
