@@ -10,9 +10,5 @@ namespace Cine.Modules.Identity.Api.Exceptions
         public UserNotFoundException(string username) : base($"User with username {username} was not found")
         {
         }
-
-        public UserNotFoundException(Guid userId) : base($"User with id {userId} was not found")
-        {
-        }
     }
 }

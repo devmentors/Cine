@@ -2,6 +2,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using Cine.Modules.Identity.Api.DTO;
 using Cine.Modules.Identity.Api.Options;
 using Microsoft.Extensions.Caching.Memory;
@@ -12,15 +13,17 @@ namespace Cine.Modules.Identity.Api.Services
     internal sealed class AuthTokensService : IAuthTokensService
     {
         private readonly IdentityOptions _options;
+        private readonly IRefreshTokensService _refreshTokensService;
         private readonly IMemoryCache _cache;
 
-        public AuthTokensService(IdentityOptions options, IMemoryCache cache)
+        public AuthTokensService(IdentityOptions options, IRefreshTokensService refreshTokensService, IMemoryCache cache)
         {
             _options = options;
+            _refreshTokensService = refreshTokensService;
             _cache = cache;
         }
 
-        public AuthDto Create(string username)
+        public async Task<AuthDto> CreateAsync(string username)
         {
             var handler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -37,9 +40,12 @@ namespace Cine.Modules.Identity.Api.Services
             };
 
             var securityToken = handler.CreateToken(tokenDescriptor);
+            var refreshToken = await _refreshTokensService.CreateAsync(username);
+
             var token = new AuthDto
             {
                 Token = handler.WriteToken(securityToken),
+                RefreshToken = refreshToken,
                 Issuer = securityToken.Issuer,
                 ValidFrom = securityToken.ValidFrom,
                 ValidTo = securityToken.ValidTo

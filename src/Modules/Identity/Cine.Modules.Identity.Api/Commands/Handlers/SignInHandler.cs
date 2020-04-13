@@ -38,7 +38,7 @@ namespace Cine.Modules.Identity.Api.Commands.Handlers
                 throw new InvalidUserPasswordException(user.Username);
             }
 
-            _authTokensService.Create(user.Username);
+            await _authTokensService.CreateAsync(user.Username);
         }
     }
 }

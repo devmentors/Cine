@@ -1,5 +1,4 @@
 using System;
-using Cine.Modules.Identity.Api.Api;
 using Cine.Modules.Identity.Api.Middlewares;
 using Cine.Modules.Identity.Api.Mongo.Documents;
 using Cine.Modules.Identity.Api.Options;
