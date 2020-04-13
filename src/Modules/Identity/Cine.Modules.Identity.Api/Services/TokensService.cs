@@ -1,6 +1,7 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 using Cine.Modules.Identity.Api.DTO;
 using Cine.Modules.Identity.Api.Options;
 using Microsoft.Extensions.Caching.Memory;
@@ -24,7 +25,7 @@ namespace Cine.Modules.Identity.Api.Services
             var handler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Issuer = username,
+                Issuer = _options.Issuer,
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, username),
@@ -44,10 +45,34 @@ namespace Cine.Modules.Identity.Api.Services
                 ValidTo = securityToken.ValidTo
             };
 
-            _cache.Set(token.Issuer, token, TimeSpan.FromSeconds(30));
+            _cache.Set(username, token, TimeSpan.FromSeconds(30));
         }
 
-        public TokenDto GetToken(string issuer)
-            => _cache.Get<TokenDto>(issuer);
+        public bool Validate(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var signingKey = new SymmetricSecurityKey(_options.Key);
+            try
+            {
+                var jwt = handler.ReadToken(token);
+
+                handler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = true,
+                    ValidateAudience = false,
+                    ValidIssuer = jwt.Issuer,
+                    IssuerSigningKey = signingKey
+                }, out _);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public TokenDto GetToken(string username)
+            => _cache.Get<TokenDto>(username);
     }
 }

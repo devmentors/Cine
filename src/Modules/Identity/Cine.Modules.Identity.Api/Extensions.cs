@@ -1,4 +1,5 @@
 using System;
+using Cine.Modules.Identity.Api.Middlewares;
 using Cine.Modules.Identity.Api.Mongo.Documents;
 using Cine.Modules.Identity.Api.Options;
 using Cine.Modules.Identity.Api.Services;
@@ -22,6 +23,7 @@ namespace Cine.Modules.Identity.Api
             builder.Services.AddSingleton(options);
             builder.Services.AddTransient<ITokensService, TokensService>();
             builder.Services.AddSingleton<IPasswordsService, PasswordService>();
+            builder.Services.AddTransient<JwtAuthorizationMiddleware>();
             builder.Services.AddMemoryCache();
 
             builder.Services.AddAuthentication(o =>
@@ -57,6 +59,7 @@ namespace Cine.Modules.Identity.Api
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseMiddleware<JwtAuthorizationMiddleware>();
             return app;
         }
     }

@@ -4,12 +4,14 @@ using Cine.Modules.Cinemas.Api.DTO;
 using Cine.Modules.Cinemas.Api.Services;
 using Cine.Modules.Cinemas.Api.Validators;
 using Cine.Shared.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cine.Modules.Cinemas.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class CinemasController : ControllerBase
     {
         private readonly ICinemasService _service;

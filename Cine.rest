@@ -1,9 +1,11 @@
 @url = http://localhost:5000
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ikdvb1JpT24iLCJyb2xlIjoidXNlciIsIm5iZiI6MTU4Njc3MTE5NSwiZXhwIjoxNTg3OTgwNzk1LCJpYXQiOjE1ODY3NzExOTUsImlzcyI6ImNpbmUifQ.tRCgmryK_ZcZ7VlvCe2Taq0JkR8LLzBd523iauo_F1c
 
 ###
 # @name create_cinema
 POST {{url}}/cinemas 
 Content-Type: application/json
+Authorization: {{token}}
 
 {
 	"id" : "1c6b9a50-751d-4aa2-ae40-41778bcaf007",
@@ -76,6 +78,7 @@ GET {{url}}/movies/{{movieId}}
 ###
 POST {{url}}/schedules/schema
 Content-Type: application/json
+Authorization: {{token}}
 
 {
     "id" : "9ca578df-4d08-4651-a555-f23fc2b5a79b",

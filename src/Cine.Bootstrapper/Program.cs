@@ -25,21 +25,21 @@ namespace Cine.Bootstrapper
             => WebHost.CreateDefaultBuilder(args)
                 .ConfigureServices(services => services
                     .AddConvey()
+                    .AddIdentityModule()
                     .AddMoviesModule()
                     .AddCinemasModule()
                     .AddSchedulesModule()
                     .AddReservationsModule()
-                    .AddIdentityModule()
                     .AddSharedModule()
                     .AddWebApi()
                     .Build())
                 .Configure(app => app
                     .UseSharedModule()
+                    .UseIdentityModule()
                     .UseMoviesModule()
                     .UseCinemasModule()
                     .UseSchedulesModule()
-                    .UseReservationsModule()
-                    .UseIdentityModule())
+                    .UseReservationsModule())
                 .UseLogging();
     }
 }
