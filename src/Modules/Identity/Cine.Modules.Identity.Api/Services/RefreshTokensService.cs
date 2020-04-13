@@ -68,7 +68,7 @@ namespace Cine.Modules.Identity.Api.Services
                 throw new UserNotFoundException(token.Username);
             }
 
-            var auth = await _authTokensService.CreateAsync(user.Username);
+            var auth = _authTokensService.Create(user.Username);
             auth.RefreshToken = refreshToken;
             return auth;
         }

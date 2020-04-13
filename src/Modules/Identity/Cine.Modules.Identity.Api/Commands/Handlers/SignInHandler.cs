@@ -12,14 +12,18 @@ namespace Cine.Modules.Identity.Api.Commands.Handlers
     {
         private readonly IPasswordsService _passwordService;
         private readonly IAuthTokensService _authTokensService;
+        private readonly IRefreshTokensService _refreshTokensService;
+        private readonly IAuthTokensCache _cache;
         private readonly IMongoRepository<UserDocument, Guid> _repository;
 
         public SignInHandler(IPasswordsService passwordService, IAuthTokensService authTokensService,
-            IMongoRepository<UserDocument, Guid> repository)
+            IRefreshTokensService refreshTokensService, IAuthTokensCache cache, IMongoRepository<UserDocument, Guid> repository)
         {
             _passwordService = passwordService;
             _authTokensService = authTokensService;
             _repository = repository;
+            _cache = cache;
+            _refreshTokensService = refreshTokensService;
         }
 
         public async Task HandleAsync(SignIn command)
@@ -38,7 +42,11 @@ namespace Cine.Modules.Identity.Api.Commands.Handlers
                 throw new InvalidUserPasswordException(user.Username);
             }
 
-            await _authTokensService.CreateAsync(user.Username);
+            var token = _authTokensService.Create(user.Username);
+            var refreshToken = await _refreshTokensService.CreateAsync(user.Username);
+
+            token.RefreshToken = refreshToken;
+            _cache.Set(token);
         }
     }
 }

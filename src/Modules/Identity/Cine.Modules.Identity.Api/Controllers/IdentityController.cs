@@ -13,13 +13,16 @@ namespace Cine.Modules.Identity.Api.Controllers
     [Authorize]
     public class IdentityController : ControllerBase
     {
-        private readonly ICommandDispatcher _dispatcher;
-        private readonly IAuthTokensService _service;
+        private readonly ICommandDispatcher _commandDispatcher;
+        private readonly IAuthTokensCache _authTokensCache;
+        private readonly IRefreshTokensService _refreshTokensService;
 
-        public IdentityController(ICommandDispatcher dispatcher, IAuthTokensService service)
+        public IdentityController(ICommandDispatcher commandDispatcher, IAuthTokensCache authTokensCache,
+            IRefreshTokensService refreshTokensService)
         {
-            _dispatcher = dispatcher;
-            _service = service;
+            _commandDispatcher = commandDispatcher;
+            _refreshTokensService = refreshTokensService;
+            _authTokensCache = authTokensCache;
         }
 
         [HttpGet("me")]
@@ -33,7 +36,7 @@ namespace Cine.Modules.Identity.Api.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> SignUp([FromBody] SignUp command)
         {
-            await _dispatcher.SendAsync(command);
+            await _commandDispatcher.SendAsync(command);
             return Ok();
         }
 
@@ -41,16 +44,28 @@ namespace Cine.Modules.Identity.Api.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<AuthDto>> SignIn([FromBody] SignIn command)
         {
-            await _dispatcher.SendAsync(command);
-            var token = _service.GetToken(command.Username);
+            await _commandDispatcher.SendAsync(command);
+            var token = _authTokensCache.Get(command.Username);
 
             return Ok(token);
+        }
+
+        [HttpPost("refresh-token/use")]
+        public async Task<ActionResult<AuthDto>> UseRefreshToken([FromBody] UseRefreshToken command)
+            => Ok(await _refreshTokensService.UseAsync(command.RefreshToken));
+
+
+        [HttpPost("refresh-token/revoke")]
+        public async Task<IActionResult> RevokeRefreshToken([FromBody] RevokeRefreshToken command)
+        {
+            await _refreshTokensService.RevokeAsync(command.RefreshToken);
+            return Ok();
         }
 
         [HttpPost("password/change")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePassword command)
         {
-            await _dispatcher.SendAsync(command);
+            await _commandDispatcher.SendAsync(command);
             return Ok();
         }
     }

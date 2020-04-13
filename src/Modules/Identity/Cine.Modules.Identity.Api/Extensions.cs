@@ -22,8 +22,10 @@ namespace Cine.Modules.Identity.Api
 
             builder.Services.AddSingleton(options);
             builder.Services.AddTransient<IAuthTokensService, AuthTokensService>();
+            builder.Services.AddTransient<IRefreshTokensService, RefreshTokensService>();
             builder.Services.AddSingleton<IPasswordsService, PasswordService>();
             builder.Services.AddTransient<JwtAuthorizationMiddleware>();
+            builder.Services.AddTransient<IAuthTokensCache, AuthTokensCache>();
             builder.Services.AddMemoryCache();
 
             builder.Services.AddAuthentication(o =>
@@ -50,7 +52,8 @@ namespace Cine.Modules.Identity.Api
                 .AddInMemoryCommandDispatcher()
                 .AddInMemoryQueryDispatcher()
                 .AddMongo()
-                .AddMongoRepository<UserDocument, Guid>("users");
+                .AddMongoRepository<UserDocument, Guid>("users")
+                .AddMongoRepository<RefreshTokenDocument, Guid>("refresh_token");
         }
 
         public static IApplicationBuilder UseIdentityModule(this IApplicationBuilder app)

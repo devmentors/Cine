@@ -13,17 +13,11 @@ namespace Cine.Modules.Identity.Api.Services
     internal sealed class AuthTokensService : IAuthTokensService
     {
         private readonly IdentityOptions _options;
-        private readonly IRefreshTokensService _refreshTokensService;
-        private readonly IMemoryCache _cache;
 
-        public AuthTokensService(IdentityOptions options, IRefreshTokensService refreshTokensService, IMemoryCache cache)
-        {
-            _options = options;
-            _refreshTokensService = refreshTokensService;
-            _cache = cache;
-        }
+        public AuthTokensService(IdentityOptions options)
+            => _options = options;
 
-        public async Task<AuthDto> CreateAsync(string username)
+        public AuthDto Create(string username)
         {
             var handler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -40,18 +34,16 @@ namespace Cine.Modules.Identity.Api.Services
             };
 
             var securityToken = handler.CreateToken(tokenDescriptor);
-            var refreshToken = await _refreshTokensService.CreateAsync(username);
 
             var token = new AuthDto
             {
                 Token = handler.WriteToken(securityToken),
-                RefreshToken = refreshToken,
                 Issuer = securityToken.Issuer,
+                Subject = username,
                 ValidFrom = securityToken.ValidFrom,
                 ValidTo = securityToken.ValidTo
             };
 
-            _cache.Set(username, token, TimeSpan.FromSeconds(30));
             return token;
         }
 
@@ -78,8 +70,5 @@ namespace Cine.Modules.Identity.Api.Services
             }
             return true;
         }
-
-        public AuthDto GetToken(string username)
-            => _cache.Get<AuthDto>(username);
     }
 }
