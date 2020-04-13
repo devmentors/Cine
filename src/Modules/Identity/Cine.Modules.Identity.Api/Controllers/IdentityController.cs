@@ -1,8 +1,10 @@
 using System.Threading.Tasks;
 using Cine.Modules.Identity.Api.Commands;
 using Cine.Modules.Identity.Api.DTO;
+using Cine.Modules.Identity.Api.Queries;
 using Cine.Modules.Identity.Api.Services;
 using Convey.CQRS.Commands;
+using Convey.CQRS.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,13 +16,15 @@ namespace Cine.Modules.Identity.Api.Controllers
     public class IdentityController : ControllerBase
     {
         private readonly ICommandDispatcher _commandDispatcher;
+        private readonly IQueryDispatcher _queryDispatcher;
         private readonly IAuthTokensCache _authTokensCache;
         private readonly IRefreshTokensService _refreshTokensService;
 
-        public IdentityController(ICommandDispatcher commandDispatcher, IAuthTokensCache authTokensCache,
-            IRefreshTokensService refreshTokensService)
+        public IdentityController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher,
+            IAuthTokensCache authTokensCache, IRefreshTokensService refreshTokensService)
         {
             _commandDispatcher = commandDispatcher;
+            _queryDispatcher = queryDispatcher;
             _refreshTokensService = refreshTokensService;
             _authTokensCache = authTokensCache;
         }
@@ -28,8 +32,9 @@ namespace Cine.Modules.Identity.Api.Controllers
         [HttpGet("me")]
         public async Task<ActionResult<IdentityDto>> GetMe()
         {
-            var a = User;
-            return Ok();
+            var query = new GetIdentity { Username = User.Identity.Name };
+            var identity = await _queryDispatcher.QueryAsync(query);
+            return Ok(identity);
         }
 
         [HttpPost("sign-up")]

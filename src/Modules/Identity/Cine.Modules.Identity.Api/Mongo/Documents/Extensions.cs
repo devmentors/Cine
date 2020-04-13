@@ -17,7 +17,7 @@ namespace Cine.Modules.Identity.Api.Mongo.Documents
                 UpdatedAt = DateTime.UtcNow
             };
 
-        public static IdentityDto AsDto(this IdentityDto document)
+        public static IdentityDto AsDto(this IdentityDocument document)
             => new IdentityDto
             {
                 Id = document.Id,
