@@ -147,12 +147,14 @@ Authorization: {{token}}
 
 ###
 GET {{url}}/schedules/weekly?cinemaId={{cinemaId}}&movieId={{movieId}}
+Authorization: {{token}}
 
 
 ###
 # @name create_reservation
 POST {{url}}/reservations
 Content-Type: application/json
+Authorization: {{token}}
 
 {
     "id" : "132876d1-8b38-4dbd-87ff-832746ab6656",
@@ -165,11 +167,7 @@ Content-Type: application/json
         "isVip" : true,
         "price" : 20.50
     }],
-    "reservee" : {
-        "fullName" : "John Smith",
-        "email" : "test@mail.com",
-        "phoneNumber" : "+48 602 781 895"
-    }
+    "customerId" : "2f7b85f0-f29e-4505-a721-66c8555a6d56"
 }
 
 
@@ -177,3 +175,4 @@ Content-Type: application/json
 
 ###
 GET {{url}}/reservations/132876d1-8b38-4dbd-87ff-832746ab6656
+Authorization: {{token}}
