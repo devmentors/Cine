@@ -5,12 +5,14 @@ using Cine.Modules.Movies.Api.DTO;
 using Cine.Modules.Movies.Api.Services;
 using Cine.Modules.Movies.Api.Validators;
 using Cine.Shared.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cine.Modules.Movies.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class MoviesController : ControllerBase
     {
         private readonly IMovieDtoValidator _validator;
@@ -23,6 +25,7 @@ namespace Cine.Modules.Movies.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<MovieDto>>> Get(string searchPhrase)
         {
             var movies = await _service.SearchAsync(searchPhrase).ThrowIfNotFoundAsync();
@@ -30,6 +33,7 @@ namespace Cine.Modules.Movies.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<MovieDto>> Get(Guid id)
         {
             var movie = await _service.GetAsync(id).ThrowIfNotFoundAsync();

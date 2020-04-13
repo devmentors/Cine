@@ -16,7 +16,17 @@ namespace Cine.Modules.Identity.Api.Queries.Handlers
 
         public async Task<IdentityDto> HandleAsync(GetIdentity query)
         {
-            var identity = await _repository.GetAsync(i => i.Username == query.Username);
+            IdentityDocument identity = null;
+
+            if (query.Username is {})
+            {
+                identity = await _repository.GetAsync(i => i.Username == query.Username);
+            }
+            else if (query.UserId.HasValue)
+            {
+                identity = await _repository.GetAsync(query.UserId.Value);
+            }
+
             return identity?.AsDto();
         }
     }

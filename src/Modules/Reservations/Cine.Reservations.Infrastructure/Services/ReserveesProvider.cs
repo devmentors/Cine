@@ -17,9 +17,9 @@ namespace Cine.Reservations.Infrastructure.Services
 
         public async Task<Reservee> GetAsync(Guid customerId)
         {
-            var customer = await _client.GetAsync<CustomerDto>("modules/customers/details", new GetCustomer
+            var customer = await _client.GetAsync<CustomerDto>("modules/identity/details", new GetUser
             {
-                CustomerId = customerId
+                UserId = customerId
             });
 
             return new Reservee(customer.FullName, customer.Email, customer.PhoneNumber);

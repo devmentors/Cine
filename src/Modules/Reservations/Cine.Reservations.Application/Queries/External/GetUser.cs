@@ -4,8 +4,8 @@ using Convey.CQRS.Queries;
 
 namespace Cine.Reservations.Application.Queries.External
 {
-    public class GetCustomer : IQuery<CustomerDto>
+    public class GetUser : IQuery<CustomerDto>
     {
-        public Guid CustomerId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

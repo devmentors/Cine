@@ -60,6 +60,7 @@ GET {{url}}/cinemas/{{cinemaId}}
 # @name create_movie
 POST {{url}}/movies 
 Content-Type: application/json
+Authorization: {{token}}
 
 {
 	"id" : "22a25313-da8c-4298-9cbd-49c99f1644ad",
@@ -134,6 +135,7 @@ Authorization: {{token}}
 ###
 POST {{url}}/schedules/generate
 Content-Type: application/json
+Authorization: {{token}}
 
 {
     "id" : "902876d1-8b38-4dbd-87ff-832746ab6656",  

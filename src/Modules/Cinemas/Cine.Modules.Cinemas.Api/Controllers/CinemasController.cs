@@ -24,6 +24,7 @@ namespace Cine.Modules.Cinemas.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<CinemaDto>> Get(Guid id)
         {
             var cinema = await _service.GetAsync(id).ThrowIfNotFoundAsync();

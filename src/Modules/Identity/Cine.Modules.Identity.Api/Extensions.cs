@@ -1,8 +1,11 @@
 using System;
+using Cine.Modules.Identity.Api.DTO;
 using Cine.Modules.Identity.Api.Middlewares;
 using Cine.Modules.Identity.Api.Mongo.Documents;
 using Cine.Modules.Identity.Api.Options;
+using Cine.Modules.Identity.Api.Queries;
 using Cine.Modules.Identity.Api.Services;
+using Cine.Shared.Modules;
 using Convey;
 using Convey.CQRS.Commands;
 using Convey.CQRS.Queries;
@@ -63,6 +66,15 @@ namespace Cine.Modules.Identity.Api
             app.UseAuthorization();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
             app.UseMiddleware<JwtAuthorizationMiddleware>();
+
+            app
+                .UseModuleRequests()
+                .Subscribe<GetIdentity>("modules/identity/details", async (sp, query) =>
+                {
+                    var handler = sp.GetService<IQueryHandler<GetIdentity, IdentityDto>>();
+                    return await handler.HandleAsync(query);
+                });
+
             return app;
         }
     }
