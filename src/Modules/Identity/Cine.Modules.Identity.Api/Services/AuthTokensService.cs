@@ -9,18 +9,18 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Cine.Modules.Identity.Api.Services
 {
-    internal sealed class TokensService : ITokensService
+    internal sealed class AuthTokensService : IAuthTokensService
     {
         private readonly IdentityOptions _options;
         private readonly IMemoryCache _cache;
 
-        public TokensService(IdentityOptions options, IMemoryCache cache)
+        public AuthTokensService(IdentityOptions options, IMemoryCache cache)
         {
             _options = options;
             _cache = cache;
         }
 
-        public void Create(string username)
+        public AuthDto Create(string username)
         {
             var handler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -37,7 +37,7 @@ namespace Cine.Modules.Identity.Api.Services
             };
 
             var securityToken = handler.CreateToken(tokenDescriptor);
-            var token = new TokenDto
+            var token = new AuthDto
             {
                 Token = handler.WriteToken(securityToken),
                 Issuer = securityToken.Issuer,
@@ -46,6 +46,7 @@ namespace Cine.Modules.Identity.Api.Services
             };
 
             _cache.Set(username, token, TimeSpan.FromSeconds(30));
+            return token;
         }
 
         public bool Validate(string token)
@@ -72,7 +73,7 @@ namespace Cine.Modules.Identity.Api.Services
             return true;
         }
 
-        public TokenDto GetToken(string username)
-            => _cache.Get<TokenDto>(username);
+        public AuthDto GetToken(string username)
+            => _cache.Get<AuthDto>(username);
     }
 }

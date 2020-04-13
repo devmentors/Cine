@@ -1,4 +1,5 @@
 using System;
+using Cine.Modules.Identity.Api.Api;
 using Cine.Modules.Identity.Api.Middlewares;
 using Cine.Modules.Identity.Api.Mongo.Documents;
 using Cine.Modules.Identity.Api.Options;
@@ -21,7 +22,7 @@ namespace Cine.Modules.Identity.Api
             var options = builder.GetOptions<IdentityOptions>("identity");
 
             builder.Services.AddSingleton(options);
-            builder.Services.AddTransient<ITokensService, TokensService>();
+            builder.Services.AddTransient<IAuthTokensService, AuthTokensService>();
             builder.Services.AddSingleton<IPasswordsService, PasswordService>();
             builder.Services.AddTransient<JwtAuthorizationMiddleware>();
             builder.Services.AddMemoryCache();

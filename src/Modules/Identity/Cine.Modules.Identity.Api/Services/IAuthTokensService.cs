@@ -3,10 +3,10 @@ using Cine.Modules.Identity.Api.DTO;
 
 namespace Cine.Modules.Identity.Api.Services
 {
-    public interface ITokensService
+    public interface IAuthTokensService
     {
-        void Create(string username);
+        AuthDto Create(string username);
         bool Validate(string token);
-        TokenDto GetToken(string username);
+        AuthDto GetToken(string username);
     }
 }

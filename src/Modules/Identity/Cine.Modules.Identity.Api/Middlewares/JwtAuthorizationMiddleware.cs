@@ -9,18 +9,18 @@ namespace Cine.Modules.Identity.Api.Middlewares
 {
     internal sealed class JwtAuthorizationMiddleware : IMiddleware
     {
-        private readonly ITokensService _service;
+        private readonly IAuthTokensService _service;
 
-        public JwtAuthorizationMiddleware(ITokensService service)
+        public JwtAuthorizationMiddleware(IAuthTokensService service)
         {
             _service = service;
         }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            var token = context.Request.Headers["Authorization"];
+            var hasToken = context.Request.Headers.TryGetValue("Authorization", out var token);
 
-            if (token == StringValues.Empty)
+            if (!hasToken)
             {
                 context.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
                 return;

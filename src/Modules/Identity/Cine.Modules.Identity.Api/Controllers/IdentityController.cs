@@ -14,12 +14,19 @@ namespace Cine.Modules.Identity.Api.Controllers
     public class IdentityController : ControllerBase
     {
         private readonly ICommandDispatcher _dispatcher;
-        private readonly ITokensService _service;
+        private readonly IAuthTokensService _service;
 
-        public IdentityController(ICommandDispatcher dispatcher, ITokensService service)
+        public IdentityController(ICommandDispatcher dispatcher, IAuthTokensService service)
         {
             _dispatcher = dispatcher;
             _service = service;
+        }
+
+        [HttpGet("me")]
+        public async Task<ActionResult<UserDto>> GetMe()
+        {
+            var a = User;
+            return Ok();
         }
 
         [HttpPost("sign-up")]
@@ -32,7 +39,7 @@ namespace Cine.Modules.Identity.Api.Controllers
 
         [HttpPost("sign-in")]
         [AllowAnonymous]
-        public async Task<ActionResult<TokenDto>> SignIn([FromBody] SignIn command)
+        public async Task<ActionResult<AuthDto>> SignIn([FromBody] SignIn command)
         {
             await _dispatcher.SendAsync(command);
             var token = _service.GetToken(command.Username);
