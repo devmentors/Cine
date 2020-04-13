@@ -14,10 +14,10 @@ namespace Cine.Modules.Identity.Api.Commands.Handlers
         private readonly IAuthTokensService _authTokensService;
         private readonly IRefreshTokensService _refreshTokensService;
         private readonly IAuthTokensCache _cache;
-        private readonly IMongoRepository<UserDocument, Guid> _repository;
+        private readonly IMongoRepository<IdentityDocument, Guid> _repository;
 
         public SignInHandler(IPasswordsService passwordService, IAuthTokensService authTokensService,
-            IRefreshTokensService refreshTokensService, IAuthTokensCache cache, IMongoRepository<UserDocument, Guid> repository)
+            IRefreshTokensService refreshTokensService, IAuthTokensCache cache, IMongoRepository<IdentityDocument, Guid> repository)
         {
             _passwordService = passwordService;
             _authTokensService = authTokensService;

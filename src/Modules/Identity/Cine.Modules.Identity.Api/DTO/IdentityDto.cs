@@ -2,7 +2,7 @@ using System;
 
 namespace Cine.Modules.Identity.Api.DTO
 {
-    public class UserDto
+    public class IdentityDto
     {
         public Guid Id { get; set; }
         public string Username { get; set; }

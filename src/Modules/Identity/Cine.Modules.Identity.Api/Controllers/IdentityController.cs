@@ -26,7 +26,7 @@ namespace Cine.Modules.Identity.Api.Controllers
         }
 
         [HttpGet("me")]
-        public async Task<ActionResult<UserDto>> GetMe()
+        public async Task<ActionResult<IdentityDto>> GetMe()
         {
             var a = User;
             return Ok();

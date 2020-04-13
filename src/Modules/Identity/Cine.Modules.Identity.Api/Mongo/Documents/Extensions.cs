@@ -5,8 +5,8 @@ namespace Cine.Modules.Identity.Api.Mongo.Documents
 {
     public static class Extensions
     {
-        public static UserDocument AsDocument(this UserDto dto, string hashedPassword)
-            => new UserDocument
+        public static IdentityDocument AsDocument(this IdentityDto dto, string hashedPassword)
+            => new IdentityDocument
             {
                 Id = dto.Id,
                 Username = dto.Username,
@@ -17,8 +17,8 @@ namespace Cine.Modules.Identity.Api.Mongo.Documents
                 UpdatedAt = DateTime.UtcNow
             };
 
-        public static UserDto AsDto(this UserDto document)
-            => new UserDto
+        public static IdentityDto AsDto(this IdentityDto document)
+            => new IdentityDto
             {
                 Id = document.Id,
                 Username = document.Username,

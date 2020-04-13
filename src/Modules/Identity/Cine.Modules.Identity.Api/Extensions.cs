@@ -52,7 +52,7 @@ namespace Cine.Modules.Identity.Api
                 .AddInMemoryCommandDispatcher()
                 .AddInMemoryQueryDispatcher()
                 .AddMongo()
-                .AddMongoRepository<UserDocument, Guid>("users")
+                .AddMongoRepository<IdentityDocument, Guid>("users")
                 .AddMongoRepository<RefreshTokenDocument, Guid>("refresh_token");
         }
 

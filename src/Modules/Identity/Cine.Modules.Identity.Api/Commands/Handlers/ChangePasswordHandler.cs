@@ -10,10 +10,10 @@ namespace Cine.Modules.Identity.Api.Commands.Handlers
 {
     public class ChangePasswordHandler : ICommandHandler<ChangePassword>
     {
-        private readonly IMongoRepository<UserDocument, Guid> _repository;
+        private readonly IMongoRepository<IdentityDocument, Guid> _repository;
         private readonly IPasswordsService _passwordsService;
 
-        public ChangePasswordHandler(IMongoRepository<UserDocument, Guid> repository, IPasswordsService passwordsService)
+        public ChangePasswordHandler(IMongoRepository<IdentityDocument, Guid> repository, IPasswordsService passwordsService)
         {
             _repository = repository;
             _passwordsService = passwordsService;

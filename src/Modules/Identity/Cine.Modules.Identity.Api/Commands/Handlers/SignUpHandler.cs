@@ -12,9 +12,9 @@ namespace Cine.Modules.Identity.Api.Commands.Handlers
     public sealed class SignUpHandler : ICommandHandler<SignUp>
     {
         private readonly IPasswordsService _passwordService;
-        private readonly IMongoRepository<UserDocument, Guid> _repository;
+        private readonly IMongoRepository<IdentityDocument, Guid> _repository;
 
-        public SignUpHandler(IPasswordsService passwordService, IMongoRepository<UserDocument, Guid> repository)
+        public SignUpHandler(IPasswordsService passwordService, IMongoRepository<IdentityDocument, Guid> repository)
         {
             _passwordService = passwordService;
             _repository = repository;
@@ -33,7 +33,7 @@ namespace Cine.Modules.Identity.Api.Commands.Handlers
             var salt = _passwordService.CreateSalt();
             var passwordHash = _passwordService.HashPassword(command.Password, salt);
 
-            var user = new UserDocument
+            var user = new IdentityDocument
             {
                 Id = command.Id,
                 Username = command.Username,

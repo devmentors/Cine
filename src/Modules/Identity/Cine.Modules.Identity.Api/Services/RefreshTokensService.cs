@@ -12,14 +12,14 @@ namespace Cine.Modules.Identity.Api.Services
     internal sealed class RefreshTokensService : IRefreshTokensService
     {
         private readonly IMongoRepository<RefreshTokenDocument, Guid> _refreshTokensRepository;
-        private readonly IMongoRepository<UserDocument, Guid> _usersRepository;
+        private readonly IMongoRepository<IdentityDocument, Guid> _identitiesRepository;
         private readonly IAuthTokensService _authTokensService;
 
         public RefreshTokensService(IMongoRepository<RefreshTokenDocument, Guid> refreshTokensRepository,
-            IMongoRepository<UserDocument, Guid> usersRepository, IAuthTokensService authTokensService)
+            IMongoRepository<IdentityDocument, Guid> identitiesRepository, IAuthTokensService authTokensService)
         {
             _refreshTokensRepository = refreshTokensRepository;
-            _usersRepository = usersRepository;
+            _identitiesRepository = identitiesRepository;
             _authTokensService = authTokensService;
         }
 
@@ -62,7 +62,7 @@ namespace Cine.Modules.Identity.Api.Services
                 throw new RevokedRefreshTokenException();
             }
 
-            var user = await _usersRepository.GetAsync(rt => rt.Username == token.Username);
+            var user = await _identitiesRepository.GetAsync(rt => rt.Username == token.Username);
             if (user is null)
             {
                 throw new UserNotFoundException(token.Username);
