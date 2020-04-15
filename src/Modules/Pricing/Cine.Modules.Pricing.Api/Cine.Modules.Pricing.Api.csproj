@@ -4,4 +4,8 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Convey.WebApi.CQRS" Version="0.4.*" />
+    </ItemGroup>
+    
 </Project>

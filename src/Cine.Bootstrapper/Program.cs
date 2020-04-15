@@ -2,6 +2,8 @@ using System.Threading.Tasks;
 using Cine.Modules.Cinemas.Api;
 using Cine.Modules.Identity.Api;
 using Cine.Modules.Movies.Api;
+using Cine.Modules.Pricing.Api;
+using Cine.Modules.Pricing.Api.Api;
 using Cine.Modules.Schedules.Api;
 using Cine.Reservations.Api;
 using Cine.Shared;
@@ -29,6 +31,7 @@ namespace Cine.Bootstrapper
                     .AddMoviesModule()
                     .AddCinemasModule()
                     .AddSchedulesModule()
+                    .AddPricingModule()
                     .AddReservationsModule()
                     .AddSharedModule()
                     .AddWebApi()
@@ -39,6 +42,7 @@ namespace Cine.Bootstrapper
                     .UseMoviesModule()
                     .UseCinemasModule()
                     .UseSchedulesModule()
+                    .UsePricingModule()
                     .UseReservationsModule())
                 .UseLogging();
     }
