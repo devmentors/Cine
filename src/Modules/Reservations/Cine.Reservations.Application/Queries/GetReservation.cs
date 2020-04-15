@@ -6,6 +6,6 @@ namespace Cine.Reservations.Application.Queries
 {
     public class GetReservation : IQuery<ReservationDto>
     {
-        public Guid Id { get; set; }
+        public Guid ReservationId { get; set; }
     }
 }

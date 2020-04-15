@@ -13,6 +13,6 @@ namespace Cine.Reservations.Application.Queries.Handlers
             => _queryService = queryService;
 
         public Task<ReservationDto> HandleAsync(GetReservation query)
-            => _queryService.GetAsync(query.Id);
+            => _queryService.GetAsync(query.ReservationId);
     }
 }
