@@ -5,6 +5,7 @@ using Cine.Modules.Identity.Api.Mongo.Documents;
 using Cine.Modules.Identity.Api.Options;
 using Cine.Modules.Identity.Api.Queries;
 using Cine.Modules.Identity.Api.Services;
+using Cine.Modules.Identity.Api.Validators;
 using Cine.Shared.Modules;
 using Convey;
 using Convey.CQRS.Commands;
@@ -29,6 +30,7 @@ namespace Cine.Modules.Identity.Api
             builder.Services.AddSingleton<IPasswordsService, PasswordService>();
             builder.Services.AddTransient<JwtAuthorizationMiddleware>();
             builder.Services.AddTransient<IAuthTokensCache, AuthTokensCache>();
+            builder.Services.AddTransient<ISignUpValidator, SignUpValidator>();
             builder.Services.AddMemoryCache();
 
             builder.Services.AddAuthentication(o =>
