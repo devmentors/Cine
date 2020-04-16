@@ -1,11 +1,8 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using Cine.Modules.Identity.Api.DTO;
 using Cine.Modules.Identity.Api.Options;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Cine.Modules.Identity.Api.Services

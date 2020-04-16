@@ -1,5 +1,5 @@
 using System;
-using Convey.CQRS.Events;
+using Cine.Shared.Events;
 
 namespace Cine.Modules.Schedules.Application.Events
 {

@@ -1,11 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Cine.Shared.Exceptions.Mappers;
 using Cine.Shared.Exceptions.Middlewares;
-using Convey;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Valit;
 
@@ -13,19 +9,19 @@ namespace Cine.Shared.Exceptions
 {
     public static class Extensions
     {
-        public static IConveyBuilder AddErrorHandling(this IConveyBuilder builder)
+        public static IServiceCollection AddErrorHandling(this IServiceCollection services)
         {
-            builder.Services.AddTransient<IExceptionCompositionRoot, ExceptionCompositionRoot>();
-            builder.Services.AddSingleton<IExceptionToResponseMapper, DefaultExceptionToResponseMapper>();
+            services.AddTransient<IExceptionCompositionRoot, ExceptionCompositionRoot>();
+            services.AddSingleton<IExceptionToResponseMapper, DefaultExceptionToResponseMapper>();
 
-            return builder;
+            return services;
         }
 
-        public static IConveyBuilder AddExceptionToResponseMapper<TMapper>(this IConveyBuilder builder)
+        public static IServiceCollection AddExceptionToResponseMapper<TMapper>(this IServiceCollection services)
             where TMapper : class, IExceptionToResponseMapper
         {
-            builder.Services.AddSingleton<IExceptionToResponseMapper, TMapper>();
-            return builder;
+            services.AddSingleton<IExceptionToResponseMapper, TMapper>();
+            return services;
         }
 
         public static IApplicationBuilder UseErrorHandling(this IApplicationBuilder app)

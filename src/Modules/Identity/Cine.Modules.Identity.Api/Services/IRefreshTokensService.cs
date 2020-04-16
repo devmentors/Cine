@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Cine.Modules.Identity.Api.DTO;
 

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Cine.Shared.Exceptions;
 
 namespace Cine.Modules.Schedules.Core.Exceptions

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cine.Shared.BuildingBlocks;
-using Convey.CQRS.Events;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cine.Shared.Events

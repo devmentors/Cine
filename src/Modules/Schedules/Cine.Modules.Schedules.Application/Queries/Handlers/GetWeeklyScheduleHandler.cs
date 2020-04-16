@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using Cine.Modules.Schedules.Application.DTO;
 using Cine.Modules.Schedules.Application.Services;
-using Convey.CQRS.Queries;
 
 namespace Cine.Modules.Schedules.Application.Queries.Handlers
 {

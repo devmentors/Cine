@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using Cine.Reservations.Application.DTO;
 using Cine.Reservations.Application.Services;
-using Convey.CQRS.Queries;
 
 namespace Cine.Reservations.Application.Queries.Handlers
 {

@@ -3,7 +3,6 @@ using Cine.Modules.Identity.Api.Commands;
 using Cine.Modules.Identity.Api.DTO;
 using Cine.Modules.Identity.Api.Queries;
 using Cine.Modules.Identity.Api.Services;
-using Convey.CQRS.Commands;
 using Convey.CQRS.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cine.Shared.Events;
 using Cine.Shared.Modules;
-using Convey.CQRS.Events;
 
 namespace Cine.Shared.MessageBrokers
 {

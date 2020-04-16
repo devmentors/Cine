@@ -1,5 +1,5 @@
 using System;
-using Convey.CQRS.Commands;
+using System.Windows.Input;
 
 namespace Cine.Modules.Schedules.Application.Commands
 {

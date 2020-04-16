@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cine.Shared.BuildingBlocks;
 using Cine.Shared.MessageBrokers;
-using Convey.CQRS.Events;
 
 namespace Cine.Shared.Events
 {

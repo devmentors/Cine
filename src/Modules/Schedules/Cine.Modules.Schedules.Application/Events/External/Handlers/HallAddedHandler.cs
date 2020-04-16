@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Cine.Modules.Schedules.Core.Entities;
 using Cine.Modules.Schedules.Core.Repositories;
-using Convey.CQRS.Events;
+using Cine.Shared.Events;
 
 namespace Cine.Modules.Schedules.Application.Events.External.Handlers
 {

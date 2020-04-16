@@ -4,10 +4,8 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Convey.CQRS.Commands" Version="0.4.*" />
-      <PackageReference Include="Convey.CQRS.Events" Version="0.4.*" />
-      <PackageReference Include="Convey.CQRS.Queries" Version="0.4.*" />
+    <ItemGroup>   
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0-preview.2.20160.3" />   
       <PackageReference Include="Valit" Version="2.0.0" />
     </ItemGroup>
 

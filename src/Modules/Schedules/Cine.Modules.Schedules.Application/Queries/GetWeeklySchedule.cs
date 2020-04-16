@@ -1,6 +1,5 @@
 using System;
 using Cine.Modules.Schedules.Application.DTO;
-using Convey.CQRS.Queries;
 
 namespace Cine.Modules.Schedules.Application.Queries
 {

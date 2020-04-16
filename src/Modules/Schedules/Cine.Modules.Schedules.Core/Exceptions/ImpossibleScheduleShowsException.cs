@@ -1,5 +1,4 @@
 using System;
-using Cine.Modules.Schedules.Core.ValueObjects;
 using Cine.Shared.Exceptions;
 
 namespace Cine.Modules.Schedules.Core.Exceptions

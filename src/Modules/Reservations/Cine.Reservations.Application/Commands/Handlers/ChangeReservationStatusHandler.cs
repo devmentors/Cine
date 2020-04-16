@@ -4,7 +4,6 @@ using Cine.Reservations.Application.Exceptions;
 using Cine.Reservations.Core.Repositories;
 using Cine.Reservations.Core.Types;
 using Cine.Shared.Events;
-using Convey.CQRS.Commands;
 
 namespace Cine.Reservations.Application.Commands.Handlers
 {

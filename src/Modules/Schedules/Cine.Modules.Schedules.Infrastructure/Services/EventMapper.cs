@@ -4,7 +4,6 @@ using Cine.Modules.Schedules.Application.Events;
 using Cine.Modules.Schedules.Core.Events;
 using Cine.Shared.BuildingBlocks;
 using Cine.Shared.Events;
-using Convey.CQRS.Events;
 
 namespace Cine.Modules.Schedules.Infrastructure.Services
 {

@@ -1,4 +1,3 @@
-using System;
 using Cine.Shared.Exceptions;
 
 namespace Cine.Modules.Identity.Api.Exceptions

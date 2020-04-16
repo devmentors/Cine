@@ -1,12 +1,10 @@
 using System;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Cine.Modules.Identity.Api.Exceptions;
 using Cine.Modules.Identity.Api.Mongo.Documents;
 using Cine.Modules.Identity.Api.Services;
 using Cine.Modules.Identity.Api.Validators;
 using Cine.Shared.Exceptions;
-using Convey.CQRS.Commands;
 using Convey.Persistence.MongoDB;
 
 namespace Cine.Modules.Identity.Api.Commands.Handlers

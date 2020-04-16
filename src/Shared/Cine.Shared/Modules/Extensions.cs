@@ -1,9 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Convey;
-using Convey.CQRS.Events;
-using Microsoft.AspNetCore.Builder;
+using Cine.Shared.Events;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cine.Shared.Modules

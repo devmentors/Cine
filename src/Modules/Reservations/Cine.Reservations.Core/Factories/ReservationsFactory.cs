@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cine.Reservations.Core.Aggregates;
-using Cine.Reservations.Core.Events;
 using Cine.Reservations.Core.Exceptions;
 using Cine.Reservations.Core.Services;
 using Cine.Reservations.Core.Types;

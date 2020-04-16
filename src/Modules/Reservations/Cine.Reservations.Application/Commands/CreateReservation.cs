@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Windows.Input;
 using Cine.Reservations.Application.Commands.WriteModels;
-using Convey.CQRS.Commands;
 
 namespace Cine.Reservations.Application.Commands
 {

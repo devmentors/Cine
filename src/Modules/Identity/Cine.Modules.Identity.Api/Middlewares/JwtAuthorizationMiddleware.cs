@@ -3,7 +3,6 @@ using System.Net;
 using System.Threading.Tasks;
 using Cine.Modules.Identity.Api.Services;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Primitives;
 
 namespace Cine.Modules.Identity.Api.Middlewares
 {

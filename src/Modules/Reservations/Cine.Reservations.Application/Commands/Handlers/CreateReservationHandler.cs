@@ -3,7 +3,6 @@ using Cine.Reservations.Application.Exceptions;
 using Cine.Reservations.Core.Factories;
 using Cine.Reservations.Core.Repositories;
 using Cine.Shared.Events;
-using Convey.CQRS.Commands;
 
 namespace Cine.Reservations.Application.Commands.Handlers
 {

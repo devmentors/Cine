@@ -8,7 +8,6 @@ using Cine.Modules.Schedules.Core.Repositories;
 using Cine.Modules.Schedules.Infrastructure.Mongo.Documents;
 using Cine.Shared.BuildingBlocks;
 using Convey.Persistence.MongoDB;
-using MongoDB.Bson;
 
 namespace Cine.Modules.Schedules.Infrastructure.Mongo.Repositories
 {

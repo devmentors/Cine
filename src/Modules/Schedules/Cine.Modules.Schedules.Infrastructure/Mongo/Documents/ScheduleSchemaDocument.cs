@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Cine.Modules.Schedules.Core.ValueObjects;
 using Convey.Types;
 
 namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents

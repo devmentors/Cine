@@ -4,7 +4,6 @@ using Cine.Reservations.Application.Events;
 using Cine.Reservations.Core.Events;
 using Cine.Shared.BuildingBlocks;
 using Cine.Shared.Events;
-using Convey.CQRS.Events;
 using ReservationStatusChanged = Cine.Reservations.Core.Events.ReservationStatusChanged;
 
 namespace Cine.Reservations.Infrastructure.Services

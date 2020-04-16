@@ -4,7 +4,6 @@ using Cine.Modules.Schedules.Application.Services.Clients;
 using Cine.Modules.Schedules.Core.Policies;
 using Cine.Modules.Schedules.Core.Repositories;
 using Cine.Shared.Events;
-using Convey.CQRS.Commands;
 
 namespace Cine.Modules.Schedules.Application.Commands.Handlers
 {

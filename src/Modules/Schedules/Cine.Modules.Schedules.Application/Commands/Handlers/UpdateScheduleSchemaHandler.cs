@@ -3,7 +3,6 @@ using Cine.Modules.Schedules.Application.Commands.WriteModels;
 using Cine.Modules.Schedules.Application.Exceptions;
 using Cine.Modules.Schedules.Core.Repositories;
 using Cine.Shared.Events;
-using Convey.CQRS.Commands;
 
 namespace Cine.Modules.Schedules.Application.Commands.Handlers
 {

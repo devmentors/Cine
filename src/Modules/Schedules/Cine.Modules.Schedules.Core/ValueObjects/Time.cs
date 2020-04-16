@@ -1,5 +1,4 @@
 using System;
-using Cine.Modules.Schedules.Core.Aggregates;
 using Cine.Shared.BuildingBlocks;
 
 namespace Cine.Modules.Schedules.Core.ValueObjects

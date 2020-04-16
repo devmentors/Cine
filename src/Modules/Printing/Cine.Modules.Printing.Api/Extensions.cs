@@ -1,6 +1,3 @@
-using Convey;
-using Microsoft.AspNetCore.Builder;
-
 namespace Cine.Modules.Printing.Api
 {
     public static class Extensions

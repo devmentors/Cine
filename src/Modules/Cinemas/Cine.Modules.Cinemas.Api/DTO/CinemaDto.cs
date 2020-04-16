@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cine.Modules.Cinemas.Api.Mongo.Documents;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cine.Modules.Cinemas.Api.DTO

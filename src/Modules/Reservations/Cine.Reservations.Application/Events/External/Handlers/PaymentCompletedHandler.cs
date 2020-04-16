@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Cine.Reservations.Application.Exceptions;
 using Cine.Reservations.Core.Repositories;
 using Cine.Reservations.Core.Types;
-using Convey.CQRS.Events;
+using Cine.Shared.Events;
 
 namespace Cine.Reservations.Application.Events.External.Handlers
 {

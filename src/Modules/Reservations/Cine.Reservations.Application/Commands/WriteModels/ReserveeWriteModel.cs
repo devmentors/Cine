@@ -1,5 +1,3 @@
-using Cine.Shared.Kernel.ValueObjects;
-
 namespace Cine.Reservations.Application.Commands.WriteModels
 {
     public class ReserveeWriteModel

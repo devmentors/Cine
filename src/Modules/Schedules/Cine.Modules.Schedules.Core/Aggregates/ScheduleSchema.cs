@@ -2,7 +2,6 @@ using System.Linq;
 using Cine.Modules.Schedules.Core.Events;
 using Cine.Modules.Schedules.Core.Exceptions;
 using Cine.Modules.Schedules.Core.Types;
-using Cine.Modules.Schedules.Core.ValueObjects;
 using Cine.Shared.BuildingBlocks;
 
 namespace Cine.Modules.Schedules.Core.Aggregates

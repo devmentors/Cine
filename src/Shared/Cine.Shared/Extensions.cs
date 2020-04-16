@@ -1,11 +1,5 @@
 using Cine.Shared.Events;
-using Cine.Shared.Exceptions;
 using Cine.Shared.MessageBrokers;
-using Cine.Shared.Modules;
-using Convey;
-using Convey.CQRS.Events;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Cine.Shared
 {
