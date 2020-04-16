@@ -1,5 +1,6 @@
 using System;
 using Cine.Reservations.Application.DTO.External;
+using Cine.Shared.Queries;
 
 namespace Cine.Reservations.Application.Queries.External
 {

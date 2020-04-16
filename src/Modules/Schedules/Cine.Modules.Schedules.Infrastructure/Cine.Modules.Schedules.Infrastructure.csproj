@@ -8,9 +8,5 @@
       <ProjectReference Include="..\Cine.Modules.Schedules.Application\Cine.Modules.Schedules.Application.csproj" />
     </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Convey.Persistence.MongoDB" Version="0.4.*" />
-  </ItemGroup>
-
 
 </Project>

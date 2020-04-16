@@ -2,25 +2,26 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Cine.Shared.Events;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cine.Shared.Modules
 {
     public static class Extensions
     {
-        public static IConveyBuilder AddModuleRequests(this IConveyBuilder builder)
+        public static IServiceCollection AddModuleRequests(this IServiceCollection services)
         {
-            builder.AddModuleRegistry();
-            builder.Services.AddSingleton<IModuleSubscriber, ModuleSubscriber>();
-            builder.Services.AddTransient<IModuleClient, ModuleClient>();
+            services.AddModuleRegistry();
+            services.AddSingleton<IModuleSubscriber, ModuleSubscriber>();
+            services.AddTransient<IModuleClient, ModuleClient>();
 
-            return builder;
+            return services;
         }
 
         public static IModuleSubscriber UseModuleRequests(this IApplicationBuilder app)
             => app.ApplicationServices.GetRequiredService<IModuleSubscriber>();
 
-        private static void AddModuleRegistry(this IConveyBuilder builder)
+        private static void AddModuleRegistry(this IServiceCollection services)
         {
             var eventTypes = AppDomain.CurrentDomain
                 .GetAssemblies()
@@ -29,7 +30,7 @@ namespace Cine.Shared.Modules
                 .Where(t => t.IsClass && typeof(IEvent).IsAssignableFrom(t))
                 .ToList();
 
-            builder.Services.AddSingleton<IModuleRegistry>(_ =>
+            services.AddSingleton<IModuleRegistry>(_ =>
             {
                 var registry = new ModuleRegistry();
 

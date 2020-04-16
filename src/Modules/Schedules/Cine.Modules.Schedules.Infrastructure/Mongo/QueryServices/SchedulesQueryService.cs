@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Cine.Modules.Schedules.Application.DTO;
 using Cine.Modules.Schedules.Application.Services;
 using Cine.Modules.Schedules.Infrastructure.Mongo.Documents;
-using Convey.Persistence.MongoDB;
+using Cine.Shared.Mongo;
 
 namespace Cine.Modules.Schedules.Infrastructure.Mongo.QueryServices
 {

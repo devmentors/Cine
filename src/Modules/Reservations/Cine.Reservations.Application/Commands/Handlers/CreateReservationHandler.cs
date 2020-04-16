@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Cine.Reservations.Application.Exceptions;
 using Cine.Reservations.Core.Factories;
 using Cine.Reservations.Core.Repositories;
+using Cine.Shared.Commands;
 using Cine.Shared.Events;
 
 namespace Cine.Reservations.Application.Commands.Handlers

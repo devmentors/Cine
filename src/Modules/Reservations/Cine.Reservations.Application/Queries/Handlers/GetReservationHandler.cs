@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Cine.Reservations.Application.DTO;
 using Cine.Reservations.Application.Services;
+using Cine.Shared.Queries;
 
 namespace Cine.Reservations.Application.Queries.Handlers
 {

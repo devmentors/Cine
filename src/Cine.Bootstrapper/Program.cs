@@ -5,6 +5,7 @@ using Cine.Modules.Movies.Api;
 using Cine.Modules.Pricing.Api;
 using Cine.Modules.Printing.Api;
 using Cine.Modules.Schedules.Api;
+using Cine.Reservations.Api;
 using Cine.Shared;
 using Convey;
 using Convey.Logging;

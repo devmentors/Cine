@@ -2,6 +2,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using Cine.Shared.Exceptions.Mappers;
 using Cine.Shared.Exceptions.Middlewares;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Valit;
 

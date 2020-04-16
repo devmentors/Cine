@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Cine.Modules.Printing.Api.Dto.External;
 using Cine.Shared.Modules;
+using Microsoft.AspNetCore.Mvc;
 using QRCoder;
 
 namespace Cine.Modules.Printing.Api.Controllers

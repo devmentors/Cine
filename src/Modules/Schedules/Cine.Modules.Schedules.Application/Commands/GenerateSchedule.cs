@@ -1,5 +1,5 @@
 using System;
-using System.Windows.Input;
+using Cine.Shared.Commands;
 
 namespace Cine.Modules.Schedules.Application.Commands
 {

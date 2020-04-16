@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Windows.Input;
 using Cine.Modules.Schedules.Application.Commands.WriteModels;
+using Cine.Shared.Commands;
 
 namespace Cine.Modules.Schedules.Application.Commands
 {

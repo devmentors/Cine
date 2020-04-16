@@ -1,5 +1,6 @@
 using System;
 using Cine.Modules.Schedules.Application.DTO;
+using Cine.Shared.Queries;
 
 namespace Cine.Modules.Schedules.Application.Queries
 {

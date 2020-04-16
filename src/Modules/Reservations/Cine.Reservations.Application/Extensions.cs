@@ -1,4 +1,5 @@
 using Cine.Reservations.Core.Factories;
+using Microsoft.AspNetCore.Builder;
 
 namespace Cine.Reservations.Application
 {

@@ -1,20 +1,15 @@
 using Cine.Modules.Schedules.Core.Policies;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cine.Modules.Schedules.Application
 {
     public static class Extensions
     {
-        public static IConveyBuilder AddApplication(this IConveyBuilder builder)
+        public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            builder.Services.AddTransient<ISchedulePolicy, SchedulePolicy>();
-
-            return builder
-                .AddCommandHandlers()
-                .AddEventHandlers()
-                .AddQueryHandlers()
-                .AddInMemoryCommandDispatcher()
-                .AddInMemoryEventDispatcher()
-                .AddInMemoryQueryDispatcher();
+            services.AddTransient<ISchedulePolicy, SchedulePolicy>();
+            return services;
         }
 
         public static IApplicationBuilder UseApplication(this IApplicationBuilder app)

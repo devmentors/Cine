@@ -1,22 +1,34 @@
+using Cine.Shared.Commands;
 using Cine.Shared.Events;
+using Cine.Shared.Exceptions;
 using Cine.Shared.MessageBrokers;
+using Cine.Shared.Modules;
+using Cine.Shared.Queries;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cine.Shared
 {
     public static class Extensions
     {
-        public static IConveyBuilder AddSharedModule(this IConveyBuilder builder)
+        public static IServiceCollection AddSharedModule(this IServiceCollection services)
         {
-            builder
+            services
+                .AddInMemoryCommandDispatcher()
                 .AddInMemoryEventDispatcher()
+                .AddInMemoryQueryDispatcher()
+                .AddCommandHandlers()
+                .AddEventHandlers()
+                .AddQueryHandlers()
                 .AddModuleRequests()
                 .AddErrorHandling();
 
-            builder.Services.AddTransient<IMessageBroker, MessageBroker>();
-            builder.Services.AddTransient<IEventMapperCompositionRoot, EventMapperCompositionRoot>();
-            builder.Services.AddTransient<IEventProcessor, EventProcessor>();
+            services.AddTransient<IMessageBroker, MessageBroker>();
+            services.AddTransient<IEventMapperCompositionRoot, EventMapperCompositionRoot>();
+            services.AddTransient<IEventProcessor, EventProcessor>();
 
-            return builder;
+            return services;
         }
 
         public static IApplicationBuilder UseSharedModule(this IApplicationBuilder app)
@@ -24,5 +36,16 @@ namespace Cine.Shared
             app.UseErrorHandling();
             return app;
         }
+
+        internal static TModel GetOptions<TModel>(this IServiceCollection services, string settingsSectionName)
+            where TModel : new()
+        {
+            using var serviceProvider = services.BuildServiceProvider();
+            var configuration = serviceProvider.GetService<IConfiguration>();
+            var model = new TModel();
+            configuration.GetSection(settingsSectionName).Bind(model);
+            return model;
+        }
+
     }
 }

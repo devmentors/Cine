@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Convey.Types;
+using Cine.Shared.Mongo;
 
 namespace Cine.Modules.Schedules.Infrastructure.Mongo.Documents
 {

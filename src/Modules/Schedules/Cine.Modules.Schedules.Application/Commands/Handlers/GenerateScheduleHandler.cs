@@ -3,6 +3,7 @@ using Cine.Modules.Schedules.Application.Exceptions;
 using Cine.Modules.Schedules.Application.Services.Clients;
 using Cine.Modules.Schedules.Core.Policies;
 using Cine.Modules.Schedules.Core.Repositories;
+using Cine.Shared.Commands;
 using Cine.Shared.Events;
 
 namespace Cine.Modules.Schedules.Application.Commands.Handlers

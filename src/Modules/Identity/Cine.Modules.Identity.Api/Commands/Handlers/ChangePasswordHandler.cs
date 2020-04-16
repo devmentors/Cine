@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Cine.Modules.Identity.Api.Exceptions;
 using Cine.Modules.Identity.Api.Mongo.Documents;
 using Cine.Modules.Identity.Api.Services;
+using Cine.Shared.Commands;
 using Convey.Persistence.MongoDB;
 
 namespace Cine.Modules.Identity.Api.Commands.Handlers

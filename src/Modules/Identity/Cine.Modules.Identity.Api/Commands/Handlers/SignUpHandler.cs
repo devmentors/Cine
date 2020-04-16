@@ -4,6 +4,7 @@ using Cine.Modules.Identity.Api.Exceptions;
 using Cine.Modules.Identity.Api.Mongo.Documents;
 using Cine.Modules.Identity.Api.Services;
 using Cine.Modules.Identity.Api.Validators;
+using Cine.Shared.Commands;
 using Cine.Shared.Exceptions;
 using Convey.Persistence.MongoDB;
 

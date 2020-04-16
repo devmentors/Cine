@@ -1,6 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using Cine.Shared.Exceptions.Mappers;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace Cine.Shared.Exceptions.Middlewares
 {

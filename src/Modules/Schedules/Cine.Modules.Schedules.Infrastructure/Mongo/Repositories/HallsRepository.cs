@@ -7,7 +7,7 @@ using Cine.Modules.Schedules.Core.Entities;
 using Cine.Modules.Schedules.Core.Repositories;
 using Cine.Modules.Schedules.Infrastructure.Mongo.Documents;
 using Cine.Shared.BuildingBlocks;
-using Convey.Persistence.MongoDB;
+using Cine.Shared.Mongo;
 
 namespace Cine.Modules.Schedules.Infrastructure.Mongo.Repositories
 {

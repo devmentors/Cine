@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Cine.Modules.Schedules.Application.Commands.WriteModels;
 using Cine.Modules.Schedules.Application.Exceptions;
 using Cine.Modules.Schedules.Core.Repositories;
+using Cine.Shared.Commands;
 using Cine.Shared.Events;
 
 namespace Cine.Modules.Schedules.Application.Commands.Handlers
