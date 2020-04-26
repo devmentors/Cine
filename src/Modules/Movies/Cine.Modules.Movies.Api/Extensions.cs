@@ -16,6 +16,7 @@ namespace Cine.Modules.Movies.Api
         public static IConveyBuilder AddMoviesModule(this IConveyBuilder builder)
         {
             builder.Services.AddSingleton<IMovieDtoValidator, MovieDtoValidator>();
+            builder.Services.AddSingleton<IRateDtoValidator, RateDtoValidator>();
             builder.Services.AddSingleton<IMoviesService, MoviesService>();
 
             return builder

@@ -26,6 +26,11 @@ namespace Cine.Modules.Movies.Api.Mongo
                 {
                     FirstName = s.FirstName,
                     LastName = s.LastName
+                }),
+                Ratings = document.Ratings?.Select(r => new RateDto
+                {
+                    Comment = r.Comment,
+                    Value = r.Value
                 })
             };
 
@@ -48,6 +53,11 @@ namespace Cine.Modules.Movies.Api.Mongo
                 {
                     FirstName = s.FirstName,
                     LastName = s.LastName
+                }),
+                Ratings = dto.Ratings?.Select(r => new RateDocument
+                {
+                    Comment = r.Comment,
+                    Value = r.Value
                 })
             };
     }

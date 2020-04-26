@@ -73,6 +73,18 @@ Authorization: {{token}}
 
 @movieId = {{create_movie.response.headers.Location}}
 
+
+###
+# @name rate_movie
+POST {{url}}/movies/{{movieId}}/rate
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "comment": "Great movie!",
+    "value" : 1
+}
+
 ###
 GET {{url}}/movies/{{movieId}}
 

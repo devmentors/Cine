@@ -15,12 +15,15 @@ namespace Cine.Modules.Movies.Api.Controllers
     [Authorize]
     public class MoviesController : ControllerBase
     {
-        private readonly IMovieDtoValidator _validator;
+        private readonly IMovieDtoValidator _movieDtoValidator;
+        private readonly IRateDtoValidator _rateDtoValidator;
         private readonly IMoviesService _service;
 
-        public MoviesController(IMovieDtoValidator validator, IMoviesService service)
+        public MoviesController(IMovieDtoValidator movieDtoValidator, IRateDtoValidator rateDtoValidator,
+            IMoviesService service)
         {
-            _validator = validator;
+            _movieDtoValidator = movieDtoValidator;
+            _rateDtoValidator = rateDtoValidator;
             _service = service;
         }
 
@@ -43,17 +46,26 @@ namespace Cine.Modules.Movies.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(MovieDto dto)
         {
-            _validator.Validate(dto).ThrowIfInvalid();
+            _movieDtoValidator.Validate(dto).ThrowIfInvalid();
 
             await _service.CreateAsync(dto);
             return Created(dto.Id.ToString(), null);
+        }
+
+        [HttpPost("{id}/rate")]
+        public async Task<ActionResult> Rate(Guid id, RateDto dto)
+        {
+            _rateDtoValidator.Validate(dto).ThrowIfInvalid();
+
+            await _service.RateAsync(id, dto);
+            return Ok();
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(Guid id, MovieDto dto)
         {
             dto.Id = id;
-            _validator.Validate(dto).ThrowIfInvalid();
+            _movieDtoValidator.Validate(dto).ThrowIfInvalid();
 
             await _service.UpdateAsync(dto);
             return Ok();

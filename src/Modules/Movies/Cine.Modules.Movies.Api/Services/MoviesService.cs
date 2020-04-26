@@ -53,6 +53,19 @@ namespace Cine.Modules.Movies.Api.Services
         public Task UpdateAsync(MovieDto dto)
             => _repository.UpdateAsync(dto.AsDocument());
 
+        public async Task RateAsync(Guid movieId, RateDto rate)
+        {
+            var movie = await GetAsync(movieId);
+
+            if (movie is null)
+            {
+                throw new MovieNotFoundException(movieId);
+            }
+
+            movie.Ratings = movie.Ratings is null? new List<RateDto> {rate} : movie.Ratings.Concat(new[] {rate});
+            await UpdateAsync(movie);
+        }
+
         public Task DeleteAsync(Guid id)
             => _repository.DeleteAsync(id);
     }
