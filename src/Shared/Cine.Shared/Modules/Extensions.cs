@@ -5,6 +5,7 @@ using Convey;
 using Convey.CQRS.Events;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Cine.Shared.Modules
 {
@@ -31,9 +32,10 @@ namespace Cine.Shared.Modules
                 .Where(t => t.IsClass && typeof(IEvent).IsAssignableFrom(t))
                 .ToList();
 
-            builder.Services.AddSingleton<IModuleRegistry>(_ =>
+            builder.Services.AddSingleton<IModuleRegistry>(provider =>
             {
-                var registry = new ModuleRegistry();
+                var logger = provider.GetService<ILogger<IModuleRegistry>>();
+                var registry = new ModuleRegistry(logger);
 
                 foreach (var type in eventTypes)
                 {

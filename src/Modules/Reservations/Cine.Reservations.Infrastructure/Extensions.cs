@@ -14,6 +14,7 @@ using Cine.Shared.Events;
 using Cine.Shared.Modules;
 using Convey;
 using Convey.CQRS.Queries;
+using Convey.Logging.CQRS;
 using Convey.Persistence.MongoDB;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;

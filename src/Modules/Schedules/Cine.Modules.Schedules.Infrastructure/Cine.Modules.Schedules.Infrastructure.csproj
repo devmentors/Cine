@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="Convey.Persistence.MongoDB" Version="0.4.*" />
+    <PackageReference Include="Convey.Logging" Version="0.4.*" />
+    <PackageReference Include="Convey.Logging.CQRS" Version="0.4.*" />
   </ItemGroup>
 
 

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Cine.Shared.Modules
 {
@@ -9,11 +11,13 @@ namespace Cine.Shared.Modules
     {
         private readonly IDictionary<string, ModuleRequestRegistration> _requestActions;
         private readonly IList<ModuleBroadcastRegistration> _broadcastActions;
+        private readonly ILogger<IModuleRegistry> _logger;
 
-        public ModuleRegistry()
+        public ModuleRegistry(ILogger<IModuleRegistry> logger)
         {
             _broadcastActions = new List<ModuleBroadcastRegistration>();
             _requestActions = new Dictionary<string, ModuleRequestRegistration>();
+            _logger = logger;
         }
 
         public ModuleRequestRegistration GetRequestRegistration(string path)
@@ -30,7 +34,17 @@ namespace Cine.Shared.Modules
                 Action = action
             };
 
-            return _requestActions.TryAdd(path, registration);
+            var isValid = _requestActions.TryAdd(path, registration);
+            if (isValid)
+            {
+                _logger.LogTrace($"Added module request of type {{{registration.ReceiverType.Name}}} at '{path}' path");
+            }
+            else
+            {
+                _logger.LogWarning($"Unabled to add module request of type " +
+                                   $"{{{registration.ReceiverType.Name}}} at '{path}' due to path collision");
+            }
+            return isValid;
         }
 
         public void AddBroadcastAction(Type receiverType, Func<IServiceProvider, object, Task> action)
@@ -42,6 +56,7 @@ namespace Cine.Shared.Modules
             };
 
             _broadcastActions.Add(registration);
+            _logger.LogTrace($"Added broadcast of type {{{registration.ReceiverType.Name}}} to module registry");
         }
     }
 }

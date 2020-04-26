@@ -9,6 +9,7 @@ using Cine.Modules.Schedules.Infrastructure.Services;
 using Cine.Modules.Schedules.Infrastructure.Services.Clients;
 using Cine.Shared.Events;
 using Convey;
+using Convey.Logging.CQRS;
 using Convey.Persistence.MongoDB;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
