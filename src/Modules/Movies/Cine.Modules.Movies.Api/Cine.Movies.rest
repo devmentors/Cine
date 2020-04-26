@@ -1,0 +1,56 @@
+@url = http://localhost:5000
+@token = XXXX
+
+###
+# @name create_movie
+POST {{url}}/movies 
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+	"id" : "22a25313-da8c-4298-9cbd-49c99f1644ad",
+	"title": "AwesomeMovie",
+	"ageRestriction" : 10,
+	"length": 123,
+	"genre": "action",
+    "premiereDate" : "2009-10-29"
+}
+
+@movieId = {{create_movie.response.headers.Location}}
+
+
+###
+# @name rate_movie
+POST {{url}}/movies/{{movieId}}/rate
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "comment": "Great movie!",
+    "value" : 1
+}
+
+###
+# @name update_movie
+PUT {{url}}/movies/{{movieId}}
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+	"id" : "22a25313-da8c-4298-9cbd-49c99f1644ad",
+	"title": "Updated AwesomeMovie",
+	"ageRestriction" : 10,
+	"length": 123,
+	"genre": "action",
+    "premiereDate" : "2009-10-29"
+}
+
+###
+# @name delete_movie
+DELETE  {{url}}/movies/{{movieId}}
+Content-Type: application/json
+Authorization: {{token}}
+
+
+###
+GET {{url}}/movies/{{movieId}}
