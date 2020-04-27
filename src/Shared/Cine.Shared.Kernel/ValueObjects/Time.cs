@@ -15,9 +15,6 @@ namespace Cine.Shared.Kernel.ValueObjects
             Minute = minute;
         }
 
-        public bool CollidesOnPeriod(Time time, int period)
-            => Math.Abs(TotalMinutes - time.TotalMinutes) <= period;
-
         public override string ToString()
             => $"{Hour}:{Minute}";
     }

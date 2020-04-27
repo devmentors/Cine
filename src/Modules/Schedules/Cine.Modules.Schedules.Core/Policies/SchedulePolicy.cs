@@ -6,6 +6,7 @@ using Cine.Modules.Schedules.Core.Aggregates;
 using Cine.Modules.Schedules.Core.Entities;
 using Cine.Modules.Schedules.Core.Exceptions;
 using Cine.Modules.Schedules.Core.Repositories;
+using Cine.Modules.Schedules.Core.Types;
 using Cine.Modules.Schedules.Core.ValueObjects;
 using Cine.Shared.BuildingBlocks;
 using Cine.Shared.Kernel.ValueObjects;
