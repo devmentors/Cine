@@ -10,11 +10,8 @@ namespace Cine.Modules.Identity.Api.Middlewares
     internal sealed class JwtAuthorizationMiddleware : IMiddleware
     {
         private readonly IAuthTokensService _service;
-
         public JwtAuthorizationMiddleware(IAuthTokensService service)
-        {
-            _service = service;
-        }
+            => _service = service;
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {

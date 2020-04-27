@@ -8,6 +8,7 @@ using Cine.Modules.Schedules.Core.Exceptions;
 using Cine.Modules.Schedules.Core.Repositories;
 using Cine.Modules.Schedules.Core.ValueObjects;
 using Cine.Shared.BuildingBlocks;
+using Cine.Shared.Kernel.ValueObjects;
 
 namespace Cine.Modules.Schedules.Core.Policies
 {

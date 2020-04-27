@@ -1,8 +1,7 @@
 using System;
-using Cine.Modules.Schedules.Core.Aggregates;
 using Cine.Shared.BuildingBlocks;
 
-namespace Cine.Modules.Schedules.Core.ValueObjects
+namespace Cine.Shared.Kernel.ValueObjects
 {
     public sealed class Time : ValueObject
     {

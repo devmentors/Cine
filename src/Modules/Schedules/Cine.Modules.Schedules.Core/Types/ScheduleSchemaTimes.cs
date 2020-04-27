@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cine.Modules.Schedules.Core.ValueObjects;
+using Cine.Shared.Kernel.ValueObjects;
 
 namespace Cine.Modules.Schedules.Core.Types
 {

@@ -1,6 +1,7 @@
 using System;
 using Cine.Modules.Schedules.Core.ValueObjects;
 using Cine.Shared.Exceptions;
+using Cine.Shared.Kernel.ValueObjects;
 
 namespace Cine.Modules.Schedules.Core.Exceptions
 {

@@ -1,5 +1,6 @@
 using System;
 using Cine.Shared.BuildingBlocks;
+using Cine.Shared.Kernel.ValueObjects;
 
 namespace Cine.Modules.Schedules.Core.ValueObjects
 {
