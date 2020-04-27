@@ -9,6 +9,7 @@ namespace Cine.Reservations.Application.DTO
         public Guid CinemaId { get; set; }
         public Guid MovieId { get; set; }
         public Guid HallId { get; set; }
+        public DateTime DateTime { get; set; }
         public string Status { get; set; }
         public ReserveeDto Reservee { get; set; }
         public IEnumerable<SeatDto> Seats { get; set; }

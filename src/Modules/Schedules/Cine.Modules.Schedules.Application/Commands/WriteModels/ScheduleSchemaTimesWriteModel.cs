@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cine.Shared.Kernel.WriteModels;
 
 namespace Cine.Modules.Schedules.Application.Commands.WriteModels
 {

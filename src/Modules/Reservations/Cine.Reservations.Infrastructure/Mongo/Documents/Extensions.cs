@@ -16,6 +16,7 @@ namespace Cine.Reservations.Infrastructure.Mongo.Documents
                 CinemaId = reservation.CinemaId,
                 MovieId = reservation.MovieId,
                 HallId = reservation.HallId,
+                DateTime = reservation.DateTime,
                 Reservee = new ReserveeDocument
                 {
                     FullName = reservation.Reservee.FullName,
@@ -39,7 +40,8 @@ namespace Cine.Reservations.Infrastructure.Mongo.Documents
             var seats = document.Seats.Select(s => new Seat(s.Row, s.Number, s.Price, s.IsVip));
             var status = Enum.Parse<ReservationStatus>(document.Status, ignoreCase: true);
 
-            return new Reservation(document.Id, document.CinemaId, document.HallId, document.HallId, status, reservee, seats, document.Version);
+            return new Reservation(document.Id, document.CinemaId, document.HallId, document.HallId, document.DateTime,
+                status, reservee, seats, document.Version);
         }
 
         public static ReservationDto AsDocument(this ReservationDocument document)
@@ -49,6 +51,7 @@ namespace Cine.Reservations.Infrastructure.Mongo.Documents
                 CinemaId = document.CinemaId,
                 MovieId = document.MovieId,
                 HallId = document.HallId,
+                DateTime = document.DateTime,
                 Reservee = new ReserveeDto
                 {
                     FullName = document.Reservee.FullName,

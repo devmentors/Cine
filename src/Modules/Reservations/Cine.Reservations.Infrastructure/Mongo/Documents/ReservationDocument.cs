@@ -10,6 +10,7 @@ namespace Cine.Reservations.Infrastructure.Mongo.Documents
         public Guid CinemaId { get; set; }
         public Guid MovieId { get; set; }
         public Guid HallId { get; set; }
+        public DateTime DateTime { get; set; }
         public string Status { get; set; }
         public ReserveeDocument Reservee { get; set; }
         public IEnumerable<SeatDocument> Seats { get; set; }

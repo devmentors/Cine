@@ -1,7 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cine.Reservations.Core.Aggregates;
-using Cine.Reservations.Core.Events;
 using Cine.Reservations.Core.Exceptions;
 using Cine.Reservations.Core.Services;
 using Cine.Reservations.Core.Types;
@@ -23,7 +23,7 @@ namespace Cine.Reservations.Core.Factories
         }
 
         public async Task<Reservation> CreateAsync(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, CustomerId customerId,
-            bool isPaymentUponArrival, IEnumerable<Seat> seats, Reservee reservee)
+            DateTime dateTime, bool isPaymentUponArrival, IEnumerable<Seat> seats, Reservee reservee)
         {
             var areSeatsValid = await _validator.ValidateAsync(cinemaId, movieId, hallId, seats);
 
@@ -38,7 +38,7 @@ namespace Cine.Reservations.Core.Factories
             }
 
             var status = isPaymentUponArrival ? ReservationStatus.PaymentUponArrival : ReservationStatus.Pending;
-            var reservation = Reservation.Create(id, cinemaId, movieId, hallId, status, reservee, seats);
+            var reservation = Reservation.Create(id, cinemaId, movieId, hallId, dateTime, status, reservee, seats);
 
             return reservation;
         }

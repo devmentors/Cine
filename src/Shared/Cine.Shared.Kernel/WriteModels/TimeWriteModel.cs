@@ -1,4 +1,4 @@
-namespace Cine.Modules.Schedules.Application.Commands.WriteModels
+namespace Cine.Shared.Kernel.WriteModels
 {
     public class TimeWriteModel
     {

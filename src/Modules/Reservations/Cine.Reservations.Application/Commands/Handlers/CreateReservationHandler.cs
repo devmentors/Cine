@@ -3,6 +3,7 @@ using Cine.Reservations.Application.Exceptions;
 using Cine.Reservations.Core.Factories;
 using Cine.Reservations.Core.Repositories;
 using Cine.Shared.Events;
+using Cine.Shared.Kernel.ValueObjects;
 using Convey.CQRS.Commands;
 
 namespace Cine.Reservations.Application.Commands.Handlers
@@ -32,7 +33,7 @@ namespace Cine.Reservations.Application.Commands.Handlers
             var reservee = command.Reservee.AsValueObject();
 
             var reservation = await _factory.CreateAsync(command.Id, command.CinemaId, command.MovieId, command.HallId,
-                command.CustomerId, command.IsPaymentUponArrival, seats, reservee);
+                command.CustomerId, command.DateTime, command.IsPaymentUponArrival, seats, reservee);
 
             await _repository.AddAsync(reservation);
             await _processor.ProcessAsync(reservation.DomainEvents);

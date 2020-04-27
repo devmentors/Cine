@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cine.Reservations.Core.Events;
@@ -5,6 +6,7 @@ using Cine.Reservations.Core.Exceptions;
 using Cine.Reservations.Core.Types;
 using Cine.Reservations.Core.ValueObjects;
 using Cine.Shared.BuildingBlocks;
+using Cine.Shared.Kernel.ValueObjects;
 
 namespace Cine.Reservations.Core.Aggregates
 {
@@ -15,6 +17,7 @@ namespace Cine.Reservations.Core.Aggregates
         public CinemaId CinemaId { get; }
         public MovieId MovieId { get; }
         public HallId HallId { get; }
+        public DateTime DateTime { get; }
         public ReservationStatus Status { get; private set; }
         public Reservee Reservee { get; private set; }
         public ISet<Seat> Seats
@@ -23,17 +26,18 @@ namespace Cine.Reservations.Core.Aggregates
             private set => _seats = new HashSet<Seat>(value);
         }
 
-        private Reservation(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId)
+        private Reservation(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, DateTime dateTime)
             : base(id)
         {
             CinemaId = cinemaId ?? throw new EmptyReservationCinemaException(id);
             MovieId = movieId ?? throw new EmptyReservationMovieException(id);
             HallId = hallId ?? throw new EmptyReservationHallException(id);
+            DateTime = dateTime != default ? dateTime : throw new EmptyReservationTimeException(id);
         }
 
-        public Reservation(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, ReservationStatus status,
-            Reservee reservee, IEnumerable<Seat> seats, int? version = null)
-            : this(id, cinemaId, movieId, hallId)
+        public Reservation(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, DateTime dateTime,
+            ReservationStatus status, Reservee reservee, IEnumerable<Seat> seats, int? version = null)
+            : this(id, cinemaId, movieId, hallId, dateTime)
         {
             Status = status;
             Reservee = reservee;
@@ -41,10 +45,10 @@ namespace Cine.Reservations.Core.Aggregates
             Version = version ?? 1;
         }
 
-        public static Reservation Create(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId,
+        public static Reservation Create(EntityId id, CinemaId cinemaId, MovieId movieId, HallId hallId, DateTime dateTime,
             ReservationStatus status, Reservee reservee, IEnumerable<Seat> seats)
         {
-            var reservation = new Reservation(id, cinemaId, movieId, hallId);
+            var reservation = new Reservation(id, cinemaId, movieId, hallId, dateTime);
 
             reservation.ChangeStatus(status);
             reservation.ChangeReservee(reservee);
