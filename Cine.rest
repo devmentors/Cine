@@ -1,5 +1,29 @@
 @url = http://localhost:5000
-@token = XXXX
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InVzZXJfY2luZSIsInJvbGUiOiJ1c2VyIiwibmJmIjoxNTkyNDc2MjEyLCJleHAiOjE1OTM2ODU4MTIsImlhdCI6MTU5MjQ3NjIxMiwiaXNzIjoiY2luZSJ9.OqUX3EuCYxv1gRKdh0G0adotPSNpE2p1Te2_9NXy1m4
+
+####
+# @name sign_up
+POST {{url}}/api/identity/sign-up 
+Content-Type: application/json
+
+{
+    "id" : "102876d1-8b38-4dbd-87ff-832746ab6656",
+    "username" : "user_cine",
+    "fullName" : "John Smith",
+    "email" : "user1@cine.com",
+    "phoneNumber" : "123456789",
+    "password": "test123456"
+}
+
+####
+# @name sign_in
+POST {{url}}/api/identity/sign-in 
+Content-Type: application/json
+
+{  
+    "username" : "user_cine",  
+    "password": "test123456"
+}
 
 ###
 # @name create_cinema
