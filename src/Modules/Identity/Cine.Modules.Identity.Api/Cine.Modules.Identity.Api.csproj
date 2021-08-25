@@ -9,7 +9,7 @@
     <PackageReference Include="Convey.Logging" Version="0.4.*" />
     <PackageReference Include="Convey.Persistence.MongoDB" Version="0.4.*" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.18" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0-preview.2.20160.3" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.0" />
     <PackageReference Include="Valit" Version="2.0.0" />
